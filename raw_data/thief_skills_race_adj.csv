@@ -1,0 +1,8 @@
+race,climb_walls,find_traps,hear_noise,hide_in_shadows,move_quietly,open_locks,pick_pockets,read_languages
+dwarf,-0.1,0.15,0,0,-0.05,0.15,0,-0.05
+elf,-0.05,0.05,0.05,0.1,0.05,-0.05,0.05,0.1
+gnome,-0.15,0,0.05,0,0,0.1,0,0
+half_elf,0,0,0,0.05,0,0,0.1,0
+halfling,-0.15,0,0.05,0.15,0.15,0,0.05,-0.05
+half_orc,0.05,0.05,0.05,0,0,0.05,-0.05,-0.1
+human,0.05,0,0,0,0,0.05,0,0

@@ -1,0 +1,56 @@
+version: '3.7'
+
+services:
+  web:
+    depends_on:
+      - db
+    build: ./src
+    # command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
+    entrypoint:
+      - uvicorn
+      - 'app.main:app'
+      - --reload
+      - --workers=1
+      - --host=0.0.0.0
+      - --port=8000
+    volumes:
+      - ./src/:/usr/src/app/
+    ports:
+      - 8002:8000
+    environment:
+      - MONGO_URL=mongodb://dnd_admin:eulalia@db:27017/
+      #- MONGO_URL=mongodb://192.168.0.2:27017/
+      - AUTHJWT_SECRET_KEY='superdupersecret'
+      - AUTHJWT_ACCESS_TOKEN_EXPIRES=604800
+    links:
+      - "db:mongo_dnd"
+    networks:
+      - frontend
+      - backend
+  db:
+    image: mongo:4.0.4
+    container_name: mongo_dnd
+    restart: unless-stopped
+    #command: mongod --bind_ip 0.0.0.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=dnd_admin
+      - MONGO_INITDB_ROOT_PASSWORD=eulalia
+      - MONGO_INITDB_DATABASE=dnd_fastapi_dev
+    ports:
+      - 127.0.0.1:27017-27019:27017-27019
+    volumes:
+      # - mongo_data:/var/lib/mongo_data
+      - mongo_data:/data/db
+      - mongo_config:/data/configdb
+    networks:
+      - backend
+
+volumes:
+  mongo_data:
+  mongo_config:
+
+  #appdir:
+
+networks:
+  frontend:
+  backend:
