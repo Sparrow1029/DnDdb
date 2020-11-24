@@ -1,0 +1,7 @@
+# Python
+*.py[co]
+__pycache__/
+
+# IDE
+*.sw[po]
+*.idea
