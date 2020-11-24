@@ -1,8 +1,0 @@
-Race ,Climb Walls ,Find Traps ,Hear Noise ,Hide in Shadows ,Move Quietly ,Open Locks ,Pick Pockets ,Read Languages
-Dwarf ,-0.1,0.15,0,0,-0.05,0.15,0,-0.05
-Elf ,-0.05,0.05,0.05,0.1,0.05,-0.05,0.05,0.1
-Gnome ,-0.15,0,0.05,0,0,0.1,0,0
-Half-elf ,0,0,0,0.05,0,0,0.1,0
-Halfling ,-0.15,0,0.05,0.15,0.15,0,0.05,-0.05
-Half-orc ,0.05,0.05,0.05,0,0,0.05,-0.05,-0.1
-Human ,0.05,0,0,0,0,0.05,0,0
