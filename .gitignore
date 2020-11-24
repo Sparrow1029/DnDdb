@@ -1,6 +1,7 @@
 # Python
 *.py[co]
 __pycache__/
+.pytest_cache/
 
 # IDE
 *.sw[po]
