@@ -48,7 +48,7 @@ def add_new_character(
 def get_characters(user_id):
     if user_id is not None and ObjectId.is_valid(user_id):
         chars = retrieve_all_characters(user_id)
-        if chars:
+        if chars is not None:
             return {"characters": chars, "msg": "Characters retrieved successfully"}
         raise HTTPException(status_code=409, detail="Error retrieving characters")
     raise HTTPException(status_code=400, detail="Bad user id")

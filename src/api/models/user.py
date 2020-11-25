@@ -17,9 +17,7 @@ class UserSchema(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "username": "tolkien01",
-                "realname": "Anonymous",  # Default "Anonymous"
-                "email": "jdoe@example.com",
+                "username": "tolkien01", "realname": "Anonymous",  # Default "Anonymous" "email": "jdoe@example.com",
                 "password": "password",
             }
         }

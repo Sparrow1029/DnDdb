@@ -8,13 +8,13 @@ services:
     # command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
     entrypoint:
       - uvicorn
-      - 'app.main:app'
+      - 'api.main:api'
       - --reload
       - --workers=1
       - --host=0.0.0.0
       - --port=8000
     volumes:
-      - ./src/:/usr/src/app/
+      - ./src/:/usr/src/api/
     ports:
       - 8002:8000
     environment:

@@ -1,0 +1,17 @@
+.toggle {
+  z-index: 9999;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.toggle:hover {
+  cursor: pointer;
+}
+
+.close-menu {
+  position: "fixed";
+  bottom: "10px"
+}
