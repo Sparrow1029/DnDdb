@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # copy requirements file
-COPY ./requirements.txt /usr/src/api/requirements.txt
+COPY ./requirements.txt ./
 
 # install dependencies
 # RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' >> /etc/apk/repositories
@@ -20,8 +20,10 @@ RUN set -eux \
         libressl-dev libffi-dev gcc musl-dev python3-dev \
         #mongodb mongodb-tools \
     && pip install --upgrade pip setuptools wheel \
-    && pip install -r /usr/src/api/requirements.txt \
+    && pip install -r requirements.txt \
     && rm -rf /root/.cache/pip
 
 # copy project
-# COPY . /usr/src/app/
+COPY . ./
+# start app
+CMD uvicorn main:api --reload --workers 2 --host 0.0.0.0 --port 8000

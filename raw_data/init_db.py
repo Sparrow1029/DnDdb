@@ -1,10 +1,12 @@
 from pymongo import MongoClient
-from csv import DictReader, DictWriter
+from csv import DictReader
+from typing import List
 from collections import defaultdict
 from class_dicts import RESTRICTIONS_DICT, SAVING_THROWS_DICT, TO_HIT_DICT
 from typing import List
 from pprint import pprint
 
+# TODO: create a class or better organize/modularize init_db functions
 
 classes = ["assassin", "cleric", "druid", "fighter", "illusionist",
            "magic_user", "thief", "paladin", "ranger"]
@@ -105,6 +107,30 @@ def create_class_documents():
 
     return documents
 
+def parse_embedded_tables(cell_data: str) -> List[dict]:
+    """Parse tables that use `$`, `:`, `|`, and `@` as delimiters in the csv file"""
+    raw_tables = list(filter(lambda tbl: tbl != '', cell_data.split('@')))
+    tables = []
+    for table in raw_tables:
+        doc = {
+            "title": '',
+            "headers": [],
+            "rows": []
+        }
+        table = table.strip()
+        lines = table.splitlines()
+
+        top_row = lines.pop(0).split(':')
+        doc["title"] = top_row[0].lstrip('$')
+        doc["headers"] = top_row[1].split('|')
+
+        for row in lines:
+            doc["rows"].append(row.split('|'))
+        tables.append(doc)
+
+    return tables
+
+
 def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="classes_collection"):
     if not db or not coll:
         raise ValueError("database or collection not specified")
@@ -113,14 +139,30 @@ def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="
         if db_conn.find_one({"name": doc["name"]}):
             print("class already exists")
             continue
-        result = db_conn.insert_one(doc)
-        print(result.inserted_id)
+        db_conn.insert_one(doc)
+
+
+def init_db_spells(client, spell_csv: str, db="dnd_fastapi_dev", coll="spell_collection"):
+    if not db or not coll:
+        raise ValueError("database or collection not specified")
+    db_conn = client[db][coll]
+    reader = DictReader(open(spell_csv))
+    for row in reader:
+        row["components"] = row["components"].split()
+        if not row["embedded_tables"]:
+            row["embedded_tables"] = None
+        else:
+            row["embedded_tables"] = parse_embedded_tables(row["embedded_tables"])
+        # TODO: finish transposing spell data from OSRIC PDF for other classes
+        if row["class"] in ["cleric", "druid"]:
+            db_conn.insert_one(row)
 
 
 client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
 # db = client['dnd_fastapi']
 # collection = db['classes']
 
-docs = create_class_documents()
+# docs = create_class_documents()
 
-init_db_classes(client, docs)
+# init_db_classes(client, docs)
+init_db_spells(client, 'all_spells.csv')

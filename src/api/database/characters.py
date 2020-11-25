@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 from .utils.create_new_char import BaseMods, RaceMods, apply_class_mods
 
 from .users import retrieve_user, update_user
-from ..db import char_collection, user_collection, class_collection
+from db import char_collection, user_collection, class_collection
 from pymongo import ReturnDocument
 
 ### HELPERS ###

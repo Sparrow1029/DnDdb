@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 
 from bcrypt import hashpw, gensalt
 
-from ..db import user_collection, char_collection
+from db import user_collection, char_collection
 
 
 ### HELPERS ###

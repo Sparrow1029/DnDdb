@@ -4,7 +4,7 @@ from fastapi_jwt_auth import AuthJWT
 
 from bson import ObjectId
 
-from ..database import (
+from database import (
     # char_helper,
     user_id_exists,
     add_char_to_user,
@@ -14,7 +14,7 @@ from ..database import (
     delete_character,
     update_character
 )
-from ..models.character import (
+from models.character import (
     CharacterSchema
 )
 

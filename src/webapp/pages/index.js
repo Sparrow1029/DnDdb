@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>DnD Database</title>
       </Head>
 
       <NavSidebar>

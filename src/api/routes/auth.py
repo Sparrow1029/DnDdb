@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from bcrypt import checkpw
 from fastapi_jwt_auth import AuthJWT
 
-from ..db import user_collection, database
+from db import user_collection, database
 
 revoked_tokens = database.revoked_tokens
 
