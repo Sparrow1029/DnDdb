@@ -2,7 +2,7 @@
 FROM node:15.3.0-alpine
 
 # set working directory
-WORKDIR /usr/src/webapp
+WORKDIR /webapp
 
 # add node_modules/.bin to $PATH
 ENV PATH /webapp/node_modules/.bin:$PATH

@@ -1,13 +1,12 @@
 import React from 'react';
-import NavSidebar from '../components/sidenav';
 import styles from '../styles/Global.module.css';
 import {
   Container, Header, Icon, Grid, Segment
 } from 'semantic-ui-react';
+import NavSidebar from '../components/sidenav'
 
-const CharacterPage = () => {
+export default function CharacterPage() {
   return (
-    <NavSidebar>
       <div className={styles.contentContainer}>
         <Header as='h1' icon='database' textAlign='center' content='Character Page' />
         <Grid columns={2} stackable>
@@ -19,8 +18,7 @@ const CharacterPage = () => {
           </Grid.Column>
         </Grid>
       </div>
-    </NavSidebar>
   )
 }
 
-export default CharacterPage;
+CharacterPage.Layout = NavSidebar;

@@ -1,10 +1,13 @@
+import React from 'react'
 import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
+  const Layout = Component.Layout ? Component.Layout : React.Fragment;
+
   return ( 
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps}/>
+    </Layout>
   )
 }
-
-export default MyApp

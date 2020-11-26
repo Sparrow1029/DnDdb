@@ -5,7 +5,6 @@ services:
     image: mongo:4.0.4
     container_name: mongo_dnd
     restart: unless-stopped
-    #command: mongod --bind_ip 0.0.0.0
     environment:
       - MONGO_INITDB_ROOT_USERNAME=dnd_admin
       - MONGO_INITDB_ROOT_PASSWORD=eulalia
@@ -13,7 +12,6 @@ services:
     ports:
       - 127.0.0.1:27017-27019:27017-27019
     volumes:
-      # - mongo_data:/var/lib/mongo_data
       - mongo_data:/data/db
       - mongo_config:/data/configdb
     networks:
@@ -22,21 +20,12 @@ services:
     depends_on:
       - db
     build: ./src/api
-    # command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000
-    # entrypoint:
-    #   - uvicorn
-    #   - 'api.main:api'
-    #   - --reload
-    #   - --workers=1
-    #   - --host=0.0.0.0
-    #   - --port=8000
     volumes:
       - ./src/api:/usr/src/api/
     ports:
       - 8002:8000
     environment:
       - MONGO_URL=mongodb://dnd_admin:eulalia@db:27017/
-      #- MONGO_URL=mongodb://192.168.0.2:27017/
       - AUTHJWT_SECRET_KEY='superdupersecret'
       - AUTHJWT_ACCESS_TOKEN_EXPIRES=604800
     links:
@@ -49,7 +38,8 @@ services:
       - db
       - api
     build: ./src/webapp
-    # command: npm run dev
+    volumes:
+      - ./src/webapp:/webapp
     ports:
       - 3000:3000
     environment:
