@@ -1,37 +1,53 @@
+import { useContext } from 'react'
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import Router from 'next/router'
 
-async function login (loginData) {
-  console.log("Doing the thing")
+const login = (loginData) => {
+  console.log("Logging in")
   console.log(process.env.API_URL + '/auth/login')
-  let resp = await axios.post(
-    process.env.API_URL + '/auth/login', 
-    loginData,
-    {headers: {
-        'Content-Type': 'multipart/form-data',
-      }}
+  return axios.post(
+    process.env.API_URL + '/auth/login',
+    loginData
     )
-    .then(resp => {
-      console.log(resp)
-      if (resp.data.message == "Login successful") {
-        Cookies.set('auth_token', resp.data.access_token, { expires: 7 })
-        axios.defaults.headers.common['Authorization'] = `Bearer ${resp.data.access_token}`
-        console.log(axios.defaults)
-        return true;
-      }
-    })
-    .catch(err => {
-      console.log(err)
-      // return err
-    })
 }
+
+
+const logout = () => {
+  console.log("Logging out")
+  Cookies.remove('auth_token')
+  Cookies.remove('dndUserId')
+  Router.push('/')
+}
+
+const registerUser = (formData) => {
+  return axios.post(
+    process.env.API_URL + '/users',
+    formData)
+}
+
 
 const request = axios.create({
   baseURL: process.env.API_URL,
   timeout: 1000,
   headers: {
-    'Authorization': Cookies.get('auth_token') || 'not_logged_in'
+    'Content-Type': 'application/json',
   }
 })
 
-export { login, request };
+axios.interceptors.request.use(
+  config => {
+    if (config.baseURL === process.env.API_URL && !config.headers.Authorization) {
+      const token = Cookies.get('access_token') || null;
+
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
+    }
+
+    return config;
+  },
+  error => Promise.reject(error)
+);
+
+export { registerUser, login, logout, request };

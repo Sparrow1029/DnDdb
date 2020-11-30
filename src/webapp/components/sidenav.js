@@ -1,12 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import {
-  Segment, Menu, Sidebar, Icon, Container
+  Segment, Menu, Sidebar, Icon, Container, Button
 } from 'semantic-ui-react';
 import styles from '../styles/Nav.module.css';
+import { useRouter } from 'next/router';
 
 const NavSidebar = (props) => {
   const [visible, setVisible] = React.useState(false);
+  const router = useRouter()
 
   const toggle = () => {
     setVisible(!visible);
@@ -25,7 +27,7 @@ const NavSidebar = (props) => {
           visible={visible}
           width='thin'
         > 
-          <Link href="/">
+          <Link href="/home">
             <Menu.Item>
               <Icon name='home' />
               Home
@@ -58,6 +60,10 @@ const NavSidebar = (props) => {
           </Container>
         </Sidebar.Pusher>
        </Sidebar.Pushable>
+        <Button
+          onClick={router.back}
+          style={{position: 'absolute', top: 25, right: 25}}
+        >Back</Button>
     </div>
   )
 }

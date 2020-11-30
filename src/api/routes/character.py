@@ -9,7 +9,8 @@ from database import (
     user_id_exists,
     add_char_to_user,
     create_character,
-    retrieve_all_characters,
+    retrieve_user,
+    retrieve_user_characters,
     retrieve_one_character,
     delete_character,
     update_character
@@ -47,7 +48,8 @@ def add_new_character(
 @router.get("/all/{user_id}")
 def get_characters(user_id):
     if user_id is not None and ObjectId.is_valid(user_id):
-        chars = retrieve_all_characters(user_id)
+        user = retrieve_user(user_id)
+        chars = retrieve_user_characters(user["characters"])
         if chars is not None:
             return {"characters": chars, "msg": "Characters retrieved successfully"}
         raise HTTPException(status_code=409, detail="Error retrieving characters")

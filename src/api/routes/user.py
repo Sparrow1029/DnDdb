@@ -5,6 +5,7 @@ from database import (
     add_user,
     delete_user,
     retrieve_user,
+    retrieve_one_character,
     retrieve_users,
     update_user,
 )
@@ -47,6 +48,10 @@ def get_user_data(id):
     user = retrieve_user(id)
     if user:
         # return ResponseModel(user, "User data retrieved successfully")
+        chars = []
+        for char_id in user["characters"]:
+            chars.append(retrieve_one_character(char_id))
+        user["characters"] = chars
         return user
     return ErrorResponseModel("An error occurred.", 404, "User not found")
 

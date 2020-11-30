@@ -16,6 +16,7 @@ class UserAuthInput(BaseModel):
 
 class TokenModel(BaseModel):
     access_token: str
+    user_id: str
     message: str = "Login successful"
 
 @router.post(
@@ -32,7 +33,10 @@ def login(auth_data: UserAuthInput, Authorize: AuthJWT = Depends()):
     if db_user:
         if checkpw(user_dict["password"].encode('utf-8'), db_user["password"]):
             token = Authorize.create_access_token(str(db_user["_id"]))
-            return {"access_token": token, "message": "Login successful"}
+            return {
+                "access_token": token,
+                "user_id": str(db_user["_id"]),
+                "message": "Login successful"}
         raise HTTPException(status_code=401, detail="Bad username or password")
     raise HTTPException(status_code=404, detail="User not found")
 

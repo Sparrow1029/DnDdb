@@ -1,4 +1,5 @@
 # import motor.motor_asyncio as maio
+from typing import List
 from bson.objectid import ObjectId
 
 from bcrypt import hashpw, gensalt
@@ -8,13 +9,23 @@ from db import user_collection, char_collection
 
 ### HELPERS ###
 def user_helper(user) -> dict:
+    print("Called user_helper")
     return {
         "id": str(user["_id"]),
         "username": user["username"], "realname": user["realname"],
         "email": user["email"],
         "characters": [str(char_id) for char_id in user["characters"]],
+        # "characters" : retrieve_user_characters(user["characters"]),
         "created_at": user["created_at"],
     }
+
+def char_helper(char) -> dict:
+    char.update({
+        "id": str(char["_id"]),
+        "owner": str(char["owner"])
+    })
+    del char["_id"]
+    return char
 
 ### VALIDATORS ###
 def user_exists(user_data: dict) -> bool:
@@ -54,6 +65,7 @@ def add_user(user_data: dict) -> dict:
 
 
 def retrieve_user(id: str) -> dict:
+    print("Called `retrieve_user")
     user = user_collection.find_one({"_id": ObjectId(id)})
     if user:
         return user_helper(user)
@@ -92,3 +104,11 @@ def delete_user_characters(characters: list) -> list:
             remaining.append(char_id)
     return remaining
 
+
+def retrieve_user_characters(char_id_list) -> list:
+    print("Called `retrieve_user_characters")
+    chars = []
+    for char_id in char_id_list:
+        char = char_collection.find_one({"_id": ObjectId(char_id)})
+        chars.append(char_helper(char))
+    return chars

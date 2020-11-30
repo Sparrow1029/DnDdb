@@ -1,23 +1,28 @@
-import Head from 'next/head'
-import styles from '../styles/Global.module.css'
-import LoginForm from '../components/loginForm'
-import NavSidebar from '../components/sidenav'
+import { useContext, useEffect } from 'react'
+import { UserContext } from '../contexts/user'
+import { request } from '../utils/requests'
+import Cookies from 'js-cookie'
+import { Router, useRouter } from 'next/router'
 
 export default function Home() {
+
+  const token = Cookies.get('auth_token')
+  const userId = Cookies.get('dndUserId')
+  const router = useRouter()
+
+  useEffect(() => {
+    console.log(token)
+    console.log(userId)
+    if (!token || !userId) {
+      router.push('/login')
+    } else {
+      router.push('/home')
+    }
+  }, [])
+
   return (
-    <div>
-      <Head>
-        <title>DnD Database</title>
-      </Head>
-
-        <h1 className={styles.title}>
-          Welcome to DnDdb!
-        </h1>
-        <div style={{padding: "100px 0 100px 0"}}></div>
-        <LoginForm />
-
-    </div>
+    <h1>
+      ...
+    </h1>
   )
 }
-
-Home.Layout = NavSidebar;

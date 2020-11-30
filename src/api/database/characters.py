@@ -59,15 +59,6 @@ def add_char_to_user(user_id, character_id):
         return True
 
 
-def retrieve_all_characters(user_id: str) -> list:
-    player = retrieve_user(user_id)
-    chars = []
-    for char_id in player["characters"]:
-        char = char_collection.find_one({"_id": ObjectId(char_id)})
-        chars.append(char_helper(char))
-    return chars
-
-
 def retrieve_one_character(char_id: str) -> dict:
     char = char_collection.find_one({"_id": ObjectId(char_id)})
     if char:
