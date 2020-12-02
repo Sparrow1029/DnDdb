@@ -3,6 +3,7 @@ import { UserContext } from '../contexts/user'
 import { request } from '../utils/requests'
 import Cookies from 'js-cookie'
 import { Router, useRouter } from 'next/router'
+import { Loader } from 'semantic-ui-react'
 
 export default function Home() {
 
@@ -11,18 +12,18 @@ export default function Home() {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(token)
-    console.log(userId)
-    if (!token || !userId) {
-      router.push('/login')
-    } else {
+    if (token && userId) {
       router.push('/home')
+    } else {
+      router.push('/login')
     }
   }, [])
 
   return (
-    <h1>
-      ...
-    </h1>
+    <div style={{
+      padding: '100px',
+      }}>
+        <Loader inverted content='Please wait...'/>
+    </div>
   )
 }

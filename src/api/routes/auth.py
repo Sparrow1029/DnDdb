@@ -27,7 +27,6 @@ class TokenModel(BaseModel):
         401: {"description": "Bad username or password"},
         404: {"description": "User not found"}})
 def login(auth_data: UserAuthInput, Authorize: AuthJWT = Depends()):
-    print(auth_data)
     user_dict = auth_data.dict()
     db_user = user_collection.find_one({"username": user_dict["username"]})
     if db_user:

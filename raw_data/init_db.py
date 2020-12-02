@@ -1,8 +1,11 @@
 from pymongo import MongoClient
+import json
 from csv import DictReader
 from typing import List
 from collections import defaultdict
-from class_dicts import RESTRICTIONS_DICT, SAVING_THROWS_DICT, TO_HIT_DICT
+from class_dicts import (
+    RESTRICTIONS_DICT, SAVING_THROWS_DICT, TO_HIT_DICT, SUMMARIES
+)
 from typing import List
 from pprint import pprint
 
@@ -25,6 +28,7 @@ def create_class_documents():
         document = defaultdict(rec_dd)
         document.update({
             "name": c,
+            "summary": SUMMARIES[c],
             "restrictions": RESTRICTIONS_DICT[c],
             "saving_throws": SAVING_THROWS_DICT[c],
             "ac_to_hit": TO_HIT_DICT[c],
@@ -157,12 +161,22 @@ def init_db_spells(client, spell_csv: str, db="dnd_fastapi_dev", coll="spell_col
         if row["class"] in ["cleric", "druid"]:
             db_conn.insert_one(row)
 
+def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collection"):
+    db_conn = client[db][coll]
+    reader = DictReader(open(race_csv_file))
+    for row in reader:
+        row["languages"] = list(map(lambda s: s.replace('_', ' '), row["languages"].split()))
+        row["permitted_classes"] = row["permitted_classes"].split()
+        row["abilities"] = json.loads(row["abilities"])
+        db_conn.insert_one(row)
+
 
 client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
 # db = client['dnd_fastapi']
 # collection = db['classes']
 
 # docs = create_class_documents()
-
 # init_db_classes(client, docs)
-init_db_spells(client, 'all_spells.csv')
+init_db_races(client, 'race_data.csv')
+
+# init_db_spells(client, 'all_spells.csv')

@@ -41,7 +41,8 @@ def add_new_character(
     if new_char:
         added_to_player = add_char_to_user(cur_user_id, new_char["id"])
         if not added_to_player:
-            raise
+            # TODO: Figure out how to handle this
+            print("ERROR")
         return {"data": new_char, "msg": "Character created successfully"}
     raise HTTPException(status_code=500, detail="User not found")
 

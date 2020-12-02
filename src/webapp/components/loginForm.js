@@ -5,11 +5,12 @@ import { login, request } from '../utils/requests'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 
-import { Form, Button, Container, Grid, Icon, Label } from 'semantic-ui-react'
+import { Form, Button, Container, Grid, Icon, Label, Message } from 'semantic-ui-react'
 
 const LoginForm = ({ toggle }) => {
   const { userData } = useContext(UserContext)
   const { register, errors, handleSubmit } = useForm()
+  const [errMsg, setErrMsg] = useState('')
   const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(true)
   const router = useRouter()
@@ -25,7 +26,11 @@ const LoginForm = ({ toggle }) => {
           router.push('/home')
         }
       })
-      .catch(err => console.log('err -> ', err))
+      // .catch(err => console.log('err -> ', err.response))
+      .catch(err => {
+        setErrMsg(err.response.data.detail)
+        setLoading(false)
+      })
   }
 
   const toggleHidden = () => {
@@ -37,7 +42,7 @@ const LoginForm = ({ toggle }) => {
       <Grid>
         <Grid.Row centered>
           <Grid.Column width={6} style={{border: "solid 1px", paddingTop: "10px"}}>
-            <Form loading={loading} onSubmit={handleSubmit(submitForm)}>
+            <Form loading={loading} onSubmit={handleSubmit(submitForm)} style={{padding: '25px'}}>
               <Form.Field required>
                 <input
                   name="username"
@@ -62,8 +67,13 @@ const LoginForm = ({ toggle }) => {
                 {errors.password && <Label basic color='red' pointing>Enter password</Label>}
               </Form.Field>
               <Button>Login</Button>
+              {errMsg &&
+                <Message negative>
+                  <Message.Header>{errMsg}</Message.Header>
+                  <p>Something went wrong. Please try again</p>
+                </Message>
+              }
             </Form>
-            <p style={{ textAlign: "center" }}>Not registered? <a href="" onClick={toggle}>Register Here</a></p>
           </Grid.Column>
         </Grid.Row>
       </Grid>

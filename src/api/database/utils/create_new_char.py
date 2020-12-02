@@ -175,6 +175,12 @@ class RaceMods():
         char["base_stats"]["cha"] -= 1
         con_mod = int(char["base_stats"]["con"]//3.5)
         char["racial_abilities"] = {
+            "bonuses": {
+                "base stats": "+1 constitution, -1 charisma (with respect to all but dwarfs)",
+                "hit bonus": "+1 to hit against goblins, half-orcs, hobgoblins, and orcs",
+                "dodge bonus": "-4 penalty to any attacks made against the dwarf by giants, ogres, ogre mages, titans and trolls.",
+                "saving throw bonus": f"+{con_mod} to saves against magic and poison",
+            },
             "infravision": "60 ft",
             "movement": "90 ft",
             "detect slopes or grades": "75%",
@@ -182,7 +188,6 @@ class RaceMods():
             "detect sliding or shifting rooms or walls": "66%",
             "detect stonework traps": "50%",
             "determine depth underground": "50%",
-            "saving throw bonus": f"+{con_mod} to saves against magic and poison",
         }
         char["languages"] = [
             "dwarfish", "gnomish", "goblin", "kobold", "orcish", "common"
@@ -194,10 +199,14 @@ class RaceMods():
         char["base_stats"]["dex"] += 1
         char["base_stats"]["con"] -= 1
         char["racial_abilities"] = {
+            "bonuses": {
+                "base stats": "+1 Dex, -1 Con",
+                "any pulled bow": "+1 to hit",
+                "longsword and short sword": "+1 to hit",
+                "magic resistance": "90% resistance to sleep and charm spells"
+            },
             "infravision": "60 ft",
             "movement": "120 ft",
-            "pulled bow": "+1 to hit",
-            "longsword and short sword": "+1 to hit",
             "secret doors": "1 in 6 chance to notice secret doors when passing within\
              10 ft, 2 in 6 chance to discover secret doors when searching, and 3 in 6 chance\
              to discover concealed doors when searching.",
@@ -216,9 +225,13 @@ class RaceMods():
     def gnome(char):
         con_mod = int(char["base_stats"]["con"]//3.5)
         char["racial_abilities"] = {
+            "bonuses": {
+                "saving throw bonus": f"+{con_mod} to saves against magic and poison",
+                "hit bonus": "+1 to hit kobolds and goblins",
+                "dodge bonus": " -4 to attack rolls by bugbears, giants, gnolls, ogres, ogre mages, titans, and trolls."
+            },
             "infravision": "60 ft",
             "movement": "90 ft",
-            "saving throw bonus": f"+{con_mod} to saves against magic and poison",
             "chance to detect slopes or grades": "80%",
             "chance to detect unsafe wall, ceiling, floor": "70%",
             "chance to determine depth underground": "60%",
@@ -232,6 +245,9 @@ class RaceMods():
     @staticmethod
     def half_elf(char):
         char["racial_abilities"] = {
+            "bonuses": {
+                "magic resistance": "30% resistance to sleep and charm spells"
+            },
             "infravision": "60 ft",
             "movement": "120 ft",
             "secret doors": "When searching, a half-elf character can detect secret doors on a\
@@ -248,9 +264,13 @@ class RaceMods():
         char["base_stats"]["dex"] += 1
         con_mod = int(char["base_stats"]["con"]//3.5)
         char["racial_abilities"] = {
+            "bonuses": {
+                "base stats": "-1 Str, +1 Dex",
+                "saving throw bonus": f"+{con_mod} to saves against magic (both aimed magic items and spells) and poison",
+                "hit bonus": "+3 bonus to attacks with a bow or sling"
+            },
             "infravision": "60 ft",
             "movement": "90 ft",
-            "saving throw bonus": f"+{con_mod} to saves against magic (both aimed magic items and spells) and poison",
             "surprise": "4 in 6 chance to surprise when travelling in non-metal armour and alone,"
             " or more than 90 ft in advance of others, or with a party entirely consisting of elves"
             " and/or halflings. If a door must be opened (or some similar task), the chance of"
@@ -262,6 +282,11 @@ class RaceMods():
         char["base_stats"]["str"] += 1
         char["base_stats"]["con"] += 1
         char["base_stats"]["cha"] -= 2
+        char["racial_abilities"] = {
+            "bonuses": {
+                "base stats": "+1 Str and Con, -2 Cha"
+            }
+        }
         char["languages"] = ["common", "orcish"]
         char["max_addl_langs"] = 2
 

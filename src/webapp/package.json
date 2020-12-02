@@ -15,6 +15,7 @@
     "react-dom": "17.0.1",
     "react-hook-form": "^6.11.5",
     "react-hooks-global-state": "^1.0.1",
+    "react-hooks-helper": "^1.6.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.1",
     "swr": "^0.3.9"

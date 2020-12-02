@@ -2,7 +2,7 @@ from typing import Optional, List
 from enum import Enum
 # from bson.objectid import ObjectId
 
-from pydantic import BaseModel, Field, conint  # validator
+from pydantic import BaseModel, Field, conint, validator
 from datetime import datetime
 
 
@@ -18,12 +18,23 @@ class Gender(str, Enum):
     male = 'male'
     female = 'female'
 
+class Alignment(str, Enum):
+    lg = 'lawful_good'
+    ng = 'neutral_good'
+    cg = 'chaotic_good'
+    ln = 'lawful_neutral'
+    nn = 'neutral_neutral'
+    cn = 'chaotic_neutral'
+    le = 'lawful_evil'
+    ne = 'neutral_evil'
+    ce = 'chaotic_evil'
+
 class RaceEnum(str, Enum):
     elf = 'elf'
     dwarf = 'dwarf'
     gnome = 'gnome'
-    half_elf = 'half-elf'
-    half_orc = 'half-orc'
+    half_elf = 'half_elf'
+    half_orc = 'half_orc'
     human = 'human'
 
 class ClassEnum(str, Enum):
@@ -88,6 +99,7 @@ class CharacterSchema(BaseModel):
     gender: Gender
     race: RaceEnum
     class_: ClassEnum
+    alignment: Alignment
     level: int = Field(default_factory=lambda: 1)
     base_mods: Optional[BaseMods]
     base_stats: StatSchema
@@ -109,3 +121,11 @@ class CharacterSchema(BaseModel):
         fields = {
             "class_": "class"
         }
+
+    @validator('name')
+    def name_alpha_only(cls, v):
+        if len(v) not in range(1, 65):
+            raise ValueError('Name must be between 1-64 characters')
+        if not all(char.isalpha() or char in "'- " for char in v):
+            raise ValueError('Invalid characters in name')
+        return v

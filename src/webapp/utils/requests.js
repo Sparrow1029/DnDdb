@@ -15,8 +15,8 @@ const login = (loginData) => {
 
 const logout = () => {
   console.log("Logging out")
-  Cookies.remove('auth_token')
-  Cookies.remove('dndUserId')
+  Cookies.remove('access_token')
+  Cookies.remove('dnd_user_id')
   Router.push('/')
 }
 
