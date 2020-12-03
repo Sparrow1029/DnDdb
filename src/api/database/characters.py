@@ -39,6 +39,8 @@ def create_character(char_data: dict) -> dict:
     apply_class_mods(char_data, class_obj)
 
     char_data["cur_stats"] = char_data["base_stats"]
+    char_data["max_hp"] += char_data["base_mods"]["con_mods"]["hp_bonus_per_die"]
+    char_data["cur_hp"] = char_data["max_hp"]
 
     char = char_collection.insert_one(char_data)
     new_char = char_collection.find_one({"_id": char.inserted_id})

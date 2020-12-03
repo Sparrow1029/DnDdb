@@ -51,5 +51,5 @@ thief,0,move silently,Use of this skill allows the thief to move with preternatu
 thief,0,open locks-disarm traps,"Open Locks/ Disarm Traps: Opening locks and disarming traps (without springing them) is a skill unique to thieves, which cannot be successfully attempted by members of other classes. A thief can also set traps (with the same chance as to disarm)."
 thief,0,pick pockets,"If the thief’s pick pockets check fails by 20% or more, then his or her attempt has been discovered and the intended victim will almost always take hostile action."
 thief,0,read languages,The thief may attempt to read languages and ciphers of a non-magical nature only.
-thief,0,thieve's cant,Thieves’ Cant: Thieves have their own language.
+thief,0,thieves' cant,Thieves’ Cant: Thieves have their own language.
 thief,10,read scrolls,"When a thief reaches 10th level, he or she has become well-versed enough in training to cast spells from an arcane or phantasmal scroll (magic user or illusionist). However, this casting is not always successful. The thief should roll against his or her intelligence as a magic user or illusionist does, and if the score shown on the die is insufficient for the thief to cast the spell, then the casting will fail, possibly (at the GM’s option) having some entirely unexpected effect."

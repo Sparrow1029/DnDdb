@@ -1,0 +1,18 @@
+.wrapped {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.table {
+  height: 100%;
+}
+
+.table:hover {
+  cursor: pointer;
+}
+
+.asterisk {
+  font-weight: bold;
+  color: red;
+}

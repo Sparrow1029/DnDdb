@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { logout } from '../utils/requests'
+import uuid from 'react-uuid'
 
 import {
   Segment, Menu, Sidebar, Icon, Container, Button
@@ -18,7 +19,7 @@ const NavSidebar = (props) => {
 
   return (
     <div>
-      <Sidebar.Pushable as={Segment}>
+      <Sidebar.Pushable as={Segment} key={uuid()}>
         <Sidebar
           as={Menu}
           animation='overlay'
@@ -56,7 +57,7 @@ const NavSidebar = (props) => {
           </div>
 
           <div className={styles.backButton}>
-            <Button content='Back' icon='left arrow' labelPosition='left' onClick={router.back} />
+            <Button icon='left arrow' onClick={router.back} />
           </div>
           <Container fluid>
             {props.children}

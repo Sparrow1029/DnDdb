@@ -66,7 +66,7 @@ const LoginForm = ({ toggle }) => {
                 }
                 {errors.password && <Label basic color='red' pointing>Enter password</Label>}
               </Form.Field>
-              <Button>Login</Button>
+              <Button primary>Login</Button>
               {errMsg &&
                 <Message negative>
                   <Message.Header>{errMsg}</Message.Header>

@@ -15,28 +15,14 @@ const defaultData = {
   name: 'Anonymous',
   gender: 'male',
   race: 'dwarf',
-  class_: 'fighter',
-  alignment: 'neutral_neutral',
+  class_: 'assassin',
+  alignment: 'lawful_evil',
   base_stats: {
     str: 0, dex: 0, con: 0, int: 0, wis: 0, cha: 0
   },
   gold: 0,
-  max_hp: 0,
-}
-
-function getRandInt(min, max) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min) + min)
-}
-
-const roll = (num_dice, sides, bonus=0) => {
-  let result = 0
-  for (let i = 0; i < num_dice; i++) {
-    result += getRandInt(1, sides)
-  }
-  result += bonus
-  return result
+  max_hp: 6,
+  ac: 0,
 }
 
 const CreateCharacterForm = () => {

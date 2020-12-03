@@ -110,5 +110,6 @@ def retrieve_user_characters(char_id_list) -> list:
     chars = []
     for char_id in char_id_list:
         char = char_collection.find_one({"_id": ObjectId(char_id)})
-        chars.append(char_helper(char))
+        if char:
+            chars.append(char_helper(char))
     return chars

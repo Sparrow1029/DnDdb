@@ -8,6 +8,7 @@ from class_dicts import (
 )
 from typing import List
 from pprint import pprint
+import sys
 
 # TODO: create a class or better organize/modularize init_db functions
 
@@ -171,12 +172,18 @@ def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collec
         db_conn.insert_one(row)
 
 
-client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
-# db = client['dnd_fastapi']
-# collection = db['classes']
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
+    # db = client['dnd_fastapi']
+    # collection = db['classes']
 
-# docs = create_class_documents()
-# init_db_classes(client, docs)
-init_db_races(client, 'race_data.csv')
+    if "classes" in args:
+        docs = create_class_documents()
+        init_db_classes(client, docs)
 
-# init_db_spells(client, 'all_spells.csv')
+    if "spells" in args:
+        init_db_spells(client, 'all_spells.csv')
+
+    if "races" in args:
+        init_db_races(client, 'race_data.csv')

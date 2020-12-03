@@ -2,7 +2,7 @@ from collections import namedtuple
 
 StrMods = namedtuple('StrMods', 'hit_bonus dmg_bonus encumb_adj minor_tests major_tests')
 DexMods = namedtuple('DexMods', 'surprise to_hit ac')
-ConMods = namedtuple('ConMods', 'hit_per_die survive_dead survive_sys_shock')
+ConMods = namedtuple('ConMods', 'hp_bonus_per_die survive_dead survive_sys_shock')
 ChaMods = namedtuple('ChaMods', 'max_henchmen loyalty_bonus reaction_bonus')
 
 strength_table = {

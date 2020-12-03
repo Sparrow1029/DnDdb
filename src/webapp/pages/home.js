@@ -59,14 +59,18 @@ const UserHomePage = () => {
           <Grid.Row centered>
             <Grid.Column width={12}>
               <Header as='h1' style={{padding: '25px', textAlign: 'center'}}>Welcome {userData.username}</Header>
-              {(!userData.characters.length)
-              ? <div style={{textAlign: 'center'}}>
-                  <Link href='/characters/create'><Button primary><Icon name='user plus'/ >Create Character</Button></Link>
-                </div>
-              : <Item.Group divided>
-                  {getCharArray(thisData.characters)}
+              {userData.characters.length &&
+                <Item.Group divided>
+                  {getCharArray(userData.characters)}
                 </Item.Group>
               }
+              <div style={{textAlign: 'center'}}>
+                <Link href='/characters/create'>
+                  <Button primary>
+                    <Icon name='user plus'/ >Create Character
+                  </Button>
+                </Link>
+              </div>
             </Grid.Column>
           </Grid.Row>
           </Grid>

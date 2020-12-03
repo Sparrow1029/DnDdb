@@ -109,8 +109,8 @@ class CharacterSchema(BaseModel):
     max_addl_langs: Optional[int]
     racial_abilities: Optional[dict]
     thief_skills: Optional[ThiefSkills]
-    max_hp: int
-    cur_hp: int
+    max_hp: Optional[int]
+    cur_hp: Optional[int]
     exp: int = 0
     ac: int
     alive: bool = True

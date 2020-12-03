@@ -5340,7 +5340,7 @@ Assassins are stealthy killers, trained by their shadowy guilds \
 in the arts of spying, disguise, poison, and murder. Although \
 assassins of lower level are little more than well-trained thugs, \
 the eminences of this reprehensible profession are so feared \
-as to be spoken of only in whispers. High-level assassins are \
+as to be spoken of only in whispers.\n High-level assassins are \
 artists of murder, and their experience with hunting highly- \
 placed targets, coupled with extensive education and training, \
 often gives the sinister nobility of this class a silken, refined \
@@ -5358,7 +5358,7 @@ venerating all deities of that alignment in addition to a patron \
 deity, and yet others are the servants of a particular pantheon \
 of deities. In a world of swords and sorcery, force of arms often \
 speaks louder than moral suasion, and clerics are trained to do \
-battle against the enemies of their gods. Some clerics are fanatics, \
+battle against the enemies of their gods.\n Some clerics are fanatics, \
 zealously seeking new converts or hunting heretics. Others \
 seem almost burdened by an inconvenient or even oppressive \
 relationship with the divine forces. Evil clerics—sinister villains \
@@ -5370,7 +5370,7 @@ protect holy places, perform festivals and ritual observances, \
 and protect balance and harmony between civilisation and \
 nature. Their magic is rooted in the mystical oneness of nature, \
 and they have particular power over fire, stone, and weather, \
-as well as over plant- and animal life.
+as well as over plant- and animal life.\n
 Some druids pay homage to particular nature gods (some of \
 these quite savage), while others eschew all deities and commune \
 directly with the spiritual power of nature.""",
@@ -5380,7 +5380,7 @@ dungeons beneath the earth, it is the fighter who bears the \
 brunt of the combat. Fighters are trained in the use of weapons \
 and armour, usually beginning their adventuring careers after \
 a stint of training as a town guardsman, soldier, man at arms, \
-bandit, pirate, or mercenary.
+bandit, pirate, or mercenary.\n
 Fighters are the backbone of an adventuring party; without \
 them to hold the line, the other members of the party will be \
 overrun before they can bring their own skills to bear. Fighters \
@@ -5414,7 +5414,7 @@ will automatically receive one new spell of the highest spell \
 level that he or she may cast upon completing training after \
 acquiring a new level of experience. They are limited by their \
 intelligence in what spells they can learn according to the \
-same table as provided under magic users.
+same table as provided under magic users.\n
 At 10th level, an illusionist may establish a stronghold, usually \
 a tower or small keep, as a fighter does.""",
     "magic_user": """\
@@ -5427,10 +5427,10 @@ words, weaving complex gestures in the air, and employing \
 rare and magical materials. While magic users (with illusionists) \
 are the weakest character class in combat, this weakness is \
 balanced by possessing the most powerful and versatile spells \
-in the game.
+in the game.\n
 The full underlying principles of magic are beyond mortal comprehension; \
 even wizards of the profoundest intellect struggle from momentary \
-inklings to understand its more complex patterns.
+inklings to understand its more complex patterns.\n
 Nevertheless, those character who possess formidable intelligence \
 and a certain intuitive gift, who are willing to devote \
 themselves to a lifetime of study, may in time sufficiently \
@@ -5451,9 +5451,9 @@ Rangers are a special variation of the fighter class. They are \
 modelled on such characters of fiction as Aragorn and Robin \
 Hood and are particularly expert in wilderness situations. \
 Rangers are defenders of the poor and serve to protect civilization \
-from the evil forces that lurk beyond civilised lands.
-Rangers must abide by certain limitations, in the same fashion
-as paladins:
+from the evil forces that lurk beyond civilised lands. \
+Rangers must abide by certain limitations, in the same fashion \
+as paladins:\n
 First, the ranger must always remain of good alignment (lawful, \
 neutral or chaotic). Any deliberate change in the ranger’s alignment \
 away from good will result in the character becoming a \
@@ -5462,13 +5462,13 @@ hood. An unintentional change will transform the character \
 into a fighter as above, but in this case, with sufficient questing \
 and atonement, the ranger may be permitted to recover his or \
 her status. The GM will determine the precise details of this \
-process according to the situation.
+process according to the situation.\n
 Second, rangers may not employ mercenaries or servants until \
 they reach 8th level or higher. Even once permitted, a ranger \
 may not employ any mercenary or servant who he or she suspects \
 (or ought to suspect) is not of good alignment.
 Third, a maximum of three rangers may travel or operate together \
-at any one time.
+at any one time.\n
 Fourth, rangers travel light and may not keep any more treasure \
 than they can lift (including any amount the ranger can carry \
 on his or her steed, if any).""",
@@ -5489,7 +5489,7 @@ on the side of the law; agents or spies who use their skills \
 in more accepted (though equally shadowy) pursuits. A thief \
 character must be of any neutral or evil alignment. Neutral \
 good thieves are permitted because of the neutral component \
-of their alignment.
+of their alignment.\n
 Sensible adventuring parties will almost always include a thief, \
 for the skills of such a character are invaluable in reaching inaccessible \
 places via climb walls, pick locks, and so on. In addition, \
