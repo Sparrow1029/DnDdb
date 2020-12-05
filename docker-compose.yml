@@ -17,6 +17,7 @@ services:
     networks:
       - backend
   api:
+    restart: unless-stopped
     depends_on:
       - db
     build: ./src/api
@@ -34,6 +35,7 @@ services:
       - frontend
       - backend
   webapp:
+    restart: unless-stopped
     depends_on:
       - db
       - api

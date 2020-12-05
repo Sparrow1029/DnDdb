@@ -6,17 +6,24 @@ import { Router, useRouter } from 'next/router'
 import { Loader } from 'semantic-ui-react'
 
 export default function Home() {
-
-  const token = Cookies.get('auth_token')
-  const userId = Cookies.get('dndUserId')
   const router = useRouter()
 
   useEffect(() => {
-    if (token && userId) {
+    let loggedIn = new Promise((resolve, reject) => {
+      const token = Cookies.get('access_token')
+      const userId = Cookies.get('dnd_user_id')
+      if (token && userId) {
+        resolve(true)
+      }
+      reject(false)
+    })
+    loggedIn
+    .then(() => {
       router.push('/home')
-    } else {
+    })
+    .catch(() => {
       router.push('/login')
-    }
+    })
   }, [])
 
   return (

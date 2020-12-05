@@ -20,7 +20,6 @@ const LoginForm = ({ toggle }) => {
     login(formData)
       .then(res => {
         if (res.status === 200) {
-          console.log(res.data)
           Cookies.set('access_token', res.data.access_token)
           Cookies.set('dnd_user_id', res.data.user_id)
           router.push('/home')

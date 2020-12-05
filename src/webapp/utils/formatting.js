@@ -2,6 +2,7 @@ import React from 'react'
 import uuid from 'react-uuid'
 
 import { List, Icon } from 'semantic-ui-react'
+import { getRandInt } from './diceRolls'
 
 export const getStartingHP = (className, hitDie) => {
   let number = Number(hitDie.replace(/d/g, ''))
@@ -23,4 +24,8 @@ export const getListFromKeys = (obj, keyArr) => {
     )
   }
   return <List key={uuid()}>{list}</List>
+}
+
+export const getPurse = (gold) => {
+  return gold
 }

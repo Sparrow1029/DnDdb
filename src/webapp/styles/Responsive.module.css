@@ -4,6 +4,12 @@
   flex-wrap: wrap;
 }
 
+.wrappedrow {
+  height: 20vh;
+  display: flex;
+  flex-flow: column wrap;
+
+}
 .table {
   height: 100%;
 }
@@ -15,4 +21,8 @@
 .asterisk {
   font-weight: bold;
   color: red;
+}
+
+.statfield {
+  text-align: center;
 }

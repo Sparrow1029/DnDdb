@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 from enum import Enum
 # from bson.objectid import ObjectId
 
@@ -113,6 +113,9 @@ class CharacterSchema(BaseModel):
     cur_hp: Optional[int]
     exp: int = 0
     ac: int
+    height: Optional[Dict[str, int]]
+    weight: Optional[int]
+    age: Optional[int]
     alive: bool = True
     created_at: datetime = Field(default_factory=datetime.now)
     owner: str

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popup, Table } from 'semantic-ui-react'
+import { Container, Popup, Table } from 'semantic-ui-react'
 import styles from '../styles/Responsive.module.css'
 
 // Alignment aliases
@@ -38,7 +38,7 @@ const AlignmentPopup = ({ alignment, children }) => {
 
 const AlignmentTable = ({ selected, permitted, handleClick }) => {
   return (
-      <Table textAlign='center' padded className={styles.table}>
+      <Table textAlign='center' className={styles.table} unstackable celled>
         <Table.Body>
           <Table.Row>
             <AlignmentPopup alignment={lg}>

@@ -1,7 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { ClassesContext } from '../../contexts/class'
-import { RacesContext } from '../../contexts/races'
-import { request } from '../../utils/requests'
+import React, { useEffect, useState } from 'react'
 import uuid from 'react-uuid'
 
 import { getStartingHP } from '../../utils/formatting'
@@ -12,42 +9,35 @@ import {
 } from 'semantic-ui-react'
 import styles from '../../styles/Responsive.module.css'
 
-const ClassData = ({ setForm, formData, navigation }) => {
-  const [classes, setClasses] = useContext(ClassesContext)
-  const [races, setRaces] = useContext(RacesContext)
-  const [raceObj, setRaceObj] = useState({})
-  const [classObj, setClassObj] = useState({})
+const ClassData = ({ setForm, formData, navigation, ...props }) => {
+  const { clss: classes } = props
+  const { classObj, setClassObj, raceObj, setRaceObj, alignState, setAlignState } = props
   const [loading, setLoading] = useState(true)
-  const { class_, race } = formData
+  const { class_ } = formData
   const { next, previous } = navigation
 
   useEffect(() => {
-    setRaceObj(races.filter(obj => {
-      return obj.name === race
-    })[0])
-    request.get('/classes')
-    .then(res => {
-      setClasses(res.data.classes)
-      setClassObj(res.data.classes.filter(obj => {
-        return obj.name === class_
-      })[0])
+    if (classObj) {
       setLoading(false)
-    })
-    .catch(err => console.dir(err))
-  }, [class_, raceObj])
+    } else {
+      console.log(classObj)
+      setLoading(true)
+    }
+  }, [classObj])
 
-  const setAlignment = (event) => {
-    let dataObj = ({ target: { name: 'alignment', value: event.target.id } })
-    setForm(dataObj)
+  const setAlignment = (e) => {
+    setForm({ target: { name: 'alignment', value: e.target.id } })
+    setAlignState(e.target.id)
   }
 
   const handleTabClick = (_, { name }) => {
-    let dataObj = { target: { name: 'class_', value: name } }
-    setForm(dataObj)
-    let { alignment, hit_die } = classes.filter(
-        obj => { return obj.name === name })[0].restrictions
-    setAlignment({ target: { id: alignment[0] }})// selectedClass.restrictions.alignment[0] } })
-    setForm({ target: { name: 'max_hp', value: getStartingHP(name, hit_die) }})// selectedClass.restrictions.hit_die.replace(/d/g, '')) } })
+    let { alignment: alignmts, hit_die } = classes[name].restrictions
+    // set form data first
+    setForm({ target: { name: 'class_', value: name } })
+    setAlignment({ target: { id: alignmts[0] } })
+    setForm({ target: { name: 'max_hp', value: getStartingHP(name, hit_die) }})
+    // then set global classObj state
+    setClassObj(classes[name])
   }
 
   const renderClassInfo = () => {
@@ -92,14 +82,14 @@ const ClassData = ({ setForm, formData, navigation }) => {
 
     return (
       <Container style={{padding: '0px 15px'}}>
-      <Grid padded style={{fontSize: '0.9rem'}}>
+      <Grid padded style={{fontSize: '0.9rem'}} stackable>
         <Grid.Row columns={1}>
           <Container>
             <Header as='h2'>{class_.toTitleCase()}</Header>
             {summary}
           </Container>
         </Grid.Row>
-        <Grid.Row columns={2}>
+        <Grid.Row columns='equal'>
           <Grid.Column>
             <Container style={{margin: '0px', padding: '0px'}}>
               {renderClassInfo()}
@@ -116,7 +106,7 @@ const ClassData = ({ setForm, formData, navigation }) => {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <Header as='h3' content={`${class_.toTitleCase()} Abilities`} />
+            <Header as='h3' content={`${class_.toTitleCase()} Abilities`} style={{paddingTop: '10px'}}/>
             {renderAbilities()}
           </Grid.Column>
         </Grid.Row>
@@ -127,6 +117,7 @@ const ClassData = ({ setForm, formData, navigation }) => {
 
   return (
     <Segment raised>
+      <Container fluid style={{minHeight: '70vh'}}>
       <Header as='h1' content='Choose a Class'/>
       <div></div>
       {raceObj.permitted_classes
@@ -143,11 +134,11 @@ const ClassData = ({ setForm, formData, navigation }) => {
       </Menu>
       : <Loader />
 }
-      <Container style={{padding: '25px'}}>
-      <Grid divided>
-        <Grid.Row columns={2} style={{height: '60vh'}}>
+      <Container style={{ padding: '25px'}}>
+      <Grid divided stackable>
+        <Grid.Row columns={2} style={{overflow: 'scroll', height: '60vh'}}>
           <Grid.Column width={5}>
-            <div style={{overflow: 'hidden', height: '400px'}}>
+            <div style={{overflow: 'hidden', height: '100%'}}>
             <Image src={`/class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/>
             </div>
           </Grid.Column>
@@ -164,6 +155,7 @@ const ClassData = ({ setForm, formData, navigation }) => {
         <Button onClick={previous}>Previous</Button>
         <Button onClick={next}>Select and Continue</Button>
       </div>
+      </Container>
     </Segment>
   )
 }

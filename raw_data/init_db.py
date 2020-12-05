@@ -169,6 +169,8 @@ def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collec
         row["languages"] = list(map(lambda s: s.replace('_', ' '), row["languages"].split()))
         row["permitted_classes"] = row["permitted_classes"].split()
         row["abilities"] = json.loads(row["abilities"])
+        row["sizes"] = json.loads(row["sizes"])
+        row["starting_ages"] = json.loads(row["starting_ages"])
         db_conn.insert_one(row)
 
 

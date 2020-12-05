@@ -15,3 +15,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+input[type='text'] {
+  text-align: center;
+}

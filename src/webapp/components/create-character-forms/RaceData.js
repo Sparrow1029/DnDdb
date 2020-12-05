@@ -1,7 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { RacesContext } from '../../contexts/races'
-import { ClassesContext } from '../../contexts/class'
-import { request } from '../../utils/requests'
+import React, { useEffect, useState } from 'react'
 import uuid from 'react-uuid'
 import { getListFromKeys } from '../../utils/formatting'
 
@@ -10,36 +7,30 @@ import {
 } from 'semantic-ui-react'
 import styles from '../../styles/Responsive.module.css'
 
-const RaceData = ({ setForm, formData, navigation }) => {
-  const [races, setRaces] = useContext(RacesContext)
+const RaceData = ({ setForm, formData, navigation, ...props }) => {
+  const { rcs: races, clss: classes } = props
   const [loading, setLoading] = useState(true)
+  const { classObj, setClassObj, raceObj, setRaceObj, alignState, setAlignState } = props
   const { race } = formData
   const { next } = navigation
 
   useEffect(() => {
-    request.get('/races')
-    .then(res => {
-      setRaces(res.data.races)
-      setLoading(false)
-    })
-    .catch(err => console.log(err))
-  }, [])
+    if (raceObj) { setLoading(false) }
+  }, [raceObj])
 
   const handleTabClick = (_, { name }) => {
-    setForm({ target: { name: 'race', value: name } })
-  }
+    let newRace = races[name]
+    setRaceObj(newRace)
+    let newCls = classes[newRace.permitted_classes[0]]
+    setClassObj(newCls)
+    setAlignState(newCls.restrictions.alignment[0])
 
-  const nextForm = () => {
-    let cls = races.filter(obj => obj.name === race)[0].permitted_classes[0]
-    setForm({ target: {name: 'class_', value: cls }})
-    next()
+    setForm({ target: { name: 'race', value: name } })
+    setForm({ target: { name: 'class_', value: newCls.name } })
+    setForm({ target: { name: 'alignment', value: newCls.restrictions.alignment[0] } })
   }
 
   const createRaceSummary = (name) => {
-    let raceObj = races.filter(obj => {
-      return obj.name === name
-    })[0]
-
     let descriptionArr = raceObj.description.split('\\n\\n').map(obj => {
       return <p key={uuid()}>{obj}</p>
     })
@@ -73,8 +64,7 @@ const RaceData = ({ setForm, formData, navigation }) => {
                 {abilities}
               </Container>
             </Grid.Column>
-            <Grid.Column width={9}>
-              <Container style={{fontSize: '.9rem'}}>
+            <Grid.Column width={9}> <Container style={{fontSize: '.9rem'}}>
                 <Header as='h3'>Bonuses</Header>
                 {bonuses}
               </Container>
@@ -105,6 +95,7 @@ const RaceData = ({ setForm, formData, navigation }) => {
 
   return (
     <Segment raised>
+      <Container fluid style={{overflow: 'hidden', minHeight: '70vh'}}>
       <Header as='h1' content='Choose a Race'/>
       <Menu attached='top' tabular className={styles.wrapped}>
         <Menu.Item name='dwarf' active={race === 'dwarf'} onClick={handleTabClick} />
@@ -115,8 +106,8 @@ const RaceData = ({ setForm, formData, navigation }) => {
         <Menu.Item name='half_orc' active={race === 'half_orc'} onClick={handleTabClick} >Half-Orc</Menu.Item>
         <Menu.Item name='human' active={race === 'human'} onClick={handleTabClick} />
       </Menu>
-      <Container style={{padding: '25px'}}>
-      <Grid divided>
+      <Container style={{overflow: 'scroll', padding: '25px'}}>
+      <Grid divided stackable>
         <Grid.Row columns={2} style={{height: '60vh'}}>
           <Grid.Column width={6}>
             <Image src={`/race-images/${formData.race}.png`}
@@ -132,8 +123,9 @@ const RaceData = ({ setForm, formData, navigation }) => {
       </Grid>
       </Container>
       <div style={{display: 'flex', justifyContent: 'right'}}>
-        <Button onClick={nextForm}>Select and Continue</Button>
+        <Button onClick={next}>Select and Continue</Button>
       </div>
+      </Container>
     </Segment>
   )
 }
