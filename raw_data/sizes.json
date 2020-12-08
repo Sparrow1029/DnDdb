@@ -1,0 +1,129 @@
+{ "sizes": {
+	"dwarf": {
+			"male": {
+				"1-10":   { "weight": "130", "size": "Small", "ft": "3", "in": "9" },
+				"11-25":  { "weight": "140", "size": "Slim", "ft": "4", "in": "1" },
+				"26-55":  { "weight": "150", "size": "Normal", "ft": "4", "in": "2" },
+				"56-85":  { "weight": "160", "size": "Stout", "ft": "4", "in": "2" },
+				"86-95":  { "weight": "160", "size": "Tall", "ft": "4", "in": "6" },
+				"96-100": { "weight": "170", "size": "Outsize", "ft": "4", "in": "9" }
+			},
+			"female": {
+				"1-10":   { "weight": "100", "size": "Petite", "ft": "3", "in": "7" },
+				"11-25":  { "weight": "110", "size": "Svelte", "ft": "3", "in": "11" },
+				"26-55":  { "weight": "120", "size": "Normal", "ft": "4", "in": "0" },
+				"56-85":  { "weight": "130", "size": "Curvy", "ft": "4", "in": "0" },
+				"86-95":  { "weight": "130", "size": "Tall", "ft": "4", "in": "4" },
+				"96-100": { "weight": "140", "size": "Outsize", "ft": "4", "in": "7" }
+			}
+		},
+	"elf": {
+			"male": {
+				"1-15":   { "weight": "70", "ft": "4", "in": "7", "size": "Small" },
+				"16-45":  { "weight": "80", "ft": "4", "in": "11", "size": "Slim" },
+				"46-75":  { "weight": "90", "ft": "5", "in": "0", "size": "Normal" },
+				"76-80":  { "weight": "95", "ft": "5", "in": "0", "size": "Stout" },
+				"81-95":  { "weight": "95", "ft": "5", "in": "4", "size": "Tall" },
+				"96-100": { "weight": "100", "ft": "5", "in": "7", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "64", "ft": "4", "in": "3", "size": "Petite" },
+				"16-45":  { "weight": "72", "ft": "4", "in": "7", "size": "Svelte" },
+				"46-75":  { "weight": "80", "ft": "4", "in": "8", "size": "Normal" },
+				"76-80":  { "weight": "85", "ft": "4", "in": "8", "size": "Curvy" },
+				"81-95":  { "weight": "85", "ft": "5", "in": "0", "size": "Tall" },
+				"96-100": { "weight": "90", "ft": "5", "in": "3", "size": "Outsize" }
+			}
+		},
+	"gnome": {
+			"male": {
+				"1-10":   { "weight": "50", "ft": "2", "in": "10", "size": "Small" },
+				"11-25":  { "weight": "55", "ft": "3", "in": "1", "size": "Slim" },
+				"26-55":  { "weight": "60", "ft": "3", "in": "2", "size": "Normal" },
+				"66-85":  { "weight": "65", "ft": "3", "in": "2", "size": "Stout" },
+				"86-95":  { "weight": "65", "ft": "3", "in": "5", "size": "Tall" },
+				"96-100": { "weight": "70", "ft": "3", "in": "7", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "42", "ft": "2", "in": "8", "size": "Petite" },
+				"16-30":  { "weight": "45", "ft": "2", "in": "11", "size": "Svelte" },
+				"31-65":  { "weight": "50", "ft": "3", "in": "0", "size": "Normal" },
+				"66-85":  { "weight": "55", "ft": "3", "in": "0", "size": "Curvy" },
+				"86-95":  { "weight": "55", "ft": "3", "in": "3", "size": "Tall" },
+				"96-100": { "weight": "60", "ft": "3", "in": "5", "size": "Outsize" }
+			}
+		},
+	"half_elf": {
+			"male": {
+				"1-10":   { "weight": "105", "ft": "5", "in": "1", "size": "Small" },
+				"11-30":  { "weight": "115", "ft": "5", "in": "5", "size": "Slim" },
+				"31-70":  { "weight": "125", "ft": "5", "in": "6", "size": "Normal" },
+				"71-80":  { "weight": "135", "ft": "5", "in": "6", "size": "Stout" },
+				"81-95":  { "weight": "135", "ft": "5", "in": "10", "size": "Tall" },
+				"96-100": { "weight": "145", "ft": "6", "in": "1", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "80", "ft": "4", "in": "3", "size": "Petite" },
+				"16-30":  { "weight": "90", "ft": "5", "in": "7", "size": "Svelte" },
+				"31-65":  { "weight": "100", "ft": "5", "in": "8", "size": "Normal" },
+				"66-85":  { "weight": "110", "ft": "5", "in": "8", "size": "Curvy" },
+				"86-95":  { "weight": "110", "ft": "5", "in": "0", "size": "Tall" },
+				"96-100": { "weight": "120", "ft": "5", "in": "3", "size": "Outsize" }
+			}
+		},
+	"half_orc": {
+			"male": {
+				"1-10":   { "weight": "130", "ft": "5", "in": "3", "size": "Small" },
+				"11-30":  { "weight": "140", "ft": "5", "in": "7", "size": "Slim" },
+				"31-70":  { "weight": "150", "ft": "5", "in": "8", "size": "Normal" },
+				"71-80":  { "weight": "165", "ft": "5", "in": "8", "size": "Stout" },
+				"81-95":  { "weight": "160", "ft": "6", "in": "0", "size": "Tall" },
+				"96-100": { "weight": "170", "ft": "6", "in": "3", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "100", "ft": "4", "in": "10", "size": "Petite" },
+				"16-30":  { "weight": "110", "ft": "5", "in": "2", "size": "Svelte" },
+				"31-65":  { "weight": "120", "ft": "5", "in": "3", "size": "Normal" },
+				"66-85":  { "weight": "135", "ft": "5", "in": "3", "size": "Curvy" },
+				"86-95":  { "weight": "130", "ft": "5", "in": "7", "size": "Tall" },
+				"96-100": { "weight": "140", "ft": "5", "in": "10", "size": "Outsize" }
+			}
+		},
+	"halfling": {
+			"male": {
+				"1-10":   { "weight": "50", "ft": "2", "in": "10", "size": "Small" },
+				"11-25":  { "weight": "55", "ft": "3", "in": "1", "size": "Slim" },
+				"26-55":  { "weight": "60", "ft": "3", "in": "2", "size": "Normal" },
+				"66-85":  { "weight": "65", "ft": "3", "in": "2", "size": "Stout" },
+				"86-95":  { "weight": "65", "ft": "3", "in": "5", "size": "Tall" },
+				"96-100": { "weight": "70", "ft": "3", "in": "7", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "42", "ft": "2", "in": "8", "size": "Petite" },
+				"16-30":  { "weight": "45", "ft": "2", "in": "11", "size": "Svelte" },
+				"31-65":  { "weight": "50", "ft": "3", "in": "0", "size": "Normal" },
+				"66-85":  { "weight": "55", "ft": "3", "in": "0", "size": "Curvy" },
+				"86-95":  { "weight": "55", "ft": "3", "in": "3", "size": "Tall" },
+				"96-100": { "weight": "60", "ft": "3", "in": "5", "size": "Outsize" }
+			}
+		},
+	"human": {
+			"male": {
+				"1-10":   { "weight": "140", "ft": "5", "in": "4", "size": "Small" },
+				"11-30":  { "weight": "155", "ft": "5", "in": "8", "size": "Slim" },
+				"31-70":  { "weight": "170", "ft": "5", "in": "9", "size": "Normal" },
+				"71-80":  { "weight": "185", "ft": "5", "in": "9", "size": "Stout" },
+				"81-95":  { "weight": "185", "ft": "6", "in": "1", "size": "Tall" },
+				"96-100": { "weight": "200", "ft": "6", "in": "4", "size": "Outsize" }
+			},
+			"female": {
+				"1-15":   { "weight": "105", "ft": "4", "in": "11", "size": "Petite" },
+				"16-30":  { "weight": "115", "ft": "5", "in": "3", "size": "Svelte" },
+				"31-65":  { "weight": "125", "ft": "5", "in": "4", "size": "Normal" },
+				"66-85":  { "weight": "135", "ft": "5", "in": "4", "size": "Curvy" },
+				"86-95":  { "weight": "135", "ft": "5", "in": "8", "size": "Tall" },
+				"96-100": { "weight": "145", "ft": "5", "in": "11", "size": "Outsize" }
+			}
+		}
+	}
+}

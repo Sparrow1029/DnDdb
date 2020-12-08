@@ -1,10 +1,16 @@
 from pymongo import MongoClient
-from csv import DictReader, DictWriter
+import json
+from csv import DictReader
+from typing import List
 from collections import defaultdict
-from class_dicts import RESTRICTIONS_DICT, SAVING_THROWS_DICT, TO_HIT_DICT
+from class_dicts import (
+    RESTRICTIONS_DICT, SAVING_THROWS_DICT, TO_HIT_DICT, SUMMARIES
+)
 from typing import List
 from pprint import pprint
+import sys
 
+# TODO: create a class or better organize/modularize init_db functions
 
 classes = ["assassin", "cleric", "druid", "fighter", "illusionist",
            "magic_user", "thief", "paladin", "ranger"]
@@ -23,6 +29,7 @@ def create_class_documents():
         document = defaultdict(rec_dd)
         document.update({
             "name": c,
+            "summary": SUMMARIES[c],
             "restrictions": RESTRICTIONS_DICT[c],
             "saving_throws": SAVING_THROWS_DICT[c],
             "ac_to_hit": TO_HIT_DICT[c],
@@ -105,6 +112,30 @@ def create_class_documents():
 
     return documents
 
+def parse_embedded_tables(cell_data: str) -> List[dict]:
+    """Parse tables that use `$`, `:`, `|`, and `@` as delimiters in the csv file"""
+    raw_tables = list(filter(lambda tbl: tbl != '', cell_data.split('@')))
+    tables = []
+    for table in raw_tables:
+        doc = {
+            "title": '',
+            "headers": [],
+            "rows": []
+        }
+        table = table.strip()
+        lines = table.splitlines()
+
+        top_row = lines.pop(0).split(':')
+        doc["title"] = top_row[0].lstrip('$')
+        doc["headers"] = top_row[1].split('|')
+
+        for row in lines:
+            doc["rows"].append(row.split('|'))
+        tables.append(doc)
+
+    return tables
+
+
 def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="classes_collection"):
     if not db or not coll:
         raise ValueError("database or collection not specified")
@@ -113,14 +144,68 @@ def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="
         if db_conn.find_one({"name": doc["name"]}):
             print("class already exists")
             continue
-        result = db_conn.insert_one(doc)
-        print(result.inserted_id)
+        db_conn.insert_one(doc)
 
 
-client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
-# db = client['dnd_fastapi']
-# collection = db['classes']
+def init_db_spells(client, spell_csv: str, db="dnd_fastapi_dev", coll="spell_collection"):
+    if not db or not coll:
+        raise ValueError("database or collection not specified")
+    db_conn = client[db][coll]
+    reader = DictReader(open(spell_csv))
+    for row in reader:
+        row["components"] = row["components"].split()
+        if not row["embedded_tables"]:
+            row["embedded_tables"] = None
+        else:
+            row["embedded_tables"] = parse_embedded_tables(row["embedded_tables"])
+        # TODO: finish transposing spell data from OSRIC PDF for other classes
+        if row["class"] in ["cleric", "druid"]:
+            db_conn.insert_one(row)
 
-docs = create_class_documents()
+def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collection"):
+    db_conn = client[db][coll]
+    reader = DictReader(open(race_csv_file))
+    for row in reader:
+        row["languages"] = list(map(lambda s: s.replace('_', ' '), row["languages"].split()))
+        row["permitted_classes"] = row["permitted_classes"].split()
+        row["abilities"] = json.loads(row["abilities"])
+        row["sizes"] = json.loads(row["sizes"])
+        row["starting_ages"] = json.loads(row["starting_ages"])
+        db_conn.insert_one(row)
 
-init_db_classes(client, docs)
+def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='items.csv', armor_csv='armor.csv',
+                      weapons_csv='weapons.csv'):
+    item_coll = client[db]["item_collection"]
+    item_reader = DictReader(open(items_csv))
+    for row in item_reader:
+        item_coll.insert_one(row)
+
+    armor_coll = client[db]["armor_collection"]
+    armor_reader = DictReader(open(armor_csv))
+    for row in armor_reader:
+        armor_coll.insert_one(row)
+
+    weapons_coll = client[db]["weapons_collection"]
+    weapons_reader = DictReader(open(weapons_csv))
+    for row in weapons_reader:
+        weapons_coll.insert_one(row)
+
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
+    # db = client['dnd_fastapi']
+    # collection = db['classes']
+
+    if "classes" in args:
+        docs = create_class_documents()
+        init_db_classes(client, docs)
+
+    if "spells" in args:
+        init_db_spells(client, 'all_spells.csv')
+
+    if "races" in args:
+        init_db_races(client, 'race_data.csv')
+
+    if "equipment" in args:
+        init_db_inventory(client)

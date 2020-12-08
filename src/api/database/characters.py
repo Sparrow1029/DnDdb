@@ -3,7 +3,7 @@ from bson.objectid import ObjectId
 from .utils.create_new_char import BaseMods, RaceMods, apply_class_mods
 
 from .users import retrieve_user, update_user
-from ..db import char_collection, user_collection, class_collection
+from db import char_collection, user_collection, class_collection
 from pymongo import ReturnDocument
 
 ### HELPERS ###
@@ -37,8 +37,11 @@ def create_character(char_data: dict) -> dict:
 
     class_obj = class_collection.find_one({"name": char_data["class"]})
     apply_class_mods(char_data, class_obj)
+    char_data["exp_next_lvl"] = class_obj["level_advancement"][1]["exp"]
 
     char_data["cur_stats"] = char_data["base_stats"]
+    char_data["max_hp"] += char_data["base_mods"]["con_mods"]["hp_bonus_per_die"]
+    char_data["cur_hp"] = char_data["max_hp"]
 
     char = char_collection.insert_one(char_data)
     new_char = char_collection.find_one({"_id": char.inserted_id})
@@ -57,15 +60,6 @@ def add_char_to_user(user_id, character_id):
     result = update_user(user_id, player)
     if result:
         return True
-
-
-def retrieve_all_characters(user_id: str) -> list:
-    player = retrieve_user(user_id)
-    chars = []
-    for char_id in player["characters"]:
-        char = char_collection.find_one({"_id": ObjectId(char_id)})
-        chars.append(char_helper(char))
-    return chars
 
 
 def retrieve_one_character(char_id: str) -> dict:

@@ -16,3 +16,4 @@ else:
 user_collection = database.users_collection
 char_collection = database.characters_collection
 class_collection = database.classes_collection
+race_collection = database.race_collection

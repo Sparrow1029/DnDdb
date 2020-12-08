@@ -1,8 +1,8 @@
-from typing import Optional, List
+from typing import Optional, List, Dict
 from enum import Enum
 # from bson.objectid import ObjectId
 
-from pydantic import BaseModel, Field, conint  # validator
+from pydantic import BaseModel, Field, conint, validator
 from datetime import datetime
 
 
@@ -18,12 +18,24 @@ class Gender(str, Enum):
     male = 'male'
     female = 'female'
 
+class Alignment(str, Enum):
+    lg = 'lawful_good'
+    ng = 'neutral_good'
+    cg = 'chaotic_good'
+    ln = 'lawful_neutral'
+    nn = 'neutral_neutral'
+    cn = 'chaotic_neutral'
+    le = 'lawful_evil'
+    ne = 'neutral_evil'
+    ce = 'chaotic_evil'
+
 class RaceEnum(str, Enum):
     elf = 'elf'
     dwarf = 'dwarf'
     gnome = 'gnome'
-    half_elf = 'half-elf'
-    half_orc = 'half-orc'
+    half_elf = 'half_elf'
+    halfling = 'halfling'
+    half_orc = 'half_orc'
     human = 'human'
 
 class ClassEnum(str, Enum):
@@ -35,7 +47,7 @@ class ClassEnum(str, Enum):
     ranger = 'ranger'
     fighter = 'fighter'
     illusionist = 'illusionist'
-    magic_user = 'magic user'
+    magic_user = 'magic_user'
 
 class StrMods(BaseModel):
     hit_bonus: Optional[int]
@@ -50,7 +62,7 @@ class DexMods(BaseModel):
     ac: Optional[int]
 
 class ConMods(BaseModel):
-    hit_per_die: Optional[int]
+    hp_bonus_per_die: Optional[int]
     survive_dead: Optional[int]
     survive_sys_shock: Optional[int]
 
@@ -59,19 +71,22 @@ class ChaMods(BaseModel):
     loyalty_bonus: Optional[int]
     reaction_bonus: Optional[int]
 
-class SavingThrows(BaseModel):
+class WisMods(BaseModel):
     mental_save: Optional[int]
+
+class SavingThrows(BaseModel):
     aimed_magic_items: Optional[int]
     breath_weapons: Optional[int]
-    poison: Optional[int]
-    petrifaction: Optional[int]
-    spells: Optional[int]
+    death_paralysis_poison: Optional[int]
+    petrifaction_polymorph: Optional[int]
+    unlisted_spells: Optional[int]
 
 class BaseMods(BaseModel):
     str_mods: Optional[StrMods]
     dex_mods: Optional[DexMods]
     con_mods: Optional[ConMods]
     cha_mods: Optional[ChaMods]
+    wis_mods: Optional[WisMods]
 
 class ThiefSkills(BaseModel):
     climb_walls: float
@@ -88,6 +103,7 @@ class CharacterSchema(BaseModel):
     gender: Gender
     race: RaceEnum
     class_: ClassEnum
+    alignment: Alignment
     level: int = Field(default_factory=lambda: 1)
     base_mods: Optional[BaseMods]
     base_stats: StatSchema
@@ -97,15 +113,27 @@ class CharacterSchema(BaseModel):
     max_addl_langs: Optional[int]
     racial_abilities: Optional[dict]
     thief_skills: Optional[ThiefSkills]
-    max_hp: int
-    cur_hp: int
+    max_hp: Optional[int]
+    cur_hp: Optional[int]
     exp: int = 0
-    ac: int
+    exp_next_lvl: Optional[int]
+    ac: Optional[int]
+    height: Optional[Dict[str, int]]
+    weight: Optional[int]
+    age: Optional[int]
     alive: bool = True
     created_at: datetime = Field(default_factory=datetime.now)
-    owner: str
+    owner: Optional[str]
 
     class Config:
         fields = {
             "class_": "class"
         }
+
+    @validator('name')
+    def name_alpha_only(cls, v):
+        if len(v) not in range(1, 65):
+            raise ValueError('Name must be between 1-64 characters')
+        if not all(char.isalpha() or char in "'- " for char in v):
+            raise ValueError('Invalid characters in name')
+        return v

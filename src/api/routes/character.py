@@ -4,17 +4,18 @@ from fastapi_jwt_auth import AuthJWT
 
 from bson import ObjectId
 
-from ..database import (
+from database import (
     # char_helper,
     user_id_exists,
     add_char_to_user,
     create_character,
-    retrieve_all_characters,
+    retrieve_user,
+    retrieve_user_characters,
     retrieve_one_character,
     delete_character,
     update_character
 )
-from ..models.character import (
+from models.character import (
     CharacterSchema
 )
 
@@ -40,15 +41,17 @@ def add_new_character(
     if new_char:
         added_to_player = add_char_to_user(cur_user_id, new_char["id"])
         if not added_to_player:
-            raise
+            # TODO: Figure out how to handle this
+            print("ERROR")
         return {"data": new_char, "msg": "Character created successfully"}
     raise HTTPException(status_code=500, detail="User not found")
 
 @router.get("/all/{user_id}")
 def get_characters(user_id):
     if user_id is not None and ObjectId.is_valid(user_id):
-        chars = retrieve_all_characters(user_id)
-        if chars:
+        user = retrieve_user(user_id)
+        chars = retrieve_user_characters(user["characters"])
+        if chars is not None:
             return {"characters": chars, "msg": "Characters retrieved successfully"}
         raise HTTPException(status_code=409, detail="Error retrieving characters")
     raise HTTPException(status_code=400, detail="Bad user id")

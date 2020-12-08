@@ -1,0 +1,54 @@
+{
+	"ages": {
+		"dwarf": {
+			"assassin": { "age": 75, "die": "3d6" },
+			"cleric": { "age": 250, "die": "2d20" },
+			"fighter": { "age": 40, "die": "5d4" },
+			"thief": { "age": 75, "die": "3d6" }
+		},
+		"elf": {
+			"asassin": { "age": 100, "die": "5d6" },
+			"cleric": { "age": 500, "die": "10d10" },
+			"fighter": { "age": 130, "die": "5d6" },
+			"magic_user": { "age": 150, "die": "5d6" },
+			"thief": { "age": 100, "die": "5d6" }
+		},
+		"gnome": {
+			"assassin": { "age": 80, "die": "5d4" },
+			"cleric": { "age": 300, "die": "3d12" },
+			"fighter": { "age": 60, "die": "5d4" },
+			"illusionist": { "age": 100, "die": "2d12" },
+			"thief": { "age": 80, "die": "5d4" }
+		},
+		"half_elf": {
+			"assassin": { "age": 22, "die": "3d8" },
+			"cleric": { "age": 40, "die": "2d4" },
+			"fighter": { "age": 22, "die": "3d4" },
+			"magic_user": { "age": 30, "die": "2d8" },
+			"ranger": { "age": 22, "die": "3d4" },
+			"thief": { "age": 22, "die": "3d8" }
+		},
+		"halfling": {
+			"fighter": { "age": 20, "die": "3d4" },
+			"druid": { "age": 40, "die": "3d4" },
+			"thief": { "age": 40, "die": "2d4" }
+		},
+		"half_orc": {
+			"assassin": { "age": 20, "die": "2d4" },
+			"cleric": { "age": 20, "die": "1d4" },
+			"fighter": { "age": 13, "die": "1d4" },
+			"thief": { "age": 20, "die": "2d4" }
+		},
+		"human": {
+			"assassin": { "age": 20, "die": "1d4" },
+			"cleric": { "age": 20, "die": "1d4" },
+			"druid": { "age": 24, "die": "2d8" },
+			"fighter": { "age": 20, "die": "1d4" },
+			"illusionist": { "age": 24, "die": "2d8" },
+			"magic_user": { "age": 24, "die": "2d8" },
+			"paladin": { "age": 20, "die": "1d4" },
+			"ranger": { "age": 20, "die": "1d4" },
+			"thief": { "age": 20, "die": "1d4" }
+		}
+	}
+}

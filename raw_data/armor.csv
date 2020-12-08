@@ -1,0 +1,15 @@
+name,encumbrance,max_move,ac,cost
+banded,35,90,-6,90
+mail hauberk or byrnie (chain),30,90,-5,75
+"mail, elfin (chain)",15,120,-5,9999999
+leather,15,120,-2,5
+padded gambeson,10,90,-2,4
+plate,45,60,-7,400
+ring,35,90,-3,30
+scale or lamellar,40,60,-4,45
+"shield, large",10,120,-1,15
+"shield, leather",5,120,-1,10
+"shield, medium",8,120,-1,12
+"shield, small",5,120,-1,10
+splint,40,60,-6,80
+studded,20,90,-3,15

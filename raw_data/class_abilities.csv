@@ -1,55 +1,113 @@
-class,level,ability,description
-"druid",0,druid's cant,"All druids speak a secret language called the druids’ cant. The druidic cant cannot be learned by non-druids (unless otherwise noted, such as in the case of higher-level assassins)."
-"druid",3,"druid's knowledge","At third level and higher, a druid can identify plant and animal types, and can determine when water is pure and safe to drink."
-"druid",3,"wilderness movement","At third level and higher, a druid can move through any natural undergrowth leaving no trace of his or her passage, and may do so with no reduction in his or her normal movement speed."
-"druid",7,"immunity to fey charm
-","At seventh level and higher, the druid becomes immune to charms and other such mental enchantments cast by fey creatures such as dryads, pixies, brownies, etc."
-"druid",7,shapeshift,"Druids of 7th level or higher may change their forms up to three times per day. The form assumed must be a natural animal, no smaller than a mouse, and no larger than double the druid’s normal weight; in the process of shapeshifting, the druid recovers 1d6 x 10 percent of any hit points he or she might have sustained as damage."
-assassin,0,assassination,"If an assassin gains surprise, he or she may elect to assassinate the victim. The assassin need not roll to hit for an assassination attempt, which is a special attack resulting in a chance to kill the victim instantly and ensure damage even if the victim is not successfully killed. The percentage chance to kill a victim is 50%, with a bonus of 5% per level of the assassin and a penalty of 5% for every two levels of the target (rounding down; in the case of monsters, substitute “hit dice” for “level”). These numbers are approximate, for the GM should modify the assassin’s chances slightly upward or downward according to the circumstances—guarded or wary targets are less likely to be killed, and unwary victims are more likely to die. If the assassination attempt does not succeed, the attack still inflicts normal damage, together with any applicable bonuses. The assassin does not gain backstab multiple damage on a failed assassination attempt, even if the assassination attempt was made from behind."
-assassin,0,backstab,"An assassin may backstab with any of the melee weapons permissible to the thief class. Backstabbing doubles the weapon’s damage at levels 1-4, triple at levels 5-8, quadruple at level 9-12, and so on. Also, an assassin attacks from behind with a bonus to hit of +4 rather than the ordinary +2."
-assassin,0,disguise,"Assassins are masters of disguise. Within reasonable limits, an assassin can make himor herself appear slightly shorter or considerably taller, fatter or thinner, or of the opposite gender. An assassin can even disguise himor herself as a member of another race (again, within reason). Any person observing the disguised assassin has a base 2% chance to see through the disguise, with one chance per day to do so. The base chance of seeing through a disguise increases another 2% if the assassin is posing as another class, race or gender (max 8% chance). The GM may assign additional penalties and bonuses to this check if the observer is unusually wise or intelligent (or particularly stupid), and common sense, of course, applies at all times."
-assassin,0,poison,"Assassins are not inherently better at using poison than any other character class capable of using poison, but generally have more opportunities to gain knowledge of poisons and their effects."
-assassin,0,climb,"Climbing represents an assassin’s ability to scale sheer walls and surfaces, cling to ceilings, and perform other feats of climbing that would normally be impossible. Climbing checks must ordinarily be repeated for every ten ft of climbing. Non-assassins cannot climb walls, cliffs, or any vertical surface without the use of a rope or magic, making the presence of an assassin vital to many adventuring parties."
-assassin,0,find traps,This ability represents the assassin’s minute visual inspection of a new area for tiny telltale signs that something of interest or danger may be concealed nearby. It requires a full turn (10 minutes) to accomplish.
-assassin,0,hide in shadows,"Some shadow must be present for this ability to be used, but if the check is successful the assassin is effectively invisible until he makes an attack or moves from the shadows. The ability can also be used to blend in with a crowd of people rather than disappear into shadows."
-assassin,0,move silently,Use of this skill allows the assassin to move with preternatural silence even over surfaces such as squeaky floors.
-assassin,9,languages,"Ninth and higher-level assassins with Int 15+ may learn languages that it would be impossible for a non-assassin to learn. An assassin can learn an alignment tongue other than his or her own, druids’ cant, and thieves’ cant as additional languages, but can only learn a maximum of four such special languages, one for each point of intelligence above 14. Only one such language can be learned per level above eighth. Such languages are over and above any limits imposed by the assassin’s race and intelligence."
-assassin,12,read scrolls,"When an assassin reaches 12th level, he or she has received sufficient training to cast spells from an arcane scroll (magic user or illusionist)."
-cleric,0,spellcasting,Clerics may memorise and cast clerical spells in accordance with their level advancement.
-cleric,0,turn undead,"Clerics can “turn” the undead, making them flee from the cleric’s holiness (or, in the case of an evil cleric, bringing them to heel as servants and minions)."
-fighter,7,bonus attacks,"Fighters with melee weapons attack once per round at 1st to 6th levels (1/1 attacks); at 7th to 12th levels, they attack thrice every two rounds (3/2 attacks); and at 13th or higher levels they attack twice per round (2/1 attacks). A partial additional attack (e.g. 3/2 attacks) means that the extra attack is taken on odd-numbered rounds in the combat sequence, hence two attacks on the first round, one on the second, two on the third and one on the fourth, if applicable."
-fighter,0,fighting the unskilled,"When the fighter is attacking creatures with less than a full hit die (i.e. less than 1d8 hit points), the fighter receives one attack for each of his or her levels of experience, e.g. a 4th-level fighter attacking goblins would receive 4 attacks per round."
-fighter,0,NB,A fighter exercising multiple attacks departs from the normal initiative procedure. The fighter will automatically attack first in the round unless fighting an opponent with multiple attacks of its own (in which case initiative should be rolled as normal). The fighter’s second attack in any given melee round will come last in the sequence.
-fighter,0,weapon specialization,"(optional) With the permission of the GM, weapon specialization may be selected during character generation. If weapon specialization is not selected during character generation, it remains forever unavailable to the character, barring some magical or divine intervention. If weapon specialization is in play, fighters may take a second proficiency in the same weapon as the first, granting them one extra attack every 2 rounds with the weapon (hence 3/2 attacks with a melee weapon at 1st level, 2/1 at 7th and 5/2 at 13th), +1 to hit and +2 damage owing to their skill. Specialization costs one proficiency “slot” for melee weapons and crossbows, and two “slots” for missile weapons other than crossbows."
-fighter,0,double specialization,"(optional) For melee weapons that are not polearms or two-handed swords, a third weapon proficiency may be used to specialize further; this increases combat bonuses to +3 to hit and +3 damage with the weapon."
-illusionist,0,spellcasting,"Spellcasting: Illusionists may memorise and cast phantasmal spells in accordance with the tables provided below. A beginning illusionist character will know four spells. Two spells should be chosen by the player from the list of first level spells, and the other two should be determined randomly from the list of first level spells. Illusionist spells are written in phantasmal script, which can ordinarily only be deciphered by an illusionist. Illusionists do not employ (or require) the read magic spell."
-illusionist,7,hire followers,The illusionist may hire followers at 7th level.
-magic_user,0,spellcasting,"Magic users may memorise and cast arcane spells in accordance with the tables provided below. A beginning magic user character will know four spells. One of these will automatically be Read Magic. The second spell should be chosen by the player from the list of first level spells, and the last two should be determined randomly from the list of first level spells."
-magic_user,7,eldritch craft,"Mages of 7th or higher level may create magical potions, scribe arcane scrolls (of spells that he or she already knows) and recharge magical rods, staves and wands. This process should be overseen by the GM, who must take care to ensure that it is not too easy! A long list of ingredients will always be required, some of which should be expensive, and others of which should be a challenge to acquire."
-magic_user,12,eldritch power,"Magic users of 12th level or higher may attempt to create other magical items by means of the enchant an item spell. However, this is even more difficult than creating a potion or scroll, and the various components required should be of a rarity and value appropriate to the magic item under consideration. Even then, success will not be guaranteed."
-paladin,0,improved saving throws,"The paladin uses a more favourable saving throw table than other classes (see table, below)."
-paladin,0,cure disease,"Paladins can cure disease (as the clerical spell) by touch, once per week. Paladins of higher than 5th level may do so twice per week, and those higher than 10th level thrice per week. Paladins themselves are completely immune to disease."
-paladin,0,detect evil,"A paladin may detect evil at any range up to 60 ft at will, provided he or she concentrates on doing so."
-paladin,0,protection from evil,"A paladin radiates an aura within a 10 ft radius, equivalent to the clerical spell protection from evil."
-paladin,0,lay on hands,"Once per day, the paladin may heal 2 hit points/ level to any creature touched (e.g. a third level paladin would heal 6hp with this ability)"
-paladin,3,turn undead,"Paladins of third level and higher gain the ability to turn undead as a good aligned cleric does, but as a cleric of two levels lower than the paladin’s level."
-paladin,4,summon warhorse,"At fourth level, the paladin may summon a special Paladin’s Warhorse, a heavy warhorse with enhanced hit points, intelligence and movement speed. Such a destrier may be called only once every ten years."
-paladin,8,bonus attacks,"Paladins gain additional attacks as fighters do, but less swiftly. A paladin has one attack at 1st to 7th level, 3/2 attacks at 8th to 14th level, and two attacks at 15th level and above. If the optional weapon specialisation rules are permitted by the GM, paladins may specialise as fighters do, save that they receive fewer proficiencies and gain extra attacks more slowly as described above."
-paladin,9,clerical spellcasting,"Paladins gain the ability to cast certain cleric spells at 9th level (see table, below)."
-ranger,0,alert against surprise,"Rangers are less likely to be surprised (only on a 1 on 1d6), and more likely to surprise others (1-3 on 1d6) than other character classes."
-ranger,0,damage bonus vs humanoids,"Rangers receive a bonus of +1 damage per ranger level against evil humanoid or giantish opponents (including such creatures as orcs, goblins, and giants, for example). Thus, a 3rd level ranger would receive +3 damage per hit against these creatures. This damage bonus applies only in hand-to-hand “melee” combat."
-ranger,0,tracking,"Rangers may track other creatures, with a base 90% chance of success in rural settings (modified by the GM according to such factors as the age of the trail, the prevailing terrain and current weather conditions) and a base 65% chance in urban or dungeon settings (again, modified by the GM to take account of local conditions)."
-ranger,8,bonus attacks,"Rangers gain additional attacks as fighters do, but less swiftly. A ranger has one attack at 1st to 7th level, 3/2 attacks at 8th to 14th level, and two attacks at 15th and above. If the optional weapon specialisation rules are permitted by the GM, rangers may specialise as fighters do, save that they receive fewer proficiencies and gain extra attacks more slowly as described above."
-ranger,8,spellcasting,"At eighth level, rangers receive limited spell powers, drawn from the Druid and Magic user spell lists according to the table given hereafter."
-ranger,10,band of followers,"Rangers of 10th level or higher receive a special body of followers. The GM will determine the exact nature of a ranger’s special followers, but the group may include unusual and magical creatures; centaurs and werebears, for example, would be possible followers."
-ranger,10,scrying device use,Rangers of 10th level or higher may use crystal balls and other such devices that permit magical scrying.
-thief,0,backstab,"If the thief can approach his or her target unobserved and strike with a melee weapon, the attack is made at +4 to hit. Damage from a backstab is doubled—or trebled if the thief is of 5th level or higher. Thieves of 9th level or higher do quadruple damage, while those of 13th or greater level quintuple the number shown on the die. Damage modifiers (such as those pertaining to strength or magic) are not multiplied from a backstab."
-thief,0,climb,"Climbing represents a thief’s ability to scale sheer walls and surfaces, cling to ceilings, and perform other feats of climbing that would normally be impossible. Climbing checks must ordinarily be repeated for every ten ft of climbing. Non-thieves cannot climb walls, cliffs, or any vertical surface without the use of a rope or magic, making the presence of a thief vital to many adventuring parties."
-thief,0,find traps,This ability represents the thief’s minute visual inspection of a new area for tiny telltale signs that something of interest or danger may be concealed nearby. It requires a full turn (10 minutes) to accomplish.
-thief,0,hide in shadows,"Some shadow must be present for this ability to be used, but if the check is successful the thief is effectively invisible until he makes an attack or moves from the shadows. The ability can also be used to blend in with a crowd of people rather than disappear into shadows."
-thief,0,move silently,Use of this skill allows the thief to move with preternatural silence even over surfaces such as squeaky floors.
-thief,0,open locks-disarm traps,"Open Locks/ Disarm Traps: Opening locks and disarming traps (without springing them) is a skill unique to thieves, which cannot be successfully attempted by members of other classes. A thief can also set traps (with the same chance as to disarm)."
-thief,0,pick pockets,"If the thief’s pick pockets check fails by 20% or more, then his or her attempt has been discovered and the intended victim will almost always take hostile action."
-thief,0,read languages,The thief may attempt to read languages and ciphers of a non-magical nature only.
-thief,0,thieve's cant,Thieves’ Cant: Thieves have their own language.
-thief,10,read scrolls,"When a thief reaches 10th level, he or she has become well-versed enough in training to cast spells from an arcane or phantasmal scroll (magic user or illusionist). However, this casting is not always successful. The thief should roll against his or her intelligence as a magic user or illusionist does, and if the score shown on the die is insufficient for the thief to cast the spell, then the casting will fail, possibly (at the GM’s option) having some entirely unexpected effect."
+name,weight,cost
+"ale, pint",1,0.1
+backpack,10,2
+barrel,30,2
+bedroll,5,0.2
+bell,0,1
+belt,0,0.5
+"blanket, woollen",2,0.05
+block and tackle,5,5
+"boots, soft",3,1
+"boots, heavy",5,2
+"bottle (wine), glass",1,2
+box,15,1
+"bracer, leather (archery)",1,0.8
+caltrops,2,1
+"candle, beeswax",0,0.01
+canvas (per sq. yard),1,0.1
+cauldron and tripod,15,2
+chain (per 10 ft),10,30
+"chalk, piece",0,0.01
+chest,25,2
+cloak,2,0.03
+copper piece,0.1,0.01
+crowbar,5,2
+"dice, bone, pair",0,0.5
+"dice, loaded, pair",0,5
+"doublet, linen",1,3
+electrum piece,0.1,0.5
+firewood (per day),20,0.01
+fish hook,0,0.1
+fishing net (per 25 sq. ft),0,0.1
+flask (leather),0,0.03
+flint and steel,0,1
+"gloves, kidskin, pair",0.5,3
+gold piece,0.1,1
+"gown, woollen",1,0.05
+"gown, linen",1,3
+"gown, silk",1,50
+grappling hook,4,1
+Hammer (tool),2,5
+Holy symbol (silver),1,25
+Holy symbol (pewter),1,5
+Holy symbol (wooden),1,0.6
+"Horse, cart",0,15
+"Horse, nag",0,8
+"horse, palfrey",0,40
+"horse, rouncey",0,25
+"warhorse, heavy",0,500
+"warhorse, light",0,200
+"warhorse, medium",0,350
+hose,0,1
+"iron spikes, dozen",0,1
+ladder (per 10 ft),20,0.5
+lamp (bronze),1,0.1
+"lantern, bullseye",3,12
+"lantern, hooded",2,7
+lock,1,20
+manacles,2,15
+mirror (small steel),0.5,20
+mirror (small silver),0.5,45
+mule,0,18
+musical instrument,1,5
+needle and thread,0,0.03
+"oil (lamp, per pint)",1,0.1
+ox,0,15
+parchment (per sheet),0,0.2
+pin (cloak),0,0.4
+piton,0.5,0.1
+platinum piece,0.1,5
+pole (per 10 ft),8,0.2
+pony,0,12
+"pot, iron",10,0.5
+"pouch, belt, large",2,0.4
+"pouch, belt, small",1,0.2
+quill (pen),0,0.1
+quiver (holds 12 arrows),1,0.25
+quiver (holds 24 arrows),2,1
+quiver (holds 12 bolts),1,0.12
+quiver (holds 24 bolts),2,3
+"rations (standard, per day)",2,2
+"rations (trail, per day)",1,6
+"reins, bit and bridle",5,2
+"robe, linen",1,3
+"robe, silk",1,60
+"rope, hemp (per 50 ft)",10,1
+"rope, silk (per 50 ft)",5,10
+"sack, small",0.5,0.09
+"sack, large",1,0.15
+saddle and stirrups,20,10
+satchel,5,1
+"scrollcase, bone",0.5,4
+"scrollcase, leather",0.5,1
+"shoes, common",1,0.5
+"shoes, noble",1,30
+shovel,8,2
+signal whistle,0,0.8
+silver piece,0.1,0.1
+skillet,5,1
+soap (per lb),1,0.5
+spellbook (blank),5,25
+tent,20,10
+thieves' tools,1,30
+torch,1,0.01
+"tunic, woollen",1,0.05
+"tunic, banqueting",1,10
+"twine, linen (per 100ft)",0.5,0.08
+vellum (per sheet),0,0.3
+"wagon, small",0,100
+"wagon, large",0,250
+"water, holy (per vial)",0.5,25
+waterskin (3 pint),1,1
+whetstone,0.5,0.02
+"wine, pint",1,0.5

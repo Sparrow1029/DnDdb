@@ -1,0 +1,36 @@
+.wrapped {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.wrappedrow {
+  height: 20vh;
+  display: flex;
+  flex-flow: column wrap;
+
+}
+.table {
+  height: 100%;
+}
+
+.table:hover {
+  cursor: pointer;
+}
+
+.asterisk {
+  font-weight: bold;
+  color: red;
+}
+
+.statfield {
+  text-align: center;
+}
+
+.center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}

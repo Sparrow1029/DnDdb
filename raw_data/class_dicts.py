@@ -7,7 +7,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 6,
         "min_cha": 0,
         "hit_die": "d6",
-        "alignment": ["le", "ne", "ce"],
+        "alignment": ["lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["leather", "studded"],
         "shield": ["any"],
         "weapons_permitted": ["any"],
@@ -22,7 +22,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 9,
         "min_cha": 6,
         "hit_die": "d8",
-        "alignment": ["lg", "ng", "cg", "ln", "nn", "cn", "le", "ne", "ce"],
+        "alignment": ["lawful_good", "neutral_good", "chaotic_good", "lawful_neutral", "neutral_neutral", "chaotic_neutral", "lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["any"],
         "shield": ["any"],
         "weapons_permitted": ["club", "flail", "hammer", "mace", "oil", "staff"],
@@ -37,7 +37,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 12,
         "min_cha": 15,
         "hit_die": "d8",
-        "alignment": ["ln", "nn", "cn"],
+        "alignment": ["lawful_neutral", "neutral_neutral", "chaotic_neutral"],
         "armor": ["leather"],
         "shield": ["wooden"],
         "weapons_permitted": [
@@ -62,7 +62,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 6,
         "min_cha": 6,
         "hit_die": "d10",
-        "alignment": ["lg", "ng", "cg", "ln", "nn", "cn", "le", "ne", "ce"],
+        "alignment": ["lawful_good", "neutral_good", "chaotic_good", "lawful_neutral", "neutral_neutral", "chaotic_neutral", "lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["any"],
         "shield": ["any"],
         "weapons_permitted": ["any"],
@@ -77,7 +77,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 6,
         "min_cha": 6,
         "hit_die": "d4",
-        "alignment": ["lg", "ng", "cg", "ln", "nn", "cn", "le", "ne", "ce"],
+        "alignment": ["lawful_good", "neutral_good", "chaotic_good", "lawful_neutral", "neutral_neutral", "chaotic_neutral", "lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["none"],
         "shield": ["none"],
         "weapons_permitted": ["dagger", "dart", "oil", "staff"],
@@ -92,7 +92,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 6,
         "min_cha": 6,
         "hit_die": "d4",
-        "alignment": ["lg", "ng", "cg", "ln", "nn", "cn", "le", "ne", "ce"],
+        "alignment": ["lawful_good", "neutral_good", "chaotic_good", "lawful_neutral", "neutral_neutral", "chaotic_neutral", "lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["none"],
         "shield": ["none"],
         "weapons_permitted": ["dagger", "dart", "oil", "staff"],
@@ -107,7 +107,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 13,
         "min_cha": 17,
         "hit_die": "d10",
-        "alignment": ["lg"],
+        "alignment": ["lawful_good"],
         "armor": ["any"],
         "shield": ["any"],
         "weapons_permitted": ["any"],
@@ -122,7 +122,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 0,
         "min_cha": 6,
         "hit_die": "d6",
-        "alignment": ["ln", "nn", "cn", "le", "ne", "ce"],
+        "alignment": ["lawful_neutral", "neutral_neutral", "chaotic_neutral", "lawful_evil", "neutral_evil", "chaotic_evil"],
         "armor": ["leather", "studded"],
         "shield": ["none"],
         "weapons_permitted": [
@@ -144,7 +144,7 @@ RESTRICTIONS_DICT = {
         "min_wis": 14,
         "min_cha": 6,
         "hit_die": "d8",
-        "alignment": ["lg", "ng", "cg"],
+        "alignment": ["lawful_good", "neutral_good", "chaotic_good"],
         "armor": ["any"],
         "shield": ["any"],
         "weapons_permitted": ["any"],
@@ -5332,4 +5332,168 @@ TO_HIT_DICT = {
             "10": -9,
         },
     },
+}
+
+SUMMARIES = {
+    "assassin": """\
+Assassins are stealthy killers, trained by their shadowy guilds \
+in the arts of spying, disguise, poison, and murder. Although \
+assassins of lower level are little more than well-trained thugs, \
+the eminences of this reprehensible profession are so feared \
+as to be spoken of only in whispers.\n High-level assassins are \
+artists of murder, and their experience with hunting highly- \
+placed targets, coupled with extensive education and training, \
+often gives the sinister nobility of this class a silken, refined \
+veneer over their true, murderous natures. This veneer, like \
+many things pertaining to the assassins, is deceptive; survival \
+in the higher echelons of an assassins’ guild requires animal \
+cunning and a complete absence of mercy. Assassin characters \
+must begin with an evil alignment.""",
+    "cleric": """\
+Clerics are moral and spiritual leaders, warriors of faith who \
+preach the will of the gods, interpret omens and portents, and \
+strike down the evil or unfaithful. Most clerics have a patron \
+deity, but some are champions of a particular moral alignment, \
+venerating all deities of that alignment in addition to a patron \
+deity, and yet others are the servants of a particular pantheon \
+of deities. In a world of swords and sorcery, force of arms often \
+speaks louder than moral suasion, and clerics are trained to do \
+battle against the enemies of their gods.\n Some clerics are fanatics, \
+zealously seeking new converts or hunting heretics. Others \
+seem almost burdened by an inconvenient or even oppressive \
+relationship with the divine forces. Evil clerics—sinister villains \
+who prey upon fear and jealousy—sow discord in the world \
+and gather converts for their demonic masters.""",
+    "druid": """\
+Druids worship the spiritual power of nature, maintain and \
+protect holy places, perform festivals and ritual observances, \
+and protect balance and harmony between civilisation and \
+nature. Their magic is rooted in the mystical oneness of nature, \
+and they have particular power over fire, stone, and weather, \
+as well as over plant- and animal life.\n
+Some druids pay homage to particular nature gods (some of \
+these quite savage), while others eschew all deities and commune \
+directly with the spiritual power of nature.""",
+    "fighter": """\
+When the clash of steel rings out in dark forests or dimly lit \
+dungeons beneath the earth, it is the fighter who bears the \
+brunt of the combat. Fighters are trained in the use of weapons \
+and armour, usually beginning their adventuring careers after \
+a stint of training as a town guardsman, soldier, man at arms, \
+bandit, pirate, or mercenary.\n
+Fighters are the backbone of an adventuring party; without \
+them to hold the line, the other members of the party will be \
+overrun before they can bring their own skills to bear. Fighters \
+are the most powerful characters in melee or missile combat, \
+whether on offence or defence. Together with the ranger \
+and paladin, they have the most hit points, and their ability to \
+survive the most brutal battles is therefore unrivalled.
+They also have the best chance “to hit” of all the classes, particularly \
+at higher level. They may use any kind of armour, shield, \
+or weapon. Most fighters look forward to the day when their \
+reputations will bring them into the ranks of the lesser nobility, \
+where fighting prowess and armed followers are more \
+important than high-flown bloodlines. It is no small matter to \
+carve a freehold out of the wilderness, but to do so is to leave \
+behind a legacy in a world where most fortune-seekers die \
+an unsung death.""",
+    "illusionist": """\
+Illusionists are practitioners of phantasmal magic, a type of \
+spell casting that influences the minds and senses of other beings \
+and at higher levels becomes intertwined with the shadow-realities \
+beyond the Prime Material Plane. They are often \
+classed with magic users, since phantasmal magic operates in \
+the same manner as arcane spells—indeed, some sages state \
+that it represents a different means of tapping into the same \
+source. Illusionists are dependent upon their spell books, and \
+can only normally cast spells they have learned from these \
+books (exception: spells may be cast from illusionist scrolls). \
+Acquisition of new spells is difficult and demanding, and must \
+normally be accomplished through adventuring, although illusionists \
+will automatically receive one new spell of the highest spell \
+level that he or she may cast upon completing training after \
+acquiring a new level of experience. They are limited by their \
+intelligence in what spells they can learn according to the \
+same table as provided under magic users.\n
+At 10th level, an illusionist may establish a stronghold, usually \
+a tower or small keep, as a fighter does.""",
+    "magic_user": """\
+Magic users are a rare breed—practitioners of the mysterious \
+art of arcane spell casting. A lengthy apprenticeship of \
+study and practice allows these somewhat eerie individuals to \
+store arcane energy within their minds and to release it in the \
+form of spells. Magic users cast spells by speaking a few magic \
+words, weaving complex gestures in the air, and employing \
+rare and magical materials. While magic users (with illusionists) \
+are the weakest character class in combat, this weakness is \
+balanced by possessing the most powerful and versatile spells \
+in the game.\n
+The full underlying principles of magic are beyond mortal comprehension; \
+even wizards of the profoundest intellect struggle from momentary \
+inklings to understand its more complex patterns.\n
+Nevertheless, those character who possess formidable intelligence \
+and a certain intuitive gift, who are willing to devote \
+themselves to a lifetime of study, may in time sufficiently \
+master the art to be capable of shifting mountains and shattering \
+entire armies. High-level magic users are the most feared \
+and dangerous characters in the game.""",
+    "paladin": """\
+A paladin is a paragon of righteousness sworn to be, and always \
+to remain, Lawful Good. If this vow is ever breached, the \
+paladin must atone and perform penance to be decided by a \
+powerful NPC cleric of the same alignment—unless the breach \
+was intentional, in which case the paladin instantly loses his or \
+her enhanced status as a paladin and may never regain it. Such \
+a “fallen paladin” is in all respects a fighter, with no special \
+powers, for the remainder of his or her career.""",
+    "ranger": """\
+Rangers are a special variation of the fighter class. They are \
+modelled on such characters of fiction as Aragorn and Robin \
+Hood and are particularly expert in wilderness situations. \
+Rangers are defenders of the poor and serve to protect civilization \
+from the evil forces that lurk beyond civilised lands. \
+Rangers must abide by certain limitations, in the same fashion \
+as paladins:\n
+First, the ranger must always remain of good alignment (lawful, \
+neutral or chaotic). Any deliberate change in the ranger’s alignment \
+away from good will result in the character becoming a \
+mere fighter, with 8-sided hit dice, never able to regain ranger-\
+hood. An unintentional change will transform the character \
+into a fighter as above, but in this case, with sufficient questing \
+and atonement, the ranger may be permitted to recover his or \
+her status. The GM will determine the precise details of this \
+process according to the situation.\n
+Second, rangers may not employ mercenaries or servants until \
+they reach 8th level or higher. Even once permitted, a ranger \
+may not employ any mercenary or servant who he or she suspects \
+(or ought to suspect) is not of good alignment.
+Third, a maximum of three rangers may travel or operate together \
+at any one time.\n
+Fourth, rangers travel light and may not keep any more treasure \
+than they can lift (including any amount the ranger can carry \
+on his or her steed, if any).""",
+    "thief": """\
+Thieves sneak furtively in the shadowed alleyways of cities, \
+living by their wits. They are often members of the criminal \
+underclass, usually trained by a thieves’ guild in the arts of \
+burglary and stealth. It is not uncommon for a thief to seek out \
+the great rewards that can be gained from the adventuring life, \
+especially when circumstances require lying low for a while.
+Most thieves come from the teeming masses of a large city, \
+wherein a thieves’ guild is often the only source of justice and \
+exercises as much power as the city’s legitimate government. \
+Of course, not all thieves are members of a guild. Some are \
+freelancers, evading both the authorities and the guild, living \
+on the edge of the knife. Some are even found working \
+on the side of the law; agents or spies who use their skills \
+in more accepted (though equally shadowy) pursuits. A thief \
+character must be of any neutral or evil alignment. Neutral \
+good thieves are permitted because of the neutral component \
+of their alignment.\n
+Sensible adventuring parties will almost always include a thief, \
+for the skills of such a character are invaluable in reaching inaccessible \
+places via climb walls, pick locks, and so on. In addition, \
+dungeons frequently contain traps which must be located \
+and disarmed, and the thief’s cunning and stealth conspire to \
+make him or her very useful in a scouting role."""
 }
