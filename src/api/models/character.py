@@ -1,5 +1,6 @@
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Union
 from enum import Enum
+from .items import Item, Armor, Weapon
 # from bson.objectid import ObjectId
 
 from pydantic import BaseModel, Field, conint, validator
@@ -98,6 +99,31 @@ class ThiefSkills(BaseModel):
     pick_pockets: float
     read_languages: float
 
+class EquippedWeapons(BaseModel):
+    main_hand: Optional[Weapon]
+    off_hand: Optional[Weapon]
+    ranged: Optional[Weapon]
+    other: Optional[List[Weapon]]
+
+class EquippedArmor(BaseModel):
+    armor: Optional[Armor]
+    shield: Optional[Armor]
+    gloves_rings: Optional[List[Item]]
+    boots_footwear: Optional[Item]
+    bracers: Optional[Armor]
+    capes_cloaks: Optional[List[Item]]
+    other: Optional[List[Union[Item, Armor]]]
+
+class Equipment(BaseModel):
+    weapons: Optional[List[Weapon]]
+    armor: Optional[List[Armor]]
+    items: Optional[List[Item]]
+
+class Inventory(BaseModel):
+    equipment: Optional[Equipment]
+    equipped_armor: Optional[EquippedArmor]
+    equipped_weapons: Optional[EquippedWeapons]
+
 class CharacterSchema(BaseModel):
     name: str
     gender: Gender
@@ -113,6 +139,7 @@ class CharacterSchema(BaseModel):
     max_addl_langs: Optional[int]
     racial_abilities: Optional[dict]
     thief_skills: Optional[ThiefSkills]
+    inventory: Optional[Inventory]
     max_hp: Optional[int]
     cur_hp: Optional[int]
     exp: int = 0
