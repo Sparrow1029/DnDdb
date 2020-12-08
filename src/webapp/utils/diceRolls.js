@@ -6,8 +6,18 @@ export function getRandInt(min, max) {
 }
 
 export function range(start, end) {
-    if(start === end) return [start];
-    return [start, ...range(start + 1, end)];
+  let arr = [];
+  if (start === end) return [start];
+  if (end === undefined) {
+  for (let i=0; i<start; i++) {
+    arr.push(i);
+    }
+  } else {
+    for (let i=start; i<end; i++) {
+      arr.push(i);
+    }
+  }
+  return arr;
 }
 
 // DnDdb-specific functions
@@ -58,6 +68,15 @@ export const rollStartingGold = (className) => {
 export const rollStartingAge = (age, hitDie) => {
   let [numDice, value] = hitDie.split('d').map(n => Number(n))
   return age + rollMultiple(value, numDice)
+}
+
+export const rollHeight = (ft, inches) => {
+  let newInches = Number( inches ) + getRandInt(1, 4) // 1d4 for all but gnome... too lazy to care
+  let feet = Number(ft)
+  if (newInches >= 12) {
+    return { feet: feet+1, inches: 0 }
+  }
+  return { feet: ft, inches: newInches }
 }
 
 export const getSize = (sizeObj, gender, roll=null) => {

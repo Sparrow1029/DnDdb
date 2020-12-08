@@ -10,12 +10,12 @@ export const getStartingHP = (className, hitDie) => {
   return startHP
 }
 
-export const getListFromKeys = (obj, keyArr) => {
+export const getListFromKeys = (obj, keyArr, props) => {
   let list = []
   for (let k of keyArr) {
     list.push(
       <List.Item key={uuid()}>
-        <Icon name='triangle right' />
+        {(props && props.icon) && <Icon name={props.icon} />}
         <List.Content>
           <List.Header>{k.replace(/_/g, ' ').toTitleCase()}</List.Header>
           <List.Description>{obj[k]}</List.Description>
@@ -23,9 +23,19 @@ export const getListFromKeys = (obj, keyArr) => {
       </List.Item>
     )
   }
-  return <List key={uuid()}>{list}</List>
+  return <List key={uuid()} {...props}>{list}</List>
+}
+
+export const formatRaceName = (raceStr) => {
+  return raceStr.split('_').map(word => {
+    return word.toTitleCase()
+  }).join('-')
 }
 
 export const getPurse = (gold) => {
   return gold
+}
+
+export const disableEnterKey = (e) => {
+  e.key === 'Enter' && e.preventDefault()
 }

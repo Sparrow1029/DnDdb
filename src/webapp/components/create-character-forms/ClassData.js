@@ -18,6 +18,10 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
 
   useEffect(() => {
     if (classObj) {
+      let { alignment: alignmts, hit_die } = classes[classObj.name].restrictions
+      setForm({ target: { name: 'class_', value: classObj.name } })
+      setAlignment({ target: { id: alignmts[0] } })
+      setForm({ target: { name: 'max_hp', value: getStartingHP(classObj.name, hit_die) }})
       setLoading(false)
     } else {
       console.log(classObj)
@@ -31,12 +35,6 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
   }
 
   const handleTabClick = (_, { name }) => {
-    let { alignment: alignmts, hit_die } = classes[name].restrictions
-    // set form data first
-    setForm({ target: { name: 'class_', value: name } })
-    setAlignment({ target: { id: alignmts[0] } })
-    setForm({ target: { name: 'max_hp', value: getStartingHP(name, hit_die) }})
-    // then set global classObj state
     setClassObj(classes[name])
   }
 

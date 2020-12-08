@@ -25,6 +25,12 @@ strength_table = {
 }
 
 dex_table = {
+    3:  [-3, -3, 4],
+    4:  [-2, -2, 3],
+    5:  [-1, -1, 2],
+    6:  [0, 0, 1],
+    7:  [0, 0, 0],
+    8:  [0, 0, 0],
     9:  [0, 0, 0],
     10: [0, 0, 0],
     11: [0, 0, 0],
@@ -116,6 +122,7 @@ class BaseMods():
     def apply(cls, char: dict):
         mods_dict = dict()
         class_ = char["class"]
+        race = char["race"]
         stats = char["base_stats"]
         mods_dict["str_mods"] = cls.get_str_mods(stats["str"])._asdict()
         mods_dict["dex_mods"] = cls.get_dex_mods(stats["dex"])._asdict()
@@ -123,6 +130,7 @@ class BaseMods():
         mods_dict["cha_mods"] = cls.get_cha_mods(stats["cha"], )._asdict()
         mods_dict["wis_mods"] = {"mental_save": cls.get_mental_save(stats["wis"])}
         char["base_mods"] = mods_dict
+        char["max_addl_langs"] = cls.get_max_addl_langs(stats["int"], race)
 
     @staticmethod
     def get_str_mods(score):
@@ -147,8 +155,9 @@ class BaseMods():
         return ConMods(*const_table[score])
 
     @staticmethod
-    def get_max_addl_langs(score):
-        return intel_table[score]
+    def get_max_addl_langs(score, char_race):
+        if char_race in ["elf", "human"]:
+            return intel_table[score]
 
     @staticmethod
     def get_mental_save(score):
@@ -257,6 +266,7 @@ class RaceMods():
         char["languages"] = [
             "common", "elven", "gnoll", "gnomish", "goblin", "halfling", "hobgoblin", "orcish"
         ]
+        char["max_addl_langs"] = 2
 
     @staticmethod
     def halfling(char):
@@ -276,6 +286,7 @@ class RaceMods():
             " and/or halflings. If a door must be opened (or some similar task), the chance of"
             " surprise drops to 2 in 6."
         }
+        char["max_addl_langs"] = 2
 
     @staticmethod
     def half_orc(char):
@@ -292,12 +303,12 @@ class RaceMods():
 
     @staticmethod
     def human(char):
-        pass
+        char["languages"] = ["common"]
 
 
 def apply_class_mods(char_data, class_obj):
     cls_name = class_obj["name"]
-    race = char_data["race"].replace("-", "_")
+    race = char_data["race"].lower().replace("-", "_")
     lvl_adv = class_obj["level_advancement"][0]
     char_data.update({
         "saving_throws": class_obj["saving_throws"]["1"],
@@ -310,7 +321,11 @@ def apply_class_mods(char_data, class_obj):
     if cls_name in ["ranger", "paladin"]:
         char_data["spellcasting_level"] = 0
 
+    if cls_name == "druid":
+        char_data["languages"].append("druids' cant")
+
     if cls_name == "thief":
+        char_data["languages"].append("thieves' cant")
         base_skills = class_obj["thief_skills"]["base_skill_chance"]["1"]
         dex_score = char_data["base_stats"]["dex"]
         race_adj = class_obj["thief_skills"]["race_skill_adj"][race]

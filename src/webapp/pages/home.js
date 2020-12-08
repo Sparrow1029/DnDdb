@@ -3,7 +3,7 @@ import { UserContext } from '../contexts/user'
 
 import { request, logout } from '../utils/requests'
 import Cookies from 'js-cookie'
-import { Container, Grid, Header, Item, Icon, Message, Button, Loader } from 'semantic-ui-react'
+import { Container, Grid, Header, Item, Icon, Message, Button, Loader, } from 'semantic-ui-react'
 import CharacterCard from '../components/CharacterCard'
 import NavSidebar from '../components/sidenav'
 import {useRouter} from 'next/router'
@@ -18,12 +18,12 @@ const UserHomePage = () => {
   useEffect(() => {
     if (!Cookies.get('access_token') || !Cookies.get('dnd_user_id')) {
       router.push('/')
-    } else if (!userData) {
+    } else {// if (!userData) {
       request.get(`/users/${Cookies.get('dnd_user_id')}`)
       .then(res => {
         setUserData(res.data)
+        setLoading(false)
       })
-      .then(setLoading(false))
     }
   }, [])
 
@@ -36,6 +36,9 @@ const UserHomePage = () => {
       charArray.push(
         <CharacterCard character={char} key={char.id}/>
       )
+    }
+    if (charArray.length === 0){
+      return <></>
     }
     return charArray;
   }
@@ -53,13 +56,13 @@ const UserHomePage = () => {
             Returning to log in screen
             </Message.Content>
           </Message>*/}
-          <Loader inverted content='Loading...' />
+          <Loader inverted active={loading} content='Loading...' />
           </div>
         : <Grid>
           <Grid.Row centered>
             <Grid.Column width={12}>
               <Header as='h1' style={{padding: '25px', textAlign: 'center'}}>Welcome {userData.username}</Header>
-              {userData.characters.length &&
+              {(userData.characters.length !== 0) &&
                 <Item.Group divided>
                   {getCharArray(userData.characters)}
                 </Item.Group>

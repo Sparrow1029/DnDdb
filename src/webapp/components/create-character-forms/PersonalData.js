@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-import { rollMultiple, rollStat, rollStartingGold, rollStartingAge, getSize } from '../../utils/diceRolls'
+import { rollMultiple, rollStat, rollStartingGold, rollStartingAge, getSize, rollHeight } from '../../utils/diceRolls'
+import { disableEnterKey } from '../../utils/formatting'
 
 import { Form, Input, Icon, Segment, Header, Button, Grid, Container} from 'semantic-ui-react'
 import styles from '../../styles/Responsive.module.css'
@@ -13,17 +14,32 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
   const { name, gender, race } = formData
   const { next, previous } = navigation // TODO: get the current class as a prop/context object instead of this thing
   const { classObj, raceObj } = props
+  const [ sizeDesc, setSizeDesc ] = useState("Normal")
 
   useEffect(() => {
-    // console.log(formData)
-    console.log("rerendering personal page")
-  }, [formData, raceObj])
+    // console.log("rerendering personal page")
+    rollSizeForMe()
+  }, [raceObj])
+
+  /* Debug function */
+  // const showMe = () => { console.dir(formData) }
 
   const updateGender = (_, data) => {
     // react-hooks-helper `useForm()` only deconstructs the `target` property from an
     // event. For Dropdowns/selections/etc, the event AND data objects are sent to the callback function.
     let updateData = { target: { name: data.name, value: data.value } }
     setForm(updateData)
+    let sizes = raceObj.sizes[data.value]
+    let normalKey = Object.keys(sizes)[2]
+    let roll = Number(normalKey.split('-'))[0] + 1
+    let { ft, in: in_, weight, size } = getSize(raceObj.sizes, data.value, roll)
+    // roll height with 1d4
+    let { feet, inches } = rollHeight(ft, in_)
+    setForm({ target: { name: 'height.ft', value: feet }})
+    setForm({ target: { name: 'height.in', value: inches } })
+    let calcWeight = Number(rollMultiple(20, 1, Number(weight)))
+    setForm({target: { name: 'weight', value: calcWeight }})
+    setSizeDesc(size)
   }
 
   const rollStatsForMe = () => {
@@ -43,15 +59,13 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
   }
 
   const rollSizeForMe = () => {
-    let { ft, in: in_, weight } = getSize(raceObj.sizes, formData.gender)
-    setForm({ target: { name: 'height.ft', value: ft }})
-    setForm({ target: { name: 'height.in', value: in_ } })
+    let { ft, in: in_, weight, size } = getSize(raceObj.sizes, formData.gender)
+    let { feet, inches } = rollHeight(ft, in_)
+    setForm({ target: { name: 'height.ft', value: feet }})
+    setForm({ target: { name: 'height.in', value: inches } })
     let calcWeight = Number(rollMultiple(20, 1, Number(weight)))
     setForm({target: { name: 'weight', value: calcWeight }})
-  }
-
-  const noEnter = (e) => {
-    e.key === 'Enter' && e.preventDefault()
+    setSizeDesc(size)
   }
 
   const setFormInt = (event) => {
@@ -75,7 +89,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
             Use the 'Roll' button or roll your own dice! DM's discretion
           </Header.Subheader>
         </Header>
-        <Form onKeyPress={noEnter}>
+        <Form onKeyPress={disableEnterKey}>
           <Form.Group widths={2} unstackable>
             <Form.Input
               size='small'
@@ -136,7 +150,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
               &nbsp;Roll
             </Button>
           </Form.Group>
-          <Form.Group onKeyPress={noEnter}>
+          <Form.Group onKeyPress={disableEnterKey}>
             <Form.Input
               label='Name'
               placeholder='Character Name'
@@ -155,7 +169,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
               onChange={updateGender}
             />
           </Form.Group>
-          <Form.Group widths='equal' onKeyPress={noEnter}>
+          <Form.Group widths='equal' onKeyPress={disableEnterKey}>
             <Form.Field onChange={setFormInt}>
               <label>Weight</label>
               <Input fluid
@@ -190,7 +204,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
               />
             </Form.Field>
             <Form.Field>
-              <label>&nbsp;</label>
+              <label style={{color: '#d9dadb'}}>&nbsp;{`"${sizeDesc}"`}</label>
               <Button icon onClick={rollSizeForMe} style={{marginRight: '0'}}>
                 <Icon name='star'/>
                 &nbsp;Roll
@@ -199,7 +213,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
             <Form.Field onChange={setFormInt}>
               <label>Start Age</label>
               <Input fluid
-                width={3}
+                width={8}
                 label={{ basic: true, content: 'years' }}
                 max={1200}
                 labelPosition='right'
@@ -230,15 +244,6 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
                 <Icon name='star'/>
                 &nbsp;Roll
               </Button>
-            </Form.Field>
-            <Form.Field>
-              <label>Armor Class</label>
-              <Input
-                name='ac'
-                size='small'
-                value={formData.ac}
-                onChange={setForm}
-              />
             </Form.Field>
           </Form.Group>
         </Form>

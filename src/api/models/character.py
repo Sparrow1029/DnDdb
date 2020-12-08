@@ -34,6 +34,7 @@ class RaceEnum(str, Enum):
     dwarf = 'dwarf'
     gnome = 'gnome'
     half_elf = 'half_elf'
+    halfling = 'halfling'
     half_orc = 'half_orc'
     human = 'human'
 
@@ -46,7 +47,7 @@ class ClassEnum(str, Enum):
     ranger = 'ranger'
     fighter = 'fighter'
     illusionist = 'illusionist'
-    magic_user = 'magic user'
+    magic_user = 'magic_user'
 
 class StrMods(BaseModel):
     hit_bonus: Optional[int]
@@ -61,7 +62,7 @@ class DexMods(BaseModel):
     ac: Optional[int]
 
 class ConMods(BaseModel):
-    hit_per_die: Optional[int]
+    hp_bonus_per_die: Optional[int]
     survive_dead: Optional[int]
     survive_sys_shock: Optional[int]
 
@@ -70,19 +71,22 @@ class ChaMods(BaseModel):
     loyalty_bonus: Optional[int]
     reaction_bonus: Optional[int]
 
-class SavingThrows(BaseModel):
+class WisMods(BaseModel):
     mental_save: Optional[int]
+
+class SavingThrows(BaseModel):
     aimed_magic_items: Optional[int]
     breath_weapons: Optional[int]
-    poison: Optional[int]
-    petrifaction: Optional[int]
-    spells: Optional[int]
+    death_paralysis_poison: Optional[int]
+    petrifaction_polymorph: Optional[int]
+    unlisted_spells: Optional[int]
 
 class BaseMods(BaseModel):
     str_mods: Optional[StrMods]
     dex_mods: Optional[DexMods]
     con_mods: Optional[ConMods]
     cha_mods: Optional[ChaMods]
+    wis_mods: Optional[WisMods]
 
 class ThiefSkills(BaseModel):
     climb_walls: float
@@ -112,13 +116,14 @@ class CharacterSchema(BaseModel):
     max_hp: Optional[int]
     cur_hp: Optional[int]
     exp: int = 0
-    ac: int
+    exp_next_lvl: Optional[int]
+    ac: Optional[int]
     height: Optional[Dict[str, int]]
     weight: Optional[int]
     age: Optional[int]
     alive: bool = True
     created_at: datetime = Field(default_factory=datetime.now)
-    owner: str
+    owner: Optional[str]
 
     class Config:
         fields = {

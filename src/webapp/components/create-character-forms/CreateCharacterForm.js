@@ -4,16 +4,19 @@ import { useForm, useStep } from 'react-hooks-helper'
 import RaceData from './RaceData'
 import ClassData from './ClassData'
 import PersonalData from './PersonalData'
+import ReviewCharacter from './ReviewCharacter'
+import SubmitCharacter from './SubmitCharacter'
 
 const steps = [
   { id: "race" },
   { id: "class_" },
   { id: "personal" },
-  { id: "stats" },
+  { id: "review" },
+  { id: "submit" },
 ]
 
 const defaultData = {
-  name: 'Anonymous',
+  name: 'Anonymous Adventurer',
   gender: 'male',
   race: 'dwarf',
   class_: 'assassin',
@@ -25,8 +28,8 @@ const defaultData = {
   weight: 0,
   age: 0,
   gold: 0,
-  max_hp: 6,
-  ac: 0,
+  max_hp: 0,
+  ac: 10,
 }
 
 const CreateCharacterForm = ({ clss, rcs }) => {
@@ -55,8 +58,10 @@ const CreateCharacterForm = ({ clss, rcs }) => {
       return <ClassData {...props} />
     case 'personal':
       return <PersonalData {...props} />
-    // case 'stats':
-    //   return <Stats {...props} />
+    case 'review':
+      return <ReviewCharacter {...props} />
+    case 'submit':
+      return <SubmitCharacter {...props} />
     default:
       return null
   }

@@ -37,6 +37,7 @@ def create_character(char_data: dict) -> dict:
 
     class_obj = class_collection.find_one({"name": char_data["class"]})
     apply_class_mods(char_data, class_obj)
+    char_data["exp_next_lvl"] = class_obj["level_advancement"][1]["exp"]
 
     char_data["cur_stats"] = char_data["base_stats"]
     char_data["max_hp"] += char_data["base_mods"]["con_mods"]["hp_bonus_per_die"]

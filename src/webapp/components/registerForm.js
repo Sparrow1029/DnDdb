@@ -24,6 +24,7 @@ const RegisterForm = () => {
     .then(resp => {
       setLoading(false)
       setSuccess(resp.data.msg + '!')
+
     })
     .catch(err => {
       setLoading(false)

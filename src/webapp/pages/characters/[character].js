@@ -3,6 +3,7 @@ import { CharacterContext } from '../../contexts/character'
 import { useRouter } from 'next/router'
 import { request } from '../../utils/requests'
 
+import CharacterSheet from '../../components/CharacterSheet'
 import styles from '../../styles/Global.module.css';
 import {
   Container, Header, Icon, Grid, Segment, Loader
@@ -16,7 +17,7 @@ export default function CharacterPage () {
 
   useEffect(() => {
     if ([null, undefined].includes(char)) {
-      console.log(router.query)
+      // console.log(router.query)
       request.get(`/characters/${router.query.character}`)
       .then(resp => {
         setChar(resp.data)
@@ -27,20 +28,10 @@ export default function CharacterPage () {
   }, [])
 
   return (
-      <Container style={{padding: '100px'}}>
+      <Container style={{padding: '50px 0px'}}>
         {(!char && loading)
-        ? <Loader inverted content='Loading...' />
-        : <>
-        <Header as='h1' icon='database' textAlign='center' content='Character Page' />
-        <Grid columns={2} stackable>
-          <Grid.Column>
-            <Segment>{char.class.toTitleCase()}</Segment>
-          </Grid.Column>
-          <Grid.Column>
-            <Segment>{char.name.toTitleCase()}</Segment>
-          </Grid.Column>
-        </Grid>
-        </>
+          ? <Loader active={loading} size='massive' content='Loading...' />
+          : <CharacterSheet character={char} />
         }
       </Container>
   )

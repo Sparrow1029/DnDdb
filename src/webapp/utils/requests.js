@@ -3,11 +3,22 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import Router from 'next/router'
 
+const BASE_URL = process.env.API_URL
+
+export function sleep(milliseconds) {
+  let timeStart = new Date().getTime();
+  while (true) {
+    let elapsedTime = new Date().getTime() - timeStart;
+    if (elapsedTime > milliseconds) {
+      break;
+    }
+  }
+}
+
+
 const login = (loginData) => {
-  console.log("Logging in")
-  console.log(process.env.API_URL + '/auth/login')
   return axios.post(
-    process.env.API_URL + '/auth/login',
+    BASE_URL + '/auth/login',
     loginData
     )
 }
@@ -22,10 +33,28 @@ const logout = () => {
 
 const registerUser = (formData) => {
   return axios.post(
-    process.env.API_URL + '/users',
+    BASE_URL + '/users',
     formData)
 }
 
+const createCharacter = (formData, token) => {
+  return axios.post(
+    BASE_URL + '/characters/create',
+    formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+}
+
+const deleteCharacter = (charId, token) => {
+  return axios.delete(
+    BASE_URL + `/characters/${charId}`,
+    { headers: {
+      'Authorization': `Bearer ${token}`
+    }}
+  )
+}
 
 const request = axios.create({
   baseURL: process.env.API_URL,
@@ -50,4 +79,4 @@ axios.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-export { registerUser, login, logout, request };
+export { registerUser, login, logout, createCharacter, deleteCharacter, request };

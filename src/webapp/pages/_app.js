@@ -7,7 +7,8 @@ import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 
 String.prototype.toTitleCase = function () {
-  var str = this.toLowerCase().split(' ');
+
+  var str = this.toLowerCase().replace(/_/g, ' ').split(' ');
   return str.map(word => {return word.replace(word[0], word[0].toUpperCase())}).join(' ')
 }
 

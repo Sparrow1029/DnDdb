@@ -42,11 +42,11 @@ const RaceData = ({ setForm, formData, navigation, ...props }) => {
 
     let bonuses = (name === 'human')
       ? <List><List.Item key={uuid()}>None</List.Item></List>
-      : getListFromKeys(bonusObj, Object.keys(bonusObj))
+      : getListFromKeys(bonusObj, Object.keys(bonusObj), {icon: 'triangle right'})
 
     let abilities = (['human', 'half_orc'].includes(name))
       ? <List><List.Item key={uuid()}>None</List.Item></List>
-      : getListFromKeys(abilitiesObj, Object.keys(abilitiesObj).filter(k => { return k !== 'bonuses' }))
+      : getListFromKeys(abilitiesObj, Object.keys(abilitiesObj).filter(k => { return k !== 'bonuses' }), {icon: 'triangle right'})
 
     return (
         <div key={uuid()}>

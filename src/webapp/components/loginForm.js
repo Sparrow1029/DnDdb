@@ -27,8 +27,9 @@ const LoginForm = ({ toggle }) => {
       })
       // .catch(err => console.log('err -> ', err.response))
       .catch(err => {
-        setErrMsg(err.response.data.detail)
-        setLoading(false)
+        console.log(err)
+        // setErrMsg(err.response.data.detail)
+        // setLoading(false)
       })
   }
 

@@ -173,6 +173,23 @@ def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collec
         row["starting_ages"] = json.loads(row["starting_ages"])
         db_conn.insert_one(row)
 
+def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='items.csv', armor_csv='armor.csv',
+                      weapons_csv='weapons.csv'):
+    item_coll = client[db]["item_collection"]
+    item_reader = DictReader(open(items_csv))
+    for row in item_reader:
+        item_coll.insert_one(row)
+
+    armor_coll = client[db]["armor_collection"]
+    armor_reader = DictReader(open(armor_csv))
+    for row in armor_reader:
+        armor_coll.insert_one(row)
+
+    weapons_coll = client[db]["weapons_collection"]
+    weapons_reader = DictReader(open(weapons_csv))
+    for row in weapons_reader:
+        weapons_coll.insert_one(row)
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -189,3 +206,6 @@ if __name__ == "__main__":
 
     if "races" in args:
         init_db_races(client, 'race_data.csv')
+
+    if "equipment" in args:
+        init_db_inventory(client)
