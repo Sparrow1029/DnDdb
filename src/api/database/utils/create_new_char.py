@@ -130,6 +130,7 @@ class BaseMods():
         mods_dict["cha_mods"] = cls.get_cha_mods(stats["cha"], )._asdict()
         mods_dict["wis_mods"] = {"mental_save": cls.get_mental_save(stats["wis"])}
         char["base_mods"] = mods_dict
+        char["ac"] = char["ac"] + char["base_mods"]["dex_mods"]["ac"]
         char["max_addl_langs"] = cls.get_max_addl_langs(stats["int"], race)
 
     @staticmethod
@@ -312,7 +313,7 @@ def apply_class_mods(char_data, class_obj):
     lvl_adv = class_obj["level_advancement"][0]
     char_data.update({
         "saving_throws": class_obj["saving_throws"]["1"],
-        "ac_to_hit": class_obj["ac_to_hit"]["1"][str(char_data["ac"])],
+        "ac_to_hit": class_obj["ac_to_hit"]["1"],
         "class_abilities": list(filter(lambda abil: abil["level"] <= 1, class_obj["abilities"])),
         "spells_by_level": lvl_adv["spells_by_level"],
         "hit_die": class_obj["restrictions"]["hit_die"],

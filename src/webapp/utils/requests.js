@@ -56,6 +56,12 @@ const deleteCharacter = (charId, token) => {
   )
 }
 
+async function getStore () {
+  await axios.get(
+    BASE_URL + '/store/equipment'
+  )
+}
+
 const request = axios.create({
   baseURL: process.env.API_URL,
   timeout: 1000,

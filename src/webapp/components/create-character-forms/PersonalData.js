@@ -177,7 +177,7 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
                 labelPosition='right'
                 placeholder="Max 400 lbs."
                 value={formData.weight}
-                max={200}
+                max={400}
                 name='weight'
               />
             </Form.Field>
@@ -185,9 +185,9 @@ const PersonalData = ({ setForm, formData, navigation, ...props }) => {
               <label>Height</label>
               <Input fluid
                 label={{ basic: true, content: 'ft' }}
-                placeholder="Max 400 lbs."
+                placeholder="Max 7 ft. 11 in."
                 labelPosition='right'
-                max={7}
+                max={8}
                 name='height.ft'
                 value={formData.height.ft}
               />

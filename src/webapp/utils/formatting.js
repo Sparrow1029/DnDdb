@@ -32,10 +32,14 @@ export const formatRaceName = (raceStr) => {
   }).join('-')
 }
 
-export const getPurse = (gold) => {
-  return gold
-}
-
 export const disableEnterKey = (e) => {
   e.key === 'Enter' && e.preventDefault()
+}
+
+export const getCostStr = (coins) => {
+  let gold = (coins.gp !== 0) ? `${coins.gp} gp` : ''
+  let silver = (coins.sp !== 0) ? `${coins.sp} sp` : ''
+  let copper = (coins.cp !== 0) ? `${coins.cp} cp` : ''
+
+  return gold + `${(silver !== '' && gold !== '') ? ', ' : ''}` + silver + `${(copper !== '') ? ', ' : ''}` + copper
 }

@@ -1,29 +1,31 @@
 import { React, useState, useEffect, useContext } from 'react'
 import { UserContext } from '../contexts/user'
+import { StoreContext } from '../contexts/StoreContext'
 
-import { request, logout } from '../utils/requests'
+import { request } from '../utils/requests'
 import Cookies from 'js-cookie'
-import { Container, Grid, Header, Item, Icon, Message, Button, Loader, } from 'semantic-ui-react'
+import { Container, Grid, Header, Item, Icon, Button, Loader, } from 'semantic-ui-react'
 import CharacterCard from '../components/CharacterCard'
 import NavSidebar from '../components/sidenav'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import Link from 'next/link'
 
 const UserHomePage = () => {
   const [userData, setUserData] = useContext(UserContext)
-  // const [thisData, setThisData] = useState(userData || null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
 
   useEffect(() => {
     if (!Cookies.get('access_token') || !Cookies.get('dnd_user_id')) {
       router.push('/')
-    } else {// if (!userData) {
+    } else {
+      setLoading(true)
       request.get(`/users/${Cookies.get('dnd_user_id')}`)
       .then(res => {
         setUserData(res.data)
         setLoading(false)
       })
+      .catch(err => console.dir(err))
     }
   }, [])
 
@@ -34,10 +36,10 @@ const UserHomePage = () => {
         continue
       }
       charArray.push(
-        <CharacterCard character={char} key={char.id}/>
+        <CharacterCard character={char} key={char.id} />
       )
     }
-    if (charArray.length === 0){
+    if (charArray.length === 0) {
       return <></>
     }
     return charArray;
@@ -47,38 +49,31 @@ const UserHomePage = () => {
 
   return (
       <Container>
-        {!userData
-        ? <div style={{position: 'relative', top: '200px'}}>
-          {/*<Message icon negative>
-            <Icon name='circle notched' loading />
-            <Message.Content>
-            <Message.Header>You are not logged in</Message.Header>
-            Returning to log in screen
-            </Message.Content>
-          </Message>*/}
-          <Loader inverted active={loading} content='Loading...' />
+        {!userData || loading
+          ? <div style={{ position: 'relative', top: '200px' }}>
+            <Loader size='massive' active={loading} content='Loading...' />
           </div>
-        : <Grid>
-          <Grid.Row centered>
-            <Grid.Column width={12}>
-              <Header as='h1' style={{padding: '25px', textAlign: 'center'}}>Welcome {userData.username}</Header>
-              {(userData.characters.length !== 0) &&
-                <Item.Group divided>
-                  {getCharArray(userData.characters)}
-                </Item.Group>
-              }
-              <div style={{textAlign: 'center'}}>
-                <Link href='/characters/create'>
-                  <Button primary>
-                    <Icon name='user plus'/ >Create Character
+          : <Grid>
+            <Grid.Row centered>
+              <Grid.Column width={12}>
+                <Header as='h1' style={{ padding: '25px', textAlign: 'center' }}>Welcome {userData.username}</Header>
+                {(userData.characters.length !== 0) &&
+                  <Item.Group divided>
+                    {getCharArray(userData.characters)}
+                  </Item.Group>
+                }
+                <div style={{ textAlign: 'center' }}>
+                  <Link href='/characters/create'>
+                    <Button primary>
+                      <Icon name='user plus' />Create Character
                   </Button>
-                </Link>
-              </div>
-            </Grid.Column>
-          </Grid.Row>
+                  </Link>
+                </div>
+              </Grid.Column>
+            </Grid.Row>
           </Grid>
         }
-      </Container>
+    </Container>
   )
 }
 

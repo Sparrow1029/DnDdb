@@ -10,26 +10,29 @@ import { Form, Button, Container, Grid, Icon, Label, Message } from 'semantic-ui
 const LoginForm = ({ toggle }) => {
   const { userData } = useContext(UserContext)
   const { register, errors, handleSubmit } = useForm()
-  const [errMsg, setErrMsg] = useState('')
+  const [errMsg, setErrMsg] = useState(null)
   const [loading, setLoading] = useState(false)
   const [hidden, setHidden] = useState(true)
   const router = useRouter()
 
   const submitForm = (formData) => {
     setLoading(true)
+    setErrMsg(null)
     login(formData)
       .then(res => {
         if (res.status === 200) {
-          Cookies.set('access_token', res.data.access_token)
-          Cookies.set('dnd_user_id', res.data.user_id)
+          Cookies.set('access_token', res.data.access_token, {
+            secure: true, sameSite: 'Strict', httpOnly: false, domain: 'localhost'
+          })
+          Cookies.set('dnd_user_id', res.data.user_id, {
+            secure: false, sameSite: 'Strict', httpOnly: false, domain: 'localhost'
+          })
           router.push('/home')
         }
       })
-      // .catch(err => console.log('err -> ', err.response))
       .catch(err => {
-        console.log(err)
-        // setErrMsg(err.response.data.detail)
-        // setLoading(false)
+        setErrMsg(err.response.data.detail)
+        setLoading(false)
       })
   }
 

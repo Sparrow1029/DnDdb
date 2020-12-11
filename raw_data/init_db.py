@@ -173,22 +173,28 @@ def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collec
         row["starting_ages"] = json.loads(row["starting_ages"])
         db_conn.insert_one(row)
 
-def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='items.csv', armor_csv='armor.csv',
-                      weapons_csv='weapons.csv'):
-    item_coll = client[db]["item_collection"]
-    item_reader = DictReader(open(items_csv))
-    for row in item_reader:
-        item_coll.insert_one(row)
+def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='items.csv', armor_csv='armor.csv', weapons_csv='weapons.csv'):
+    init_db_weapons(client)
+    init_db_armor(client)
+    init_db_items(client)
 
+def init_db_weapons(client, db='dnd_fastapi_dev', weapons_csv='weapons.csv'):
+    weapons_coll = client[db]["weapons_collection"]
+    weapons_reader = DictReader(open(weapons_csv))
+    for row in weapons_reader:
+        weapons_coll.insert_one(row)
+
+def init_db_armor(client, db='dnd_fastapi_dev', armor_csv='armor.csv'):
     armor_coll = client[db]["armor_collection"]
     armor_reader = DictReader(open(armor_csv))
     for row in armor_reader:
         armor_coll.insert_one(row)
 
-    weapons_coll = client[db]["weapons_collection"]
-    weapons_reader = DictReader(open(weapons_csv))
-    for row in weapons_reader:
-        weapons_coll.insert_one(row)
+def init_db_items(client, db='dnd_fastapi_dev', items_csv='items.csv'):
+    items_coll = client[db]["items_collection"]
+    items_reader = DictReader(open(items_csv))
+    for row in items_reader:
+        items_coll.insert_one(row)
 
 
 if __name__ == "__main__":
@@ -209,3 +215,12 @@ if __name__ == "__main__":
 
     if "equipment" in args:
         init_db_inventory(client)
+
+    if "weapons" in args:
+        init_db_weapons(client)
+
+    if "armor" in args:
+        init_db_armor(client)
+
+    if "items" in args:
+        init_db_items(client)

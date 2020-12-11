@@ -1,15 +1,28 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react'
 import App from 'next/app'
 import Head from 'next/head'
 import UserContextProvider from '../contexts/user'
 import CharacterContextProvider from '../contexts/character'
+import StoreProvider from '../contexts/StoreContext'
+import { request } from '../utils/requests'
 import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 
 String.prototype.toTitleCase = function () {
-
-  var str = this.toLowerCase().replace(/_/g, ' ').split(' ');
-  return str.map(word => {return word.replace(word[0], word[0].toUpperCase())}).join(' ')
+  let articles = ['a', 'an', 'the', 'or', 'and']
+  let words = []
+  let strArr = this.toLowerCase().replace(/_/g, ' ').split(' ');
+  for (let i=0; i<strArr.length; i++) {
+    let word = strArr[i]
+    if (articles.includes(word)) {
+      if (i > 0) {
+        words.push(word)
+        continue
+      }
+    }
+    words.push(word.replace(word[0], word[0].toUpperCase()))
+  }
+  return words.join(' ')
 }
 
 export default function MyApp ({ Component, pageProps }) {
@@ -21,9 +34,11 @@ export default function MyApp ({ Component, pageProps }) {
         <title>DnD Database</title>
       </Head>
       <CharacterContextProvider><UserContextProvider>
-        <Layout>
-          <Component {...pageProps}/>
-        </Layout>
+        <StoreProvider>
+          <Layout>
+            <Component {...pageProps}/>
+          </Layout>
+        </StoreProvider>
       </UserContextProvider></CharacterContextProvider>
     </div>
   )

@@ -1,46 +1,41 @@
-name,dmg_sm_md,dmg_lg,encumbrance,cost,category,rate_of_fire,range
-arrows,1d6,1d6,0.3333333333,0.1666666667,melee,,
-"axe, battle",1d8,1d8,7,5,melee,,
-"axe, hand",1d6,1d4,5,1,melee,,
-"bolt, heavy crossbow",1d6+1,1d6+1,0.3333333333,0.3333333333,ammunition,,
-"bolt, light crossbow",1d4+1,1d4+1,0.1666666667,0.1666666667,ammunition,,
-club,1d4,1d3,3,0.02,melee,,
-dagger,1d4,1d3,1,2,melee,,
-dart,1d3,1d2,0.5,0.2,ammunition,,
-"flail, heavy",1d6+1,2d4,10,3,melee,,
-"flail, light",1d4+1,1d4+1,4,6,melee,,
-halberd,1d10,2d6,18,9,melee,,
-"hammer, war, heavy",1d6+1,1d6,10,7,melee,,
-"hammer, war, light",1d4+1,1d4,5,1,melee,,
-javelin,1d6,1d4,4,0.5,melee,,
-lance,2d4+1,3d6,15,6,melee,,
-"mace, heavy",1d6+1,1d6,10,10,melee,,
-"mace, light",1d4+1,1d4+1,5,4,melee,,
-morning star,2d4,1d6+1,12,5,melee,,
-"pick, heavy",1d6+1,2d4,10,8,melee,,
-"pick, light",1d4+1,1d4,4,5,melee,,
-pole arm,1d6+1,1d10,8,6,melee,,
-sling bullet,1d4+1,1d6+1,0.3333333333,0.08333333333,ammunition,,
-sling stone,1d4,1d4,0.1666666667,0,ammunition,,
-spear,1d6,1d8,5,1,melee,,
-staff,1d6,1d6,5,0,melee,,
-"sword, claymore/bastard",2d4,2d8,10,25,melee,,
-"sword, broad",2d4,1d6+1,8,10,melee,,
-"sword, long",1d8,1d12,7,15,melee,,
-"sword, scimitar",1d8,1d8,5,15,melee,,
-"sword, short",1d6,1d8,3,8,melee,,
-"sword, two-handed",1d10,3d6,25,30,melee,,
-trident,1d6+1,3d4,5,4,melee,,
-"axe, hand",1d6,1d4,5,1,missile,1,10
-"bow, long",1d6,1d6,12,60,missile,2,70
-"bow, short",1d6,1d6,8,15,missile,2,50
-club,1d4,1d3,3,0.02,missile,1,10
-"composite bow, long",1d6,1d6,13,100,missile,2,60
-"composite bow, short",1d6,1d6,9,75,missile,2,50
-"crossbow, heavy",1d6+1,1d6+1,12,20,missile,0.5,60
-"crossbow, light",1d4+1,1d4+1,4,12,missile,1,60
-dart,1d3,1d2,0.5,0.2,missile,3,15
-hammer,1d4+1,1d4,5,1,missile,1,10
-javelin,1d6,1d4,2,0.5,missile,1,20
-sling,1d4+1 or 1d4,1d6+1 or 1d4,0.5,5,missile,1,35
-spear,1d6,1d8,5,1,missile,1,15
+name,dmg_sm_md,dmg_lg,encumbrance,cost,category,sub_category,melee_type,rate_of_fire,range
+arrows,1d6,1d6,0.3333333333,0.1666666667,missile,ammunition,stab,,
+battle axe,1d8,1d8,7,5,melee,two_handed,blade,,
+hand axe,1d6,1d4,5,1,melee,ammunition,blade,1,10
+"bolt, heavy crossbow",1d6+1,1d6+1,0.3333333333,0.3333333333,missile,ammunition,stab,,
+"bolt, light crossbow",1d4+1,1d4+1,0.1666666667,0.1666666667,missile,ammunition,stab,,
+club,1d4,1d3,3,0.02,melee,one_handed,blunt,1,10
+dagger,1d4,1d3,1,2,melee,one_handed,blade,,
+dart,1d3,1d2,0.5,0.2,missile,ammunition,stab,3,15
+heavy flail,1d6+1,2d4,10,3,melee,one_handed,blunt,,
+light flail,1d4+1,1d4+1,4,6,melee,one_handed,blunt,,
+halberd,1d10,2d6,18,9,melee,two_handed,polearm,,
+hammer,1d4+1,1d4,5,1,missile,ammunition,blunt,1,10
+heavy war hammer,1d6+1,1d6,10,7,melee,two_handed,blunt,,
+light war hammer,1d4+1,1d4,5,1,melee,one_handed,blunt,,
+javelin,1d6,1d4,4,0.5,melee,ammunition,polearm,1,20
+lance,2d4+1,3d6,15,6,melee,two_handed,polearm,,
+"mace, heavy",1d6+1,1d6,10,10,melee,one_handed,blunt,,
+"mace, light",1d4+1,1d4+1,5,4,melee,one_handed,blunt,,
+morning star,2d4,1d6+1,12,5,melee,one_handed,blunt,,
+"pick, heavy",1d6+1,2d4,10,8,melee,two_handed,blade,,
+"pick, light",1d4+1,1d4,4,5,melee,one_handed,blade,,
+pole arm,1d6+1,1d10,8,6,melee,two_handed,polearm,,
+sling bullet,1d4+1,1d6+1,0.3333333333,0.08333333333,missile,ammunition,bow,1,35
+sling stone,1d4,1d4,0.1666666667,0,missile,ammunition,bow,1,35
+spear,1d6,1d8,5,1,melee,two_handed,polearm,1,15
+trident,1d6+1,3d4,5,4,melee,two_handed,polearm,,
+staff,1d6,1d6,5,0,melee,two_handed,blunt,,
+claymore/bastard sword,2d4,2d8,10,25,melee,two_handed,blade,,
+broadsword,2d4,1d6+1,8,10,melee,two_handed,blade,,
+long sword,1d8,1d12,7,15,melee,one_handed,blade,,
+scimitar,1d8,1d8,5,15,melee,one_handed,blade,,
+short sword,1d6,1d8,3,8,melee,one_handed,blade,,
+"sword, two-handed",1d10,3d6,25,30,melee,two_handed,blade,,
+sling,1d4+1 or 1d4,1d6+1 or 1d4,0.5,5,missile,ranged,bow,1,35
+longbow,1d6,1d6,12,60,missile,ranged,bow,2,70
+short bow,1d6,1d6,8,15,missile,ranged,bow,2,50
+composite longbow,1d6,1d6,13,100,missile,ranged,bow,2,60
+composite short bow,1d6,1d6,9,75,missile,ranged,bow,2,50
+heavy crossbow,1d6+1,1d6+1,12,20,missile,ranged,bow,0.5,60
+light crossbow,1d4+1,1d4+1,4,12,missile,ranged,bow,1,60

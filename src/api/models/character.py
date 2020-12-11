@@ -99,11 +99,15 @@ class ThiefSkills(BaseModel):
     pick_pockets: float
     read_languages: float
 
+class InventoryWeapon(Weapon):
+    ammunition: Optional[int]
+    penalty_to_hit: Optional[int]
+
 class EquippedWeapons(BaseModel):
-    main_hand: Optional[Weapon]
-    off_hand: Optional[Weapon]
-    ranged: Optional[Weapon]
-    other: Optional[List[Weapon]]
+    main_hand: Optional[InventoryWeapon]
+    off_hand: Optional[InventoryWeapon]
+    ranged: Optional[InventoryWeapon]
+    other: Optional[List[InventoryWeapon]]
 
 class EquippedArmor(BaseModel):
     armor: Optional[Armor]
@@ -145,6 +149,7 @@ class CharacterSchema(BaseModel):
     exp: int = 0
     exp_next_lvl: Optional[int]
     ac: Optional[int]
+    ac_to_hit: Optional[Dict[int, int]]
     height: Optional[Dict[str, int]]
     weight: Optional[int]
     age: Optional[int]
