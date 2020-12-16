@@ -1,3 +1,5 @@
+import { coinsToFloat } from '../reducers/coinReducer'
+
 export function attrReducer (state, action) {
   switch (action.attr) {
     case 'hp':
@@ -20,4 +22,15 @@ export function inventoryReducer (state, action) {
     case 'gold':
       return {...state, gold: state.gold + action.value}
   }
+}
+
+export const getMaxPurchase = ({ cost }, { money }) => {
+  let itemCost = coinsToFloat(cost)
+  let charMoney = coinsToFloat(money)
+  let max = Math.floor(charMoney / itemCost)
+  return (max >= 200) ? 200 : max
+}
+
+export const available = ({ cost }, { money }) => {
+  return (coinsToFloat(money) > coinsToFloat(cost))
 }

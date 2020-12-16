@@ -100,8 +100,14 @@ class ThiefSkills(BaseModel):
     read_languages: float
 
 class InventoryWeapon(Weapon):
-    ammunition: Optional[int]
+    amt: Optional[int]
     penalty_to_hit: Optional[int]
+
+class InventoryItem(Item):
+    amt: Optional[int]
+
+class InventoryArmor(Armor):
+    amt: Optional[int]
 
 class EquippedWeapons(BaseModel):
     main_hand: Optional[InventoryWeapon]
@@ -110,20 +116,28 @@ class EquippedWeapons(BaseModel):
     other: Optional[List[InventoryWeapon]]
 
 class EquippedArmor(BaseModel):
-    armor: Optional[Armor]
-    shield: Optional[Armor]
-    gloves_rings: Optional[List[Item]]
-    boots_footwear: Optional[Item]
-    bracers: Optional[Armor]
-    capes_cloaks: Optional[List[Item]]
-    other: Optional[List[Union[Item, Armor]]]
+    armor: Optional[InventoryArmor]
+    shield: Optional[InventoryArmor]
+    gloves_rings: Optional[List[InventoryItem]]
+    boots_footwear: Optional[InventoryItem]
+    bracers: Optional[InventoryArmor]
+    capes_cloaks: Optional[List[InventoryItem]]
+    other: Optional[List[Union[InventoryItem, InventoryArmor]]]
 
 class Equipment(BaseModel):
-    weapons: Optional[List[Weapon]]
-    armor: Optional[List[Armor]]
-    items: Optional[List[Item]]
+    weapons: Optional[List[InventoryWeapon]]
+    armor: Optional[List[InventoryArmor]]
+    items: Optional[List[InventoryItem]]
+
+class Purse(BaseModel):
+    gp: int = 0
+    sp: int = 0
+    cp: int = 0
+    ep: Optional[int]
+    pp: Optional[int]
 
 class Inventory(BaseModel):
+    wealth: Optional[list]  # TODO: implement loot items here
     equipment: Optional[Equipment]
     equipped_armor: Optional[EquippedArmor]
     equipped_weapons: Optional[EquippedWeapons]
@@ -134,6 +148,7 @@ class CharacterSchema(BaseModel):
     race: RaceEnum
     class_: ClassEnum
     alignment: Alignment
+    money: Purse
     level: int = Field(default_factory=lambda: 1)
     base_mods: Optional[BaseMods]
     base_stats: StatSchema

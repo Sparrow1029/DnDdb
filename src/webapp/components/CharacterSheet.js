@@ -1,30 +1,34 @@
 import React, { useState, useReducer, useEffect, useContext } from 'react';
 import { attrReducer, inventoryReducer } from '../utils/characterSheet'
-import {
-  Container, Segment, Grid, Form, Input, Divider, Loader, Header, Button, Table, Icon, Progress
-} from 'semantic-ui-react'
+import { CharacterContext } from '../contexts/CharacterContext'
 import { range } from '../utils/diceRolls'
 import uuid from 'react-uuid'
 import NavSideBar from './sidenav'
 import EquipmentStore from './EquipmentStore'
+import CharEquipment from './inventory/CharEquipment'
 
-const genderOptions = [
-  { key: 'male', text: 'Male', value: 'male' },
-  { key: 'female', text: 'Female', value: 'female' },
-]
+import {
+  Container, Segment, Grid, Form, Input, Divider, Loader, Header, Button,
+  Table, Icon, Progress, Modal, Menu
+} from 'semantic-ui-react'
 
 
-const CharacterSheet = ({ character: char }) => {
+// const CharacterSheet = ({ character: char }) => {
+const CharacterSheet = () => {
   const [loading, setLoading] = useState(true)
   const [editingPI, setEditingPI] = useState(false)
+  const [storeOpen, setStoreOpen] = useState(false)
   const [state, dispatch] = useReducer(attrReducer, char)
+  const { character: char, dispatch: charDispatch } = useContext(CharacterContext)
 
   useEffect(() => {
-    console.log(char)
-    if (char !== undefined) {
-      setLoading(false)
-      // console.log(state)
+    if (!char) {
+      console.log("WERE AT CHARACTER SHEET")
+      console.log(char)
+      // charDispatch({type: 'SET_CHARACTER', payload: JSON.parse(localStorage.getItem('char_info'))})
     }
+    // console.log("CHARACTER EXISTS NOW")
+    setLoading(false)
   }, [])
 
   const createACtoHitTbl = () => {
@@ -197,7 +201,7 @@ const CharacterSheet = ({ character: char }) => {
                   Saving Throws
                 </h4>
               </Divider>
-              <Table celled textAlign='center'>
+              <Table celled textAlign='center' size='small' compact>
                 <Table.Header>
                   <Table.Row>
                     <Table.HeaderCell>Aimed Magic Items</Table.HeaderCell>
@@ -297,7 +301,18 @@ const CharacterSheet = ({ character: char }) => {
               </Table>
               {/* AC_TO_HIT_TABLE */}
               {createACtoHitTbl()}
-              <EquipmentStore character={char}/>
+              {(char.inventory !== null) &&
+                <CharEquipment inventory={char.inventory}/>
+              }
+              <Modal
+                onClose={() => setStoreOpen(false)}
+                onOpen={() => setStoreOpen(true)}
+                open={storeOpen}
+                trigger={<Button primary>+ Buy Equipment</Button>}
+                style={{height: '90vh', width: '90vw', overflow: 'hidden'}}
+              >
+                <EquipmentStore character={char}/>
+              </Modal>
             </Segment>
           </Segment.Group>
         </>

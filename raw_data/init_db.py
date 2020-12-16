@@ -182,19 +182,64 @@ def init_db_weapons(client, db='dnd_fastapi_dev', weapons_csv='weapons.csv'):
     weapons_coll = client[db]["weapons_collection"]
     weapons_reader = DictReader(open(weapons_csv))
     for row in weapons_reader:
-        weapons_coll.insert_one(row)
+        document = {
+            "name": row["name"],
+            "dmg_sm_md": row["dmg_sm_md"],
+            "dmg_lg": row["dmg_lg"],
+            "encumbrance": row["encumbrance"],
+            "cost": {
+                "gp": int(row["gp"]),
+                "sp": int(row["sp"]),
+                "cp": int(row["cp"]),
+                "ep": 0,
+                "pp": 0,
+                "amtPer": int(row["amt_per"]),
+            },
+            "category": row["category"],
+            "sub_category": row["sub_category"],
+            "type": row["type"],
+            "rate_of_fire": row["rate_of_fire"],
+            "range": row["range"]
+        }
+        weapons_coll.insert_one(document)
 
 def init_db_armor(client, db='dnd_fastapi_dev', armor_csv='armor.csv'):
     armor_coll = client[db]["armor_collection"]
     armor_reader = DictReader(open(armor_csv))
     for row in armor_reader:
-        armor_coll.insert_one(row)
+        document = {
+            "name": row["name"],
+            "encumbrance": row["encumbrance"],
+            "cost": {
+                "gp": int(row["gp"]),
+                "sp": int(row["sp"]),
+                "cp": int(row["cp"]),
+                "ep": 0,
+                "pp": 0,
+                "amtPer": 1,
+            },
+            "max_move": row["max_move"],
+            "ac": row["ac"],
+        }
+        armor_coll.insert_one(document)
 
 def init_db_items(client, db='dnd_fastapi_dev', items_csv='items.csv'):
     items_coll = client[db]["items_collection"]
     items_reader = DictReader(open(items_csv))
     for row in items_reader:
-        items_coll.insert_one(row)
+        document = {
+            "name": row["name"],
+            "encumbrance": row["encumbrance"],
+            "cost": {
+                "gp": int(row["gp"]),
+                "sp": int(row["sp"]),
+                "cp": int(row["cp"]),
+                "ep": 0,
+                "pp": 0,
+                "amtPer": 1,
+            },
+        }
+        items_coll.insert_one(document)
 
 
 if __name__ == "__main__":

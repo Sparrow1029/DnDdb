@@ -8,13 +8,16 @@ const CartContextProvider = (props) => {
   const [cart, dispatch] = useReducer(cartReducer, initialCart, () => {
     const localData = localStorage.getItem('cart')
     return localData ? JSON.parse(localData) : initialCart
+    // return (typeof localStorage !== 'undefined') ? JSON.parse(localStorage.getItem('cart')) : initialCart
   })
   useEffect(() => {
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
-  return <CartContext.Provider value={{ cart, dispatch }}>
+  return (
+  <CartContext.Provider value={{ cart, dispatch }}>
     {props.children}
   </CartContext.Provider>
+  )
 }
 
 export default CartContextProvider

@@ -1,10 +1,12 @@
-import React, { useEffect, useContext } from 'react'
+import React from 'react'
+import { ErrorBoundary } from 'react-error-boundary'
 import App from 'next/app'
 import Head from 'next/head'
 import UserContextProvider from '../contexts/user'
-import CharacterContextProvider from '../contexts/character'
+import CharacterContextProvider from '../contexts/CharacterContext'
 import StoreProvider from '../contexts/StoreContext'
-import { request } from '../utils/requests'
+import ErrorPage from '../components/ErrorPage'
+// import { request } from '../utils/requests'
 import '../styles/globals.css';
 import 'semantic-ui-css/semantic.min.css';
 
@@ -29,17 +31,23 @@ export default function MyApp ({ Component, pageProps }) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;
 
   return (
+    <ErrorBoundary
+      FallbackComponent={ErrorPage}
+    >
     <div>
       <Head>
         <title>DnD Database</title>
       </Head>
-      <CharacterContextProvider><UserContextProvider>
-        <StoreProvider>
-          <Layout>
-            <Component {...pageProps}/>
-          </Layout>
-        </StoreProvider>
-      </UserContextProvider></CharacterContextProvider>
+      <CharacterContextProvider>
+      <UserContextProvider>
+      <StoreProvider>
+        <Layout>
+          <Component {...pageProps}/>
+        </Layout>
+      </StoreProvider>
+      </UserContextProvider>
+      </CharacterContextProvider>
     </div>
+    </ErrorBoundary>
   )
 }

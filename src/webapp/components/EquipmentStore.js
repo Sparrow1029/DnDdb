@@ -1,65 +1,95 @@
 import React, { useEffect, useState, useContext } from 'react'
 import {
-  Container, Segment, Table, Button, Header, Icon, Form, Input
+  Container, Loader, Segment, Table, Button, Header, Menu, Icon, Form, Input
 } from 'semantic-ui-react'
 import uuid from 'react-uuid'
 
 import WeaponTable from './inventory/WeaponTable'
+import ItemTable from './inventory/ItemTable'
+import ArmorTable from './inventory/ArmorTable'
 import { StoreContext } from '../contexts/StoreContext'
+import { CharacterContext } from '../contexts/CharacterContext'
+import { CartContext } from '../contexts/CartContext'
+import { fmtCost } from '../utils/formatting'
 
-function EquipmentStore ({ character: char }) {
+function EquipmentStore() {
   const [store, _] = useContext(StoreContext)
-  const [filtered, setFiltered] = useState([])
+  const { character: char, dispatch: charDispatch } = useContext(CharacterContext)
+  const { dispatch } = useContext(CartContext)
+  // const [filtered, setFiltered] = useState([])
+  const [currentMenu, setCurrentMenu] = useState('equipment')
+  const [selectedRows, updateSelected] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    console.log(store)
-    console.log(char)
-  }, [])
+    setLoading(true)
+    if (char !== undefined) {
+      setLoading(false)
+    }
+  }, [currentMenu])
 
-  const createTable = (collection) => {
-    let headerCells = []
-    for (let key of Object.keys(collection[0])) {
-      if (key === 'id') continue
-      headerCells.push(
-        <React.Fragment key={uuid()}>
-          <Table.HeaderCell>
-            {key.toTitleCase()}
-          </Table.HeaderCell>
-        </React.Fragment>
-      )
-    }
-    let header = <Table.Row key={uuid()}>{headerCells}</Table.Row>
-    let rows = []
-    for (let obj of collection) {
-      let cells = []
-      for (let key of Object.keys(obj)) {
-        if (key === 'id') continue
-        cells.push(
-          <React.Fragment key={uuid()}>
-            <Table.Cell>{obj[key].toTitleCase()}</Table.Cell>
-          </React.Fragment>
-        )
-      }
-      rows.push(<Table.Row key={uuid()}>{cells}</Table.Row>)
-    }
-    return (
-      <Table>
-        <Table.Header>{header}</Table.Header>
-        <Table.Body>{rows}</Table.Body>
-      </Table>
-    )
+  const menuSelect = (e, { name }) => {
+    setCurrentMenu(name)
+  }
+
+  const addToCart = (e, item) => {
+    e.preventDefault()
+    // console.log(item.value)
+    dispatch({ type: 'add', item })
   }
 
   const filterData = ({ target }) => {
+    // TODO: Create a search filter for items
     console.log(target)
   }
 
   return (
-    <Container>
-      <Header as='h2'>Equipment</Header>
-      {createTable(store.armor)}
-      <WeaponTable />
+    <>{(loading && !char)
+    ? <Loader size='massive' />
+    :<Container fluid>
+      <Menu pointing secondary>
+        <Menu.Item
+          name='equipment'
+          active={currentMenu === 'equipment'}
+          onClick={menuSelect}
+        />
+        <Menu.Item
+          name='weapons'
+          active={currentMenu === 'weapons'}
+          onClick={menuSelect}
+        />
+        <Menu.Item
+          name='armor'
+          active={currentMenu === 'armor'}
+          onClick={menuSelect}
+        />
+        <Menu.Item
+          name='gold'
+          position='right'
+          style={{paddingRight: '50px'}}
+        // >Current gold:&nbsp;&nbsp;{fmtCost(char.money)}</Menu.Item>
+        >Current gold:&nbsp;&nbsp;{fmtCost(char.money)}</Menu.Item>
+      </Menu>
+      {currentMenu === 'equipment' &&
+      <Container>
+        <Header as='h2'>Equipment</Header>
+        <ItemTable coll={store.items}/>
+      </Container>
+      }
+      {currentMenu === 'weapons' &&
+      <Container>
+        <Header as='h2'>Weapons</Header>
+        <WeaponTable coll={store.weapons} permitted={true} />
+      </Container>
+      }
+      {currentMenu === 'armor' &&
+      <Container>
+        <Header as='h2'>Armor</Header>
+        <ArmorTable coll={store.armor} permitted={true} />
+      </Container>
+      }
     </Container>
+    }</>
   )
 }
 

@@ -1,18 +1,26 @@
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, Union
 from enum import Enum
+
+class Cost(BaseModel):
+    gp: int
+    sp: int
+    cp: int
+    ep: int
+    pp: int
+    amtPer: int
 
 class Item(BaseModel):
     name: str
-    weight: int
-    cost: float
+    encumbrance: Union[float, int]
+    cost: Cost
 
 class Armor(BaseModel):
     name: str
-    encumbrance: int
+    encumbrance: Union[float, int]
     max_move: int
     ac: int
-    cost: float
+    cost: Cost
 
 class Category(str, Enum):
     melee = 'melee'
@@ -24,20 +32,19 @@ class Subcategory(str, Enum):
     two_handed = 'two_handed'
     ammunition = 'ammunition'
 
-class MeleeType(str, Enum):
-    bow = 'bow'
-    stab = 'stab'
+class Type(str, Enum):
     blade = 'blade'
     blunt = 'blunt'
-    polearm = 'polearm'
+    piercing = 'piercing'
 
 class Weapon(BaseModel):
     name: str
     dmg_sm_md: str
     dmg_lg: str
-    encumbrance: float
-    cost: float
+    encumbrance: Union[float, int]
+    cost: Cost
     category: Category
     subcategory: Subcategory
+    type: Type
     rate_of_fire: Optional[float]
     range: Optional[int]

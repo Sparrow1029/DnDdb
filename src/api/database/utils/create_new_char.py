@@ -288,6 +288,7 @@ class RaceMods():
             " surprise drops to 2 in 6."
         }
         char["max_addl_langs"] = 2
+        char["languages"] = [ "common", "dwarfish", "gnome", "goblin", "halfling", "orcish"]
 
     @staticmethod
     def half_orc(char):

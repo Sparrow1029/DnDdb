@@ -28,6 +28,7 @@ const logout = () => {
   console.log("Logging out")
   Cookies.remove('access_token')
   Cookies.remove('dnd_user_id')
+  localStorage.clear()
   Router.push('/')
 }
 

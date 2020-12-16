@@ -35,3 +35,4 @@ class ClassSchema(BaseModel):
     ac_to_hit: Dict[int, Dict[int, int]]
     abilities: List[Ability]
     level_advancement: List[dict]
+    img_url: str

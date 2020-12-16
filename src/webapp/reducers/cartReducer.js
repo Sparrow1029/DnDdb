@@ -1,15 +1,18 @@
-const getTotal = ({ items }) => {
+const getTotal = (items) => {
+  console.log(items)
   let total = 0
-  for (let obj of items) {
-    total += obj.amt
+  for (let key of Object.keys(items)) {
+    total += (items[key].cost * items[key].amt)
   }
   return total
 }
-const cartReducer = ({ items, total }, { type, payload: { item: { name, id } } }) => {
+const cartReducer = ({ items, total }, { type, item: { value: { name, id, cost } }}) => {
+  // console.log(items, total)
+  // console.log(type, name, id)
   switch (type) {
     case 'add':
       if (!Object.keys(items).includes(id)) {
-        items[id] = { name, amt: 1 }
+        items[id] = { name, cost, amt: 1 }
       }
       return { items, total: getTotal(items) }
     case 'remove':

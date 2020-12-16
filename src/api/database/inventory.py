@@ -1,7 +1,7 @@
 from bson.objectid import ObjectId
 from typing import List
 
-from db import item_collection, weapons_collection, armor_collection
+from db import items_collection, weapons_collection, armor_collection
 
 ### HELPERS ###
 def inventory_helper(item: dict) -> dict:
@@ -14,12 +14,12 @@ def inventory_helper(item: dict) -> dict:
 def retrieve_all_items() -> List[dict]:
     items = [
         inventory_helper(item)
-        for item in item_collection.find()
+        for item in items_collection.find()
     ]
     return items or None
 
 def retrieve_one_item(name: str) -> dict:
-    item_obj = item_collection.find_one({"name": name.lower()})
+    item_obj = items_collection.find_one({"name": name.lower()})
     return inventory_helper(item_obj) or None
 
 def retrieve_all_weapons() -> List[dict]:

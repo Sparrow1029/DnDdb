@@ -17,7 +17,8 @@ const coinReducer = (purse, action) => {
   switch (action.type) {
     case 'credit':
       console.log('credit')
-      newAmt = coinsToFloat(purse) - coinsToFloat(action.payload)
+      // newAmt = coinsToFloat(purse) - coinsToFloat(action.payload)
+      newAmt = coinsToFloat(purse) - action.payload
       if (newAmt < 0) {  // don't go into debt yo
         return purse
       }
