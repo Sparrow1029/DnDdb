@@ -41,8 +41,8 @@ services:
       - api
     build: ./src/webapp
     volumes:
-      - ./src/webapp:/webapp
-      - ./src/webapp/public:/webapp/public
+      - ./src/webapp:/usr/src/webapp
+        # - ./src/webapp/public:/usr/src/webapp/public
     ports:
       - 3000:3000
     environment:
