@@ -10,7 +10,11 @@ from typing import List
 from pprint import pprint
 import sys
 
-# TODO: create a class or better organize/modularize init_db functions
+""" To Do:
+    -Build delete db tables funcs
+    -Add in error handler for missing files
+    -Add a health check to make sure db is totally up and running after build
+    """
 
 classes = ["assassin", "cleric", "druid", "fighter", "illusionist",
            "magic_user", "thief", "paladin", "ranger"]
@@ -136,10 +140,11 @@ def parse_embedded_tables(cell_data: str) -> List[dict]:
     return tables
 
 
-def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="classes_collection"):
+def init_db_classes(client, db="dnd_fastapi_dev", coll="classes_collection"):
     if not db or not coll:
         raise ValueError("database or collection not specified")
     db_conn = client[db][coll]
+    class_docs = create_class_documents()
     for doc in class_docs:
         if db_conn.find_one({"name": doc["name"]}):
             print("class already exists")
@@ -147,7 +152,7 @@ def init_db_classes(client, class_docs: List[dict], db="dnd_fastapi_dev", coll="
         db_conn.insert_one(doc)
 
 
-def init_db_spells(client, spell_csv: str, db="dnd_fastapi_dev", coll="spell_collection"):
+def init_db_spells(client, db="dnd_fastapi_dev", spell_csv='all_spells.csv', coll="spell_collection"):
     if not db or not coll:
         raise ValueError("database or collection not specified")
     db_conn = client[db][coll]
@@ -162,7 +167,7 @@ def init_db_spells(client, spell_csv: str, db="dnd_fastapi_dev", coll="spell_col
         if row["class"] in ["cleric", "druid"]:
             db_conn.insert_one(row)
 
-def init_db_races(client, race_csv_file, db="dnd_fastapi_dev", coll="race_collection"):
+def init_db_races(client, db="dnd_fastapi_dev", race_csv_file='race_data.csv', coll="race_collection"):
     db_conn = client[db][coll]
     reader = DictReader(open(race_csv_file))
     for row in reader:
@@ -241,6 +246,53 @@ def init_db_items(client, db='dnd_fastapi_dev', items_csv='items.csv'):
         }
         items_coll.insert_one(document)
 
+def build_db_collections(client, args=['build','all']):
+    """Making a function to build all or some of the collections in DnDdb"""
+    """Expecting an array like this:
+        ['build', 'all'] or ['build', 'races', 'weapons', etc]"""
+    build_all_flag = False
+
+    if args[1] == 'all':
+        print("Building all collections")
+        build_all_flag = True
+
+    if "classes" in args or build_all_flag:
+        print("Building Classes")
+        init_db_classes(client)
+    
+    if "spells" in args or build_all_flag:
+        print("Building Spells")
+        init_db_spells(client)
+
+    if "races" in args or build_all_flag:
+        print("Building Races")
+        init_db_races(client)
+
+    if "equipment" in args or build_all_flag:
+        print("Building Equipment")
+        init_db_inventory(client)
+
+    if "weapons" in args or build_all_flag:
+        print("Building Weapons")
+        init_db_weapons(client)
+
+    if "armor" in args or build_all_flag:
+        print("Building Armor")
+        init_db_armor(client)
+
+    if "items" in args or build_all_flag:
+        print("Building Items")
+        init_db_items(client)
+
+def delete_db_collections(client, args=['delete', 'all']):
+    """Here I'm going to make cmds to delete all or some of the database 'collections'"""
+    delete_all_flag = False
+
+    print("""
+        Once Drew figures out how to delete tables
+        that code will go here.
+        In the mean time, just do it via the app
+        """)
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -249,28 +301,8 @@ if __name__ == "__main__":
     # db = client['dnd_fastapi']
     # collection = db['classes']
 
-    # Check and see to build all db
-    if args[0].lower() == 'build_whole_db':
-        build_all_flag = True;
+    if args[0].lower() == 'build':
+        build_db_collections(client, args)
+    elif args[0].lower() == 'delete':
+        delete_db_collections(client, args)
 
-    if "classes" in args or build_all_flag:
-        docs = create_class_documents()
-        init_db_classes(client, docs)
-
-    if "spells" in args or build_all_flag:
-        init_db_spells(client, 'all_spells.csv')
-
-    if "races" in args or build_all_flag:
-        init_db_races(client, 'race_data.csv')
-
-    if "equipment" in args or build_all_flag:
-        init_db_inventory(client)
-
-    if "weapons" in args or build_all_flag:
-        init_db_weapons(client)
-
-    if "armor" in args or build_all_flag:
-        init_db_armor(client)
-
-    if "items" in args or build_all_flag:
-        init_db_items(client)
