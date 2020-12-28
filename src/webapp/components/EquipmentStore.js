@@ -32,16 +32,10 @@ function EquipmentStore() {
     setCurrentMenu(name)
   }
 
-  const addToCart = (e, item) => {
-    e.preventDefault()
-    // console.log(item.value)
-    dispatch({ type: 'add', item })
-  }
-
-  const filterData = ({ target }) => {
-    // TODO: Create a search filter for items
-    console.log(target)
-  }
+  // TODO: Create a search filter for items
+  // const filterData = ({ target }) => {
+  //   console.log(target)
+  // }
 
   return (
     <>{(loading && !char)

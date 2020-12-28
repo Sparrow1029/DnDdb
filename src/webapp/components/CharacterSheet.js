@@ -19,6 +19,7 @@ const CharacterSheet = () => {
   const [editingPI, setEditingPI] = useState(false)
   const [storeOpen, setStoreOpen] = useState(false)
   const [state, dispatch] = useReducer(attrReducer, char)
+  const [saving, setSaving] = useState(false)
   const { character: char, dispatch: charDispatch } = useContext(CharacterContext)
 
   useEffect(() => {
@@ -30,6 +31,11 @@ const CharacterSheet = () => {
     // console.log("CHARACTER EXISTS NOW")
     setLoading(false)
   }, [])
+
+  const saveChar = () => {
+    let { id: _id, ...char } = payload
+    console.log(payload)
+  }
 
   const createACtoHitTbl = () => {
     let headerCells = []
