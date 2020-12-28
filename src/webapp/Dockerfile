@@ -4,13 +4,14 @@ FROM node:15.3.0-alpine
 # set working directory
 WORKDIR /usr/src/webapp
 
-# install app dependencies
-# COPY package.json ./
-# COPY package-lock.json ./
-
 # add app
 COPY . ./
-RUN npm install && npm cache clean --force
+
+# install app dependencies
+#COPY package.json ./
+#COPY package-lock.json ./
+#RUN npm install && npm cache clean --force
+RUN npm install
 
 # add node_modules/.bin to $PATH
 ENV PATH /usr/src/webapp/node_modules/.bin:$PATH
