@@ -245,27 +245,32 @@ def init_db_items(client, db='dnd_fastapi_dev', items_csv='items.csv'):
 if __name__ == "__main__":
     args = sys.argv[1:]
     client = MongoClient('mongodb://dnd_admin:eulalia@localhost:27017/')
+    build_all_flag = False
     # db = client['dnd_fastapi']
     # collection = db['classes']
 
-    if "classes" in args:
+    # Check and see to build all db
+    if args[0].lower() == 'build_whole_db':
+        build_all_flag = True;
+
+    if "classes" in args or build_all_flag:
         docs = create_class_documents()
         init_db_classes(client, docs)
 
-    if "spells" in args:
+    if "spells" in args or build_all_flag:
         init_db_spells(client, 'all_spells.csv')
 
-    if "races" in args:
+    if "races" in args or build_all_flag:
         init_db_races(client, 'race_data.csv')
 
-    if "equipment" in args:
+    if "equipment" in args or build_all_flag:
         init_db_inventory(client)
 
-    if "weapons" in args:
+    if "weapons" in args or build_all_flag:
         init_db_weapons(client)
 
-    if "armor" in args:
+    if "armor" in args or build_all_flag:
         init_db_armor(client)
 
-    if "items" in args:
+    if "items" in args or build_all_flag:
         init_db_items(client)
