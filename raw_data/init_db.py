@@ -11,7 +11,7 @@ from pprint import pprint
 import sys
 
 """ To Do:
-    -Build delete db tables funcs
+    -Add option to create test users and characters upon build
     -Add in error handler for missing files
     -Add a health check to make sure db is totally up and running after build
     """
@@ -28,8 +28,8 @@ def rec_dd():
 def create_class_documents():
     documents = []
     for c in classes:
-        lvl_adv_reader = DictReader(open('level_advancement.csv', 'r'))
-        abilities_reader = DictReader(open('class_abilities.csv', 'r'))
+        lvl_adv_reader = DictReader(open('data/level_advancement.csv', 'r'))
+        abilities_reader = DictReader(open('data/class_abilities.csv', 'r'))
         document = defaultdict(rec_dd)
         document.update({
             "name": c,
@@ -85,9 +85,9 @@ def create_class_documents():
 
         # Thiefs skill tables with chance of success (%)
         if c == "thief":
-            base_skill_reader = DictReader(open('thief_skills_base_chance.csv'))
-            dex_adj_reader = DictReader(open('thief_skills_dex_adj.csv'))
-            race_adj_reader = DictReader(open('thief_skills_race_adj.csv'))
+            base_skill_reader = DictReader(open('data/thief_skills_base_chance.csv'))
+            dex_adj_reader = DictReader(open('data/thief_skills_dex_adj.csv'))
+            race_adj_reader = DictReader(open('data/thief_skills_race_adj.csv'))
             document["thief_skills"] = {
                 "base_skill_chance": dict(),
                 "dex_skill_adj": dict(),
@@ -152,7 +152,7 @@ def init_db_classes(client, db="dnd_fastapi_dev", coll="classes_collection"):
         db_conn.insert_one(doc)
 
 
-def init_db_spells(client, db="dnd_fastapi_dev", spell_csv='all_spells.csv', coll="spell_collection"):
+def init_db_spells(client, db="dnd_fastapi_dev", spell_csv='data/all_spells.csv', coll="spell_collection"):
     if not db or not coll:
         raise ValueError("database or collection not specified")
     db_conn = client[db][coll]
@@ -167,7 +167,7 @@ def init_db_spells(client, db="dnd_fastapi_dev", spell_csv='all_spells.csv', col
         if row["class"] in ["cleric", "druid"]:
             db_conn.insert_one(row)
 
-def init_db_races(client, db="dnd_fastapi_dev", race_csv_file='race_data.csv', coll="race_collection"):
+def init_db_races(client, db="dnd_fastapi_dev", race_csv_file='data/race_data.csv', coll="race_collection"):
     db_conn = client[db][coll]
     reader = DictReader(open(race_csv_file))
     for row in reader:
@@ -178,12 +178,12 @@ def init_db_races(client, db="dnd_fastapi_dev", race_csv_file='race_data.csv', c
         row["starting_ages"] = json.loads(row["starting_ages"])
         db_conn.insert_one(row)
 
-def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='items.csv', armor_csv='armor.csv', weapons_csv='weapons.csv'):
+def init_db_inventory(client, db='dnd_fastapi_dev', items_csv='data/items.csv', armor_csv='data/armor.csv', weapons_csv='data/weapons.csv'):
     init_db_weapons(client)
     init_db_armor(client)
     init_db_items(client)
 
-def init_db_weapons(client, db='dnd_fastapi_dev', weapons_csv='weapons.csv'):
+def init_db_weapons(client, db='dnd_fastapi_dev', weapons_csv='data/weapons.csv'):
     weapons_coll = client[db]["weapons_collection"]
     weapons_reader = DictReader(open(weapons_csv))
     for row in weapons_reader:
@@ -208,7 +208,7 @@ def init_db_weapons(client, db='dnd_fastapi_dev', weapons_csv='weapons.csv'):
         }
         weapons_coll.insert_one(document)
 
-def init_db_armor(client, db='dnd_fastapi_dev', armor_csv='armor.csv'):
+def init_db_armor(client, db='dnd_fastapi_dev', armor_csv='data/armor.csv'):
     armor_coll = client[db]["armor_collection"]
     armor_reader = DictReader(open(armor_csv))
     for row in armor_reader:
@@ -228,7 +228,7 @@ def init_db_armor(client, db='dnd_fastapi_dev', armor_csv='armor.csv'):
         }
         armor_coll.insert_one(document)
 
-def init_db_items(client, db='dnd_fastapi_dev', items_csv='items.csv'):
+def init_db_items(client, db='dnd_fastapi_dev', items_csv='data/items.csv'):
     items_coll = client[db]["items_collection"]
     items_reader = DictReader(open(items_csv))
     for row in items_reader:
@@ -250,9 +250,10 @@ def build_db_collections(client, args=['build','all']):
     """Making a function to build all or some of the collections in DnDdb"""
     """Expecting an array like this:
         ['build', 'all'] or ['build', 'races', 'weapons', etc]"""
+    """Would be good to put these in a meaningful order"""
     build_all_flag = False
 
-    if args[1] == 'all':
+    if args[1].lower() == 'all':
         print("Building all collections")
         build_all_flag = True
 
@@ -269,7 +270,7 @@ def build_db_collections(client, args=['build','all']):
         init_db_races(client)
 
     if "equipment" in args or build_all_flag:
-        print("Building Equipment")
+        print("Building Equipment (weapons, armor and items)")
         init_db_inventory(client)
 
     if "weapons" in args or build_all_flag:
@@ -284,15 +285,59 @@ def build_db_collections(client, args=['build','all']):
         print("Building Items")
         init_db_items(client)
 
-def delete_db_collections(client, args=['delete', 'all']):
+def delete_db_collections(client, args=['delete', 'all'],db='dnd_fastapi_dev'):
     """Here I'm going to make cmds to delete all or some of the database 'collections'"""
-    delete_all_flag = False
+    """Would be good to put these in a meaningful order"""
 
-    print("""
-        Once Drew figures out how to delete tables
-        that code will go here.
-        In the mean time, just do it via the app
-        """)
+    if args[1].lower() == 'all':
+        print(f"Deleting contents of {db}!")
+        outcome = db.dropDatabase()
+        if outcome:
+            print("Database delete successful")
+        else:
+            print("Ruh-ruh, can't even delete a database correct")
+        return
+
+    if "classes" in args:
+        print("Deleting Classes")
+        my_coll = client[db]["classes_collection"]
+        my_coll.drop()
+    
+    if "spells" in args:
+        print("Deleting Spells")
+        my_coll = client[db]["spell_collection"]
+        my_coll.drop()
+    
+    if "races" in args:
+        print("Deleting Races")
+        my_coll = client[db]["race_collection"]
+        my_coll.drop()
+
+    if "equipment" in args:
+        print("Deleting all Equipment (weapons, armor and items)")
+        my_coll = client[db]["weapons_collection"]
+        my_coll.drop()
+        my_coll = client[db]["armor_collection"]
+        my_coll.drop()
+        my_coll = client[db]["items_collection"]
+        my_coll.drop()
+        
+    if "weapons" in args:
+        print("Deleting Weapons")
+        my_coll = client[db]["weapons_collection"]
+        my_coll.drop()
+    
+    if "armor" in args:
+        print("Deleting Armor")
+        my_coll = client[db]["armor_collection"]
+        my_coll.drop()
+
+    if "items" in args:
+        print("Deleting Items")
+        my_coll = client[db]["items_collection"]
+        my_coll.drop()
+
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]
