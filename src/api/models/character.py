@@ -110,9 +110,9 @@ class InventoryArmor(Armor):
     amt: Optional[int]
 
 class EquippedWeapons(BaseModel):
-    main_hand: Optional[InventoryWeapon]
-    off_hand: Optional[InventoryWeapon]
-    ranged: Optional[InventoryWeapon]
+    main_hand: Optional[Union[None, InventoryWeapon]]
+    off_hand: Optional[Union[None, InventoryWeapon]]
+    ranged: Optional[Union[None, InventoryWeapon]]
     other: Optional[List[InventoryWeapon]]
 
 class EquippedArmor(BaseModel):
@@ -137,10 +137,10 @@ class Purse(BaseModel):
     pp: Optional[int]
 
 class Inventory(BaseModel):
-    wealth: Optional[list]  # TODO: implement loot items here
-    equipment: Optional[Equipment]
-    equipped_armor: Optional[EquippedArmor]
-    equipped_weapons: Optional[EquippedWeapons]
+    wealth: Optional[list] = Field(default_factory=lambda: list())  # Treasure hoard (not on person)
+    equipment: Optional[Equipment] = Field(default_factory=lambda: dict())
+    equipped_armor: Optional[EquippedArmor] = Field(default_factory=lambda: dict())
+    equipped_weapons: Optional[EquippedWeapons] = Field(default_factory=lambda: dict())
 
 class CharacterSchema(BaseModel):
     name: str
@@ -164,7 +164,7 @@ class CharacterSchema(BaseModel):
     exp: int = 0
     exp_next_lvl: Optional[int]
     ac: Optional[int]
-    ac_to_hit: Optional[Dict[int, int]]
+    ac_to_hit: Optional[Dict[str, int]]
     height: Optional[Dict[str, int]]
     weight: Optional[int]
     age: Optional[int]

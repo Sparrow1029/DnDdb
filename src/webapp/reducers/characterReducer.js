@@ -43,20 +43,17 @@ const initialInventory = {
 }
 
 const characterReducer = (char, action) => {
+  var inventory = (char && char.inventory !== null) ? char.inventory : initialInventory
+  var { item, totalCost, amt, section, location } = action
   switch (action.type) {
     case 'SET_CHARACTER':
       save(action.payload)
       return action.payload
     case 'ADD_INVENTORY':
     case 'BUY_ITEM':
-      var { item, totalCost, amt, location } = action
-      var inventory = (char.inventory !== null) ? char.inventory : initialInventory
       if (amt === 0) {
         return {...char}
       }
-      var { item, totalCost, amt, location } = action
-      var inventory = (char.inventory !== null) ? char.inventory : initialInventory
-
       let newMoney = coinReducer(char.money, { type: 'credit', payload: totalCost })
       let index = _.findIndex(inventory.equipment[location], function (o) { return o.id == item.id })
       if (index !== -1) {
@@ -70,12 +67,11 @@ const characterReducer = (char, action) => {
       let newChar = {...char, money: newMoney, inventory}
       save(newChar)
       return newChar
-    case 'SELL_ITEM':
-    case 'REMOVE_INVENTORY':
-      break;
-    case 'EQUIP_WEAPON':
-      inventory = char.inventory
-      inventory.equipped_weapons[location] = item
+    // case 'SELL_ITEM':
+    // case 'REMOVE_INVENTORY':
+    //   break;
+    case 'EQUIP':
+      inventory[section][location] = item
       newChar = {...char, inventory}
       save(newChar)
       return newChar

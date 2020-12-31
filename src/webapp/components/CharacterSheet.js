@@ -2,10 +2,13 @@ import React, { useState, useReducer, useEffect, useContext } from 'react';
 import { attrReducer, inventoryReducer } from '../utils/characterSheet'
 import { CharacterContext } from '../contexts/CharacterContext'
 import { range } from '../utils/diceRolls'
+import { saveCharacter } from '../utils/requests'
 import uuid from 'react-uuid'
+
 import NavSideBar from './sidenav'
 import EquipmentStore from './EquipmentStore'
 import CharEquipment from './inventory/CharEquipment'
+import CurrentlyEquipped from './inventory/CurrentlyEquipped'
 
 import {
   Container, Segment, Grid, Form, Input, Divider, Loader, Header, Button,
@@ -18,7 +21,7 @@ const CharacterSheet = () => {
   const [loading, setLoading] = useState(true)
   const [editingPI, setEditingPI] = useState(false)
   const [storeOpen, setStoreOpen] = useState(false)
-  const [state, dispatch] = useReducer(attrReducer, char)
+  const [saving, setSaving] = useState(false)
   const { character: char, dispatch: charDispatch } = useContext(CharacterContext)
 
   useEffect(() => {
@@ -232,77 +235,11 @@ const CharacterSheet = () => {
                   Weapons & Armor
                 </h4>
               </Divider>
-              <Table definition compact textAlign='center'>
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>Equip Slot</Table.HeaderCell>
-                    <Table.HeaderCell>Weapon</Table.HeaderCell>
-                    <Table.HeaderCell>Dmg vs S-M</Table.HeaderCell>
-                    <Table.HeaderCell>Dmg vs L</Table.HeaderCell>
-                    <Table.HeaderCell>Rate of Fire</Table.HeaderCell>
-                    <Table.HeaderCell>Range (-2 to hit per)</Table.HeaderCell>
-                    <Table.HeaderCell>Encumbrance</Table.HeaderCell>
-                    <Table.HeaderCell>Ammo</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
-                  <Table.Row>
-                    <Table.Cell>Weapon in hand</Table.Cell>
-                    <Table.Cell>Sword, Short</Table.Cell>
-                    <Table.Cell>1d6</Table.Cell>
-                    <Table.Cell>1d8</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>25 lbs</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Secondary</Table.Cell>
-                    <Table.Cell>Dagger</Table.Cell>
-                    <Table.Cell>1d4</Table.Cell>
-                    <Table.Cell>1d3</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>1 lbs</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Ranged</Table.Cell>
-                    <Table.Cell>Bow, Short</Table.Cell>
-                    <Table.Cell>1d6</Table.Cell>
-                    <Table.Cell>1d6</Table.Cell>
-                    <Table.Cell>2</Table.Cell>
-                    <Table.Cell>50 ft</Table.Cell>
-                    <Table.Cell>12 lbs</Table.Cell>
-                    <Table.Cell>
-                      <Button
-                        style={{ background: 'none', border: 'none', width: '25px' }}>
-                        <Icon name='triangle left' />
-                      </Button>
-                      25
-                      <Button
-                        style={{ background: 'none', border: 'none', width: '25px', paddingLeft: '5px'}}>
-                        <Icon name='triangle right' />
-                      </Button>
-                    </Table.Cell>
-                  </Table.Row>
-                  <Table.Row>
-                    <Table.Cell>Other</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                    <Table.Cell>-</Table.Cell>
-                  </Table.Row>
-                </Table.Body>
-              </Table>
+              <CurrentlyEquipped />
               {/* AC_TO_HIT_TABLE */}
               {createACtoHitTbl()}
               {(char.inventory !== null) &&
-                <CharEquipment inventory={char.inventory}/>
+                <CharEquipment />
               }
               <Modal
                 onClose={() => setStoreOpen(false)}
@@ -313,6 +250,7 @@ const CharacterSheet = () => {
               >
                 <EquipmentStore character={char}/>
               </Modal>
+              <Button onClick={() => { console.log("Saving to DB"); saveCharacter(char) }}>Save Character</Button>
             </Segment>
           </Segment.Group>
         </>

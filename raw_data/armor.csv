@@ -1,15 +1,15 @@
-name,encumbrance,max_move,ac,gp,sp,cp,amtPer
-banded,35,90,-6,90,0,0,1
-mail hauberk or byrnie (chain),30,90,-5,75,0,0,1
-"mail, elfin (chain)",15,120,-5,9999999,0,0,1
-leather,15,120,-2,5,0,0,1
-padded gambeson,10,90,-2,4,0,0,1
-plate,45,60,-7,400,0,0,1
-ring,35,90,-3,30,0,0,1
-scale or lamellar,40,60,-4,45,0,0,1
-"shield, large",10,120,-1,15,0,0,1
-"shield, leather",5,120,-1,10,0,0,1
-"shield, medium",8,120,-1,12,0,0,1
-"shield, small",5,120,-1,10,0,0,1
-splint,40,60,-6,80,0,0,1
-studded,20,90,-3,15,0,0,1
+name,encumbrance,max_move,ac,gp,sp,cp,amtPer,equip_slots
+banded,35,90,-6,90,0,0,1,armor
+mail hauberk or byrnie (chain),30,90,-5,75,0,0,1,armor
+"mail, elfin (chain)",15,120,-5,9999999,0,0,1,armor
+leather,15,120,-2,5,0,0,1,armor
+padded gambeson,10,90,-2,4,0,0,1,armor
+plate,45,60,-7,400,0,0,1,armor
+ring,35,90,-3,30,0,0,1,armor
+scale or lamellar,40,60,-4,45,0,0,1,armor
+"shield, large",10,120,-1,15,0,0,1,shield
+"shield, leather",5,120,-1,10,0,0,1,shield
+"shield, medium",8,120,-1,12,0,0,1,shield
+"shield, small",5,120,-1,10,0,0,1,shield
+splint,40,60,-6,80,0,0,1,armor
+studded,20,90,-3,15,0,0,1,armor

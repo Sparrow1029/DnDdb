@@ -1,41 +1,41 @@
-name,dmg_sm_md,dmg_lg,encumbrance,gp,sp,cp,amt_per,category,sub_category,type,rate_of_fire,range
-arrows,1d6,1d6,2,2,0,0,12,missile,ammunition,piercing,,
-battle axe,1d8,1d8,7,5,0,0,1,melee,two_handed,blade,,
-"bolt, heavy crossbow",1d6+1,1d6+1,4,4,0,0,12,missile,ammunition,piercing,,
-"bolt, light crossbow",1d4+1,1d4+1,2,2,0,0,12,missile,ammunition,piercing,,
-broadsword,2d4,1d6+1,8,10,0,0,1,melee,two_handed,blade,,
-claymore/bastard sword,2d4,2d8,10,25,0,0,1,melee,two_handed,blade,,
-club,1d4,1d3,3,0,0,2,1,melee,one_handed,blunt,1,10
-composite longbow,1d6,1d6,13,100,0,0,1,missile,ranged,piercing,2,60
-composite short bow,1d6,1d6,9,75,0,0,1,missile,ranged,piercing,2,50
-dagger,1d4,1d3,1,2,0,0,1,melee,one_handed,blade,,
-dart,1d3,1d2,0.5,0,2,0,1,missile,ammunition,piercing,3,15
-halberd,1d10,2d6,18,9,0,0,1,melee,two_handed,blade,,
-hammer,1d4+1,1d4,5,1,0,0,1,missile,one_handed,blunt,1,10
-hand axe,1d6,1d4,5,1,0,0,1,melee,one_handed,blade,1,10
-heavy crossbow,1d6+1,1d6+1,12,20,0,0,1,missile,ranged,piercing,0.5,60
-heavy flail,1d6+1,2d4,10,3,0,0,1,melee,one_handed,blunt,,
-heavy war hammer,1d6+1,1d6,10,7,0,0,1,melee,two_handed,blunt,,
-javelin,1d6,1d4,4,0,5,0,1,missile,ranged,piercing,1,20
-lance,2d4+1,3d6,15,6,0,0,1,melee,two_handed,piercing,,
-light crossbow,1d4+1,1d4+1,4,12,0,0,1,missile,ranged,piercing,1,60
-light flail,1d4+1,1d4+1,4,6,0,0,1,melee,one_handed,blunt,,
-light war hammer,1d4+1,1d4,5,1,0,0,1,melee,one_handed,blunt,,
-long sword,1d8,1d12,7,15,0,0,1,melee,one_handed,blade,,
-longbow,1d6,1d6,12,60,0,0,1,missile,ranged,piercing,2,70
-"mace, heavy",1d6+1,1d6,10,10,0,0,1,melee,one_handed,blunt,,
-"mace, light",1d4+1,1d4+1,5,4,0,0,1,melee,one_handed,blunt,,
-morning star,2d4,1d6+1,12,5,0,0,1,melee,one_handed,blunt,,
-"pick, heavy",1d6+1,2d4,10,8,0,0,1,melee,two_handed,blade,,
-"pick, light",1d4+1,1d4,4,5,0,0,1,melee,one_handed,blade,,
-pole arm,1d6+1,1d10,8,6,0,0,1,melee,two_handed,piercing,,
-scimitar,1d8,1d8,5,15,0,0,1,melee,one_handed,blade,,
-short bow,1d6,1d6,8,15,0,0,1,missile,ranged,piercing,2,50
-short sword,1d6,1d8,3,8,0,0,1,melee,one_handed,blade,,
-sling,1d4+1 or 1d4,1d6+1 or 1d4,0.5,5,0,0,1,missile,ranged,piercing,1,35
-sling bullet,1d4+1,1d6+1,4,1,0,0,12,missile,ammunition,piercing,1,35
-sling stone,1d4,1d4,2,0,0,0,12,missile,ammunition,piercing,1,35
-spear,1d6,1d8,5,1,0,0,1,melee,two_handed,piercing,1,15
-staff,1d6,1d6,5,0,0,0,1,melee,two_handed,blunt,,
-"sword, two-handed",1d10,3d6,25,30,0,0,1,melee,two_handed,blade,,
-trident,1d6+1,3d4,5,4,0,0,1,melee,two_handed,piercing,,
+name,dmg_sm_md,dmg_lg,encumbrance,gp,sp,cp,amt_per,category,sub_category,type,rate_of_fire,range,equip_slots
+arrows,1d6,1d6,2,2,0,0,12,missile,ammunition,piercing,,,
+battle axe,1d8,1d8,7,5,0,0,1,melee,two_handed,blade,,,main_hand
+"bolt, heavy crossbow",1d6+1,1d6+1,4,4,0,0,12,missile,ammunition,piercing,,,
+"bolt, light crossbow",1d4+1,1d4+1,2,2,0,0,12,missile,ammunition,piercing,,,
+broadsword,2d4,1d6+1,8,10,0,0,1,melee,two_handed,blade,,,main_hand
+claymore/bastard sword,2d4,2d8,10,25,0,0,1,melee,two_handed,blade,,,main_hand
+club,1d4,1d3,3,0,0,2,1,melee,one_handed,blunt,1,10,main_hand off_hand
+composite longbow,1d6,1d6,13,100,0,0,1,missile,ranged,piercing,2,60,ranged
+composite short bow,1d6,1d6,9,75,0,0,1,missile,ranged,piercing,2,50,ranged
+dagger,1d4,1d3,1,2,0,0,1,melee,one_handed,blade,,,main_hand off_hand ranged
+dart,1d3,1d2,0.5,0,2,0,1,missile,ammunition,piercing,3,15,main_hand off_hand ranged
+halberd,1d10,2d6,18,9,0,0,1,melee,two_handed,blade,,,main_hand
+hammer,1d4+1,1d4,5,1,0,0,1,missile,one_handed,blunt,1,10,main_hand off_hand ranged
+hand axe,1d6,1d4,5,1,0,0,1,melee,one_handed,blade,1,10,main_hand off_hand ranged
+heavy crossbow,1d6+1,1d6+1,12,20,0,0,1,missile,ranged,piercing,0.5,60,ranged
+heavy flail,1d6+1,2d4,10,3,0,0,1,melee,one_handed,blunt,,,main_hand
+heavy war hammer,1d6+1,1d6,10,7,0,0,1,melee,two_handed,blunt,,,main_hand
+javelin,1d6,1d4,4,0,5,0,1,missile,ranged,piercing,1,20,main_hand off_hand ranged
+lance,2d4+1,3d6,15,6,0,0,1,melee,two_handed,piercing,,,main_hand
+light crossbow,1d4+1,1d4+1,4,12,0,0,1,missile,ranged,piercing,1,60,ranged
+light flail,1d4+1,1d4+1,4,6,0,0,1,melee,one_handed,blunt,,,main_hand off_hand
+light war hammer,1d4+1,1d4,5,1,0,0,1,melee,one_handed,blunt,,,main_hand off_hand
+long sword,1d8,1d12,7,15,0,0,1,melee,one_handed,blade,,,main_hand off_hand
+longbow,1d6,1d6,12,60,0,0,1,missile,ranged,piercing,2,70,ranged
+"mace, heavy",1d6+1,1d6,10,10,0,0,1,melee,one_handed,blunt,,,main_hand off_hand
+"mace, light",1d4+1,1d4+1,5,4,0,0,1,melee,one_handed,blunt,,,main_hand off_hand
+morning star,2d4,1d6+1,12,5,0,0,1,melee,one_handed,blunt,,,main_hand off_hand
+"pick, heavy",1d6+1,2d4,10,8,0,0,1,melee,two_handed,blade,,,main_hand
+"pick, light",1d4+1,1d4,4,5,0,0,1,melee,one_handed,blade,,,main_hand off_hand
+pole arm,1d6+1,1d10,8,6,0,0,1,melee,two_handed,piercing,,,main_hand
+scimitar,1d8,1d8,5,15,0,0,1,melee,one_handed,blade,,,main_hand off_hand
+short bow,1d6,1d6,8,15,0,0,1,missile,ranged,piercing,2,50,ranged
+short sword,1d6,1d8,3,8,0,0,1,melee,one_handed,blade,,,main_hand off_hand
+sling,1d4+1 or 1d4,1d6+1 or 1d4,0.5,5,0,0,1,missile,ranged,piercing,1,35,ranged
+sling bullet,1d4+1,1d6+1,4,1,0,0,12,missile,ammunition,piercing,1,35,
+sling stone,1d4,1d4,2,0,0,0,12,missile,ammunition,piercing,1,35,
+spear,1d6,1d8,5,1,0,0,1,melee,two_handed,piercing,1,15,main_hand
+staff,1d6,1d6,5,0,0,0,1,melee,two_handed,blunt,,,main_hand
+"sword, two-handed",1d10,3d6,25,30,0,0,1,melee,two_handed,blade,,,main_hand
+trident,1d6+1,3d4,5,4,0,0,1,melee,two_handed,piercing,,,main_hand

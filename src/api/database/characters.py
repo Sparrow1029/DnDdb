@@ -1,10 +1,12 @@
 #import motor.motor_asyncio as maio
 from bson.objectid import ObjectId
+from fastapi.encoders import jsonable_encoder
 from .utils.create_new_char import BaseMods, RaceMods, apply_class_mods
 
 from .users import retrieve_user, update_user
 from db import char_collection, user_collection, class_collection
 from pymongo import ReturnDocument
+from pprint import pprint
 
 ### HELPERS ###
 def char_helper(char) -> dict:
@@ -73,7 +75,7 @@ def delete_character(char_id: str, user_id: str) -> bool:
         {"_id": ObjectId(user_id)},
         {"$pull": { "characters": char_id }}
     )
-    print(update_user.modified_count)
+    pprint(update_user.modified_count)
     result = char_collection.delete_one({"_id": ObjectId(char_id)})
     if result.deleted_count == 1:
        return True
@@ -83,6 +85,7 @@ def delete_character(char_id: str, user_id: str) -> bool:
 def update_character(char_id: str, data) -> dict:
     updated_char = char_collection.find_one_and_update(
         {"_id": ObjectId(char_id)},
-        {"$set": data}, return_document=ReturnDocument.AFTER, epsert=False
+        # {"$set": jsonable_encoder(data)}, return_document=ReturnDocument.AFTER, upsert=False
+        {"$set": data}, return_document=ReturnDocument.AFTER, upsert=False
     )
     return char_helper(updated_char) or None

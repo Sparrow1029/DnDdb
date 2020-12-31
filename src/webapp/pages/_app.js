@@ -27,6 +27,10 @@ String.prototype.toTitleCase = function () {
   return words.join(' ')
 }
 
+String.prototype.capitalFirstChar = function () {
+  return this[0].toUpperCase() + this.slice(1)
+}
+
 export default function MyApp ({ Component, pageProps }) {
   const Layout = Component.Layout ? Component.Layout : React.Fragment;
 

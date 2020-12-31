@@ -3,24 +3,24 @@ from typing import Optional, Union
 from enum import Enum
 
 class Cost(BaseModel):
-    gp: int
-    sp: int
-    cp: int
-    ep: int
-    pp: int
-    amtPer: int
+    gp: Optional[int]
+    sp: Optional[int]
+    cp: Optional[int]
+    ep: Optional[int]
+    pp: Optional[int]
+    amtPer: Optional[int]
 
 class Item(BaseModel):
-    name: str
-    encumbrance: Union[float, int]
-    cost: Cost
+    name: Optional[str]
+    encumbrance: Optional[Union[float, int]]
+    cost: Optional[Cost]
 
 class Armor(BaseModel):
-    name: str
-    encumbrance: Union[float, int]
-    max_move: int
-    ac: int
-    cost: Cost
+    name: Optional[str]
+    encumbrance: Optional[Union[float, int]]
+    max_move: Optional[int]
+    ac: Optional[int]
+    cost: Optional[Cost]
 
 class Category(str, Enum):
     melee = 'melee'
@@ -38,13 +38,13 @@ class Type(str, Enum):
     piercing = 'piercing'
 
 class Weapon(BaseModel):
-    name: str
-    dmg_sm_md: str
-    dmg_lg: str
-    encumbrance: Union[float, int]
-    cost: Cost
-    category: Category
-    subcategory: Subcategory
-    type: Type
-    rate_of_fire: Optional[float]
-    range: Optional[int]
+    name: Optional[str]
+    dmg_sm_md: Optional[str]
+    dmg_lg: Optional[str]
+    encumbrance: Optional[Union[float, int]]
+    cost: Optional[Cost]
+    category: Optional[Category]
+    subcategory: Optional[Subcategory]
+    type: Optional[Type]
+    rate_of_fire: Optional[Union[None, float]]
+    range: Optional[Union[None, int]]
