@@ -16,24 +16,21 @@ export default function CharacterPage() {
 
   useEffect(() => {
     setLoading(true)
-    if (!char) {
-      if (!localStorage.getItem(router.query.character)) {
-        // console.log("NOCHAR")
-        request.get(`/characters/${router.query.character}`)
-          .then(resp => {
-            // setChar(resp.data)
-            dispatch({ type: 'SET_CHARACTER', payload: resp.data })
-            setLoading(false)
-            // console.log("LOADING FALSE")
-          })
-          .catch(err => console.log(err))
-
-      } else {
+    if (!char || !localStorage.getItem(router.query.character)) {
+      // console.log("NOCHAR")
+      request.get(`/characters/${router.query.character}`)
+        .then(resp => {
+          // setChar(resp.data)
+          dispatch({ type: 'SET_CHARACTER', payload: resp.data })
+          setLoading(false)
+          // console.log("LOADING FALSE")
+        })
+        .catch(err => console.log(err))
+    } else {
         dispatch({ type: 'SET_CHARACTER', payload: JSON.parse(localStorage.getItem(router.query.character)) })
         setLoading(false)
-      }
-    }
     setLoading(false)
+    }
   }, [])
 
   return (
