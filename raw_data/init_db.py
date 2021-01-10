@@ -285,59 +285,67 @@ def build_db_collections(client, args=['build','all']):
         print("Building Items")
         init_db_items(client)
 
+def insert_test_data(client):
+    """Insert a test user and character to test builds"""
+    """ Use characters_collection.json and users_collection.json"""
+    print("This feature is under construction")
+
 def delete_db_collections(client, args=['delete', 'all'],db='dnd_fastapi_dev'):
     """Here I'm going to make cmds to delete all or some of the database 'collections'"""
     """Would be good to put these in a meaningful order"""
-
+   
     if args[1].lower() == 'all':
-        print(f"Deleting contents of {db}!")
-        outcome = db.dropDatabase()
-        if outcome:
-            print("Database delete successful")
+        print(f"Deleting the entire {db}!")
+        client.drop_database(db)
+        databases = client.list_database_names()
+        if db not in databases:
+            print(f"{db} successfully deleted!")
         else:
-            print("Ruh-ruh, can't even delete a database correct")
+            print(f"{db} still exists. Delete unsuccessful")
         return
 
-    if "classes" in args:
-        print("Deleting Classes")
-        my_coll = client[db]["classes_collection"]
-        my_coll.drop()
-    
-    if "spells" in args:
-        print("Deleting Spells")
-        my_coll = client[db]["spell_collection"]
-        my_coll.drop()
-    
-    if "races" in args:
-        print("Deleting Races")
-        my_coll = client[db]["race_collection"]
-        my_coll.drop()
-
-    if "equipment" in args:
-        print("Deleting all Equipment (weapons, armor and items)")
-        my_coll = client[db]["weapons_collection"]
-        my_coll.drop()
-        my_coll = client[db]["armor_collection"]
-        my_coll.drop()
-        my_coll = client[db]["items_collection"]
-        my_coll.drop()
+    for arg in args[1:]:
+        if arg == "classes":
+            print("Deleting Classes")
+            my_coll = client[db]["classes_collection"]
+            my_coll.drop()
         
-    if "weapons" in args:
-        print("Deleting Weapons")
-        my_coll = client[db]["weapons_collection"]
-        my_coll.drop()
-    
-    if "armor" in args:
-        print("Deleting Armor")
-        my_coll = client[db]["armor_collection"]
-        my_coll.drop()
+        elif arg == "spells":
+            print("Deleting Spells")
+            my_coll = client[db]["spell_collection"]
+            my_coll.drop()
+        
+        elif arg == "races":
+            print("Deleting Races")
+            my_coll = client[db]["race_collection"]
+            my_coll.drop()
 
-    if "items" in args:
-        print("Deleting Items")
-        my_coll = client[db]["items_collection"]
-        my_coll.drop()
+        elif arg == "equipment":
+            print("Deleting all Equipment (weapons, armor and items)")
+            my_coll = client[db]["weapons_collection"]
+            my_coll.drop()
+            my_coll = client[db]["armor_collection"]
+            my_coll.drop()
+            my_coll = client[db]["items_collection"]
+            my_coll.drop()
+            
+        elif arg == "weapons":
+            print("Deleting Weapons")
+            my_coll = client[db]["weapons_collection"]
+            my_coll.drop()
+        
+        elif arg == "armor":
+            print("Deleting Armor")
+            my_coll = client[db]["armor_collection"]
+            my_coll.drop()
 
+        elif arg == "items":
+            print("Deleting Items")
+            my_coll = client[db]["items_collection"]
+            my_coll.drop()
 
+        else:
+            print(f"Database collection {arg} not recognized, check spelling and try again.")
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -350,4 +358,5 @@ if __name__ == "__main__":
         build_db_collections(client, args)
     elif args[0].lower() == 'delete':
         delete_db_collections(client, args)
-
+    elif args[0].lower() == 'data':
+        insert_test_data(client)
