@@ -75,8 +75,11 @@ const characterReducer = (char, action) => {
       newChar = {...char, inventory}
       save(newChar)
       return newChar
-    case 'UNEQUIP_ITEM':
-      break;
+    case 'UNEQUIP':
+      inventory[section][location] = {}
+      newChar = {...char, inventory}
+      save(newChar)
+      return newChar
     case 'USE_SPELL':
       break
     default:

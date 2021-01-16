@@ -35,7 +35,7 @@ def add_new_character(
 
     char_dict = char_data.dict()
     char_dict["owner"] = cur_user_id
-    char_dict["class"] = char_dict.pop("class_")
+    # char_dict["class"] = char_dict.pop("class_")
     char = jsonable_encoder(char_dict)
     new_char = create_character(char)
     if new_char:

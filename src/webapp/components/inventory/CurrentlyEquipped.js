@@ -1,11 +1,15 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { CharacterContext } from '../../contexts/CharacterContext'
 import uuid from 'react-uuid'
 
-import { Container, Segment, Header, Table, Button } from 'semantic-ui-react'
+import { Container, Segment, Header, Table, Popup } from 'semantic-ui-react'
 
 const CurrentlyEquipped = () => {
-  const { character: char, dispatch: charDispatch } = useContext(CharacterContext)
+  const { character: char, dispatch } = useContext(CharacterContext)
+
+  const unequip = (section, location) => {
+    dispatch({ type: 'UNEQUIP', section, location })
+  }
 
   const weaponsTable = () => {
     if (char.inventory == null) {
@@ -17,18 +21,21 @@ const CurrentlyEquipped = () => {
 
     for (let key of Object.keys(ew)) {
       rows.push(
-        <Table.Row key={uuid()}>
+        <Popup key={uuid()} content='Click to unequip' trigger={
+        <Table.Row onClick={() => {unequip('equipped_weapons', key)}}>
           <Table.Cell>{key.toTitleCase()}</Table.Cell>
-          <Table.Cell>{ew[key].name ? ew[key].name.toTitleCase() : ''}</Table.Cell>
-          <Table.Cell>{ew[key].dmg_sm_md || ''}</Table.Cell>
-          <Table.Cell>{ew[key].dmg_lg || ''}</Table.Cell>
-          <Table.Cell>{ew[key].range || ''}</Table.Cell>
-          <Table.Cell>{ew[key].rate_of_fire || ''}</Table.Cell>
+          <Table.Cell>{(ew[key] != null && ew[key].name != undefined) ? ew[key].name.toTitleCase() : ''}</Table.Cell>
+          <Table.Cell>{(ew[key] != null && ew[key].dmg_sm_md != undefined) ? ew[key].dmg_sm_md : ''}</Table.Cell>
+          <Table.Cell>{(ew[key] != null && ew[key].dmg_lg != undefined) ? ew[key].dmg_lg : ''}</Table.Cell>
+          <Table.Cell>{(ew[key] != null && ew[key].range) ? `${ew[key].range} ft.` : '-'}</Table.Cell>
+          <Table.Cell>{(ew[key] != null && ew[key].rate_of_fire) ? `${ew[key].rate_of_fire} per round` : '-'}</Table.Cell>
         </Table.Row>
+        }
+        />
       )
     }
     return (
-      <Table definition>
+      <Table definition selectable>
         <Table.Header>
           <Table.Row key={uuid()}>
             <Table.HeaderCell />

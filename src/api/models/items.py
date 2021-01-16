@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import Optional, Union
+from typing import Optional, Union, List
 from enum import Enum
 
 class Cost(BaseModel):
@@ -48,3 +48,4 @@ class Weapon(BaseModel):
     type: Optional[Type]
     rate_of_fire: Optional[Union[None, float]]
     range: Optional[Union[None, int]]
+    equip_slots: Optional[List[str]]

@@ -49,6 +49,8 @@ const CharEquipment = () => {
           onClick={() => {
             setEquipSection('equipped_weapons');
             setSelected(weapon);
+            console.log(weapons);
+            console.log(selected)
             setOpen(true)
           }}>
           <Table.Cell>{weapon.name.capitalFirstChar()}</Table.Cell>
@@ -93,7 +95,9 @@ const CharEquipment = () => {
           <Segment padded='very'>
             <Header as='h3' textAlign='center'>Equip this item?</Header>
             <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-around'}}>
-              {selected.equip_slots.map(slot => {
+              {selected == null
+              ? FUCK
+              : selected.equip_slots.map(slot => {
                   return <Button value={slot} onClick={equip}>{slot.toTitleCase()}</Button>
                 }
               )}

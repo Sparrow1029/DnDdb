@@ -144,7 +144,7 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
               ? (<Placeholder fluid>
                   <Placeholder.Image rectangular />
                 </Placeholder>)
-              : (<Image src={`class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/>)
+              : (<Image src={`/class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/>)
             }
             </div>
           </Grid.Column>
