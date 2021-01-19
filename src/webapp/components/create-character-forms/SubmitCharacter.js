@@ -33,7 +33,7 @@ const SubmitCharacter = ({formData}) => {
           sleep(2000)
           router.push('/home')
         })
-        .catch(err => setErr(err.response.data.detail))
+        .catch(err => { console.log(err); }) //  setErr(err.response.data.detail) })
       }
   }, [loading])
 

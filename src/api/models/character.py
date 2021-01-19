@@ -177,6 +177,12 @@ class CharacterSchema(BaseModel):
             "class_": "class"
         }
 
+    def dict(self, *args, **kwargs):
+        d = super().dict(*args, **kwargs)
+        if "class_" in d.keys():
+            d["class"] = d.pop("class_")
+        return d
+
     @validator('name')
     def name_alpha_only(cls, v):
         if len(v) not in range(1, 65):
