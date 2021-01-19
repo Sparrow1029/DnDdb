@@ -15,7 +15,9 @@ const SubmitCharacter = ({formData}) => {
   useEffect(() => {
     if (loading) {
       formData['class'] = formData['class_']
+      formData['money'] = {gp: formData.gold, sp: 0, cp: 0, ep: 0, pp: 0}
       delete formData.class_
+      delete formData.gold
       console.log("Sending data")
       console.log(formData)
       setErr(null)
@@ -31,7 +33,7 @@ const SubmitCharacter = ({formData}) => {
           sleep(2000)
           router.push('/home')
         })
-        .catch(err => setErr(err.response.data.detail))
+        .catch(err => { console.log(err); }) //  setErr(err.response.data.detail) })
       }
   }, [loading])
 

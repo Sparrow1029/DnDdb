@@ -1,5 +1,6 @@
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Union
 from enum import Enum
+from .items import Item, Armor, Weapon
 # from bson.objectid import ObjectId
 
 from pydantic import BaseModel, Field, conint, validator
@@ -98,12 +99,56 @@ class ThiefSkills(BaseModel):
     pick_pockets: float
     read_languages: float
 
+class InventoryWeapon(Weapon):
+    amt: Optional[int]
+    penalty_to_hit: Optional[int]
+
+class InventoryItem(Item):
+    amt: Optional[int]
+
+class InventoryArmor(Armor):
+    amt: Optional[int]
+
+class EquippedWeapons(BaseModel):
+    main_hand: Optional[Union[None, InventoryWeapon]]
+    off_hand: Optional[Union[None, InventoryWeapon]]
+    ranged: Optional[Union[None, InventoryWeapon]]
+    other: Optional[List[InventoryWeapon]]
+
+class EquippedArmor(BaseModel):
+    armor: Optional[InventoryArmor]
+    shield: Optional[InventoryArmor]
+    gloves_rings: Optional[List[InventoryItem]]
+    boots_footwear: Optional[InventoryItem]
+    bracers: Optional[InventoryArmor]
+    capes_cloaks: Optional[List[InventoryItem]]
+    other: Optional[List[Union[InventoryItem, InventoryArmor]]]
+
+class Equipment(BaseModel):
+    weapons: Optional[List[InventoryWeapon]]
+    armor: Optional[List[InventoryArmor]]
+    items: Optional[List[InventoryItem]]
+
+class Purse(BaseModel):
+    gp: int = 0
+    sp: int = 0
+    cp: int = 0
+    ep: Optional[int]
+    pp: Optional[int]
+
+class Inventory(BaseModel):
+    wealth: Optional[list] = Field(default_factory=lambda: list())  # Treasure hoard (not on person)
+    equipment: Optional[Equipment] = Field(default_factory=lambda: dict())
+    equipped_armor: Optional[EquippedArmor] = Field(default_factory=lambda: dict())
+    equipped_weapons: Optional[EquippedWeapons] = Field(default_factory=lambda: dict())
+
 class CharacterSchema(BaseModel):
     name: str
     gender: Gender
     race: RaceEnum
     class_: ClassEnum
     alignment: Alignment
+    money: Purse
     level: int = Field(default_factory=lambda: 1)
     base_mods: Optional[BaseMods]
     base_stats: StatSchema
@@ -113,11 +158,13 @@ class CharacterSchema(BaseModel):
     max_addl_langs: Optional[int]
     racial_abilities: Optional[dict]
     thief_skills: Optional[ThiefSkills]
+    inventory: Optional[Inventory]
     max_hp: Optional[int]
     cur_hp: Optional[int]
     exp: int = 0
     exp_next_lvl: Optional[int]
     ac: Optional[int]
+    ac_to_hit: Optional[Dict[str, int]]
     height: Optional[Dict[str, int]]
     weight: Optional[int]
     age: Optional[int]
@@ -129,6 +176,12 @@ class CharacterSchema(BaseModel):
         fields = {
             "class_": "class"
         }
+
+    def dict(self, *args, **kwargs):
+        d = super().dict(*args, **kwargs)
+        if "class_" in d.keys():
+            d["class"] = d.pop("class_")
+        return d
 
     @validator('name')
     def name_alpha_only(cls, v):

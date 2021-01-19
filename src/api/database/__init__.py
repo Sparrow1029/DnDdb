@@ -29,3 +29,13 @@ from .classes import (
     retrieve_all_classes,
     retrieve_one_class,
 )
+
+from .inventory import (
+    inventory_helper,
+    retrieve_all_armor,
+    retrieve_all_weapons,
+    retrieve_all_items,
+    retrieve_one_armor,
+    retrieve_one_weapon,
+    retrieve_one_item,
+)

@@ -2,10 +2,17 @@
 *.py[co]
 __pycache__/
 .pytest_cache/
+venv/
 
 # IDE
 *.sw[po]
 *.idea/
 
+# Build
+.env*
+
 # Other
 dump/
+*.BAK
+*.BACKUP
+*.backup

@@ -1,26 +1,22 @@
-import { React, useState, useContext } from 'react'
-import { CharacterContext } from '../contexts/character'
+import { React, useState } from 'react'
 import { deleteCharacter } from '../utils/requests'
 import Link from 'next/link'
-import Cookies, { set } from 'js-cookie'
+import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 
-import { Item, Grid, Button, Popup, Modal, Form, Input, Container } from 'semantic-ui-react'
+import { Item, Grid, Button, Modal, Form, Container } from 'semantic-ui-react'
 
 const CharacterCard = ({ character: char }) => {
-  const [loading, setLoading] = useState(true)
-  const [curCharacter, setCurCharacter] = useContext(CharacterContext)
   const [delCharStr, setDelCharStr] = useState('')
-  const [popup, setPopup] = useState(false)
   const [open, setOpen] = useState(false)
   const token = Cookies.get('access_token')
   const router = useRouter()
 
   const setChar = () => {
-    setCurCharacter(char)
+    localStorage.setItem(char.id, JSON.stringify(char))
   }
 
-  const deleteCharForReal = (e) => {
+  const deleteCharForReal = (_) => {
     if (delCharStr === char.name) {
       deleteCharacter(char.id, token)
       .then(res => {
@@ -72,13 +68,6 @@ const CharacterCard = ({ character: char }) => {
       <Item.Image src={`/icons/${char.class}.svg`} size='tiny' />
       <Item.Content>
         <Item.Header onClick={setChar}><Link href={`/characters/${char.id}`}>{char.name}</Link></Item.Header>
-        {/*
-        <Popup
-          trigger={<Button negative icon='x' size='mini' floated='right'/>}
-          on='click'
-          content={deleteModal()}
-        />
-        */}
         {deleteModal()}
         <Item.Meta>
           {`Level ${char.level} ${char.class.toTitleCase()}`}&nbsp;&nbsp;&nbsp;&nbsp;

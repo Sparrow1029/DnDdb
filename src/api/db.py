@@ -17,3 +17,6 @@ user_collection = database.users_collection
 char_collection = database.characters_collection
 class_collection = database.classes_collection
 race_collection = database.race_collection
+items_collection = database.items_collection
+weapons_collection = database.weapons_collection
+armor_collection = database.armor_collection

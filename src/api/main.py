@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from routes import (
-    UserRouter, AuthRouter, CharacterRouter, RaceRouter, ClassRouter
+    UserRouter, AuthRouter, CharacterRouter, RaceRouter, ClassRouter, StoreRouter
 )
 
 api = FastAPI()
@@ -25,9 +25,4 @@ api.include_router(AuthRouter, tags=["auth"], prefix="/auth")
 api.include_router(CharacterRouter, tags=["char"], prefix="/characters")
 api.include_router(RaceRouter, tags=["race"], prefix="/races")
 api.include_router(ClassRouter, tags=["class"], prefix="/classes")
-
-
-
-# @app.get("/", tags=["Root"])
-# def read_root():
-#     return {"message": "Welcome to this fantastic app!"}
+api.include_router(StoreRouter, tags=["store"], prefix="/store")

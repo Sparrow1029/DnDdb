@@ -35,14 +35,14 @@ def add_new_character(
 
     char_dict = char_data.dict()
     char_dict["owner"] = cur_user_id
-    char_dict["class"] = char_dict.pop("class_")
+    # char_dict["class"] = char_dict.pop("class_")
     char = jsonable_encoder(char_dict)
     new_char = create_character(char)
     if new_char:
         added_to_player = add_char_to_user(cur_user_id, new_char["id"])
         if not added_to_player:
             # TODO: Figure out how to handle this
-            print("ERROR")
+            print("ERROR: not added_to_player")
         return {"data": new_char, "msg": "Character created successfully"}
     raise HTTPException(status_code=500, detail="User not found")
 
@@ -59,7 +59,6 @@ def get_characters(user_id):
 
 @router.get("/{char_id}", response_model=CharacterSchema)
 def get_single_character(char_id):
-    print(ObjectId.is_valid(char_id))
     if char_id and ObjectId.is_valid(char_id):
         char = retrieve_one_character(char_id)
         if char:
@@ -95,9 +94,8 @@ def update_char(
     char = retrieve_one_character(char_id)
     if char["owner"] != cur_user_id:
         raise HTTPException(status_code=401, detail="Unauthorized to update character")
-    del char["id"]
-    updated = update_character(char_id, char)
-    print(updated)
+    # del char["id"]
+    updated = update_character(char_id, char_data.dict())
     if updated:
         return { "data": updated, "msg": "Updated successfully" }
     raise HTTPException(status_code=500, detail="FUCK")

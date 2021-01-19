@@ -28,6 +28,7 @@ const logout = () => {
   console.log("Logging out")
   Cookies.remove('access_token')
   Cookies.remove('dnd_user_id')
+  localStorage.clear()
   Router.push('/')
 }
 
@@ -56,6 +57,24 @@ const deleteCharacter = (charId, token) => {
   )
 }
 
+const saveCharacter = (charData) => {
+  console.log(charData)
+  let token = Cookies.get('access_token')
+  return axios.patch(
+    BASE_URL + `/characters/${charData.id}`,
+    charData, {
+      headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  })
+}
+
+async function getStore () {
+  await axios.get(
+    BASE_URL + '/store/equipment'
+  )
+}
+
 const request = axios.create({
   baseURL: process.env.API_URL,
   timeout: 1000,
@@ -79,4 +98,4 @@ axios.interceptors.request.use(
   error => Promise.reject(error)
 );
 
-export { registerUser, login, logout, createCharacter, deleteCharacter, request };
+export { registerUser, login, logout, createCharacter, deleteCharacter, saveCharacter, request };

@@ -5,7 +5,7 @@ import { getStartingHP } from '../../utils/formatting'
 
 import AlignmentTable from '../AlignmentTable'
 import {
-  Segment, Header, Button, Grid, Image, Menu, Container, Loader, List, Icon, Table
+  Segment, Header, Button, Grid, Image, Menu, Container, Loader, List, Icon, Placeholder
 } from 'semantic-ui-react'
 import styles from '../../styles/Responsive.module.css'
 
@@ -24,6 +24,7 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
       setForm({ target: { name: 'max_hp', value: getStartingHP(classObj.name, hit_die) }})
       setLoading(false)
     } else {
+      console.log("LOADING")
       console.log(classObj)
       setLoading(true)
     }
@@ -36,6 +37,7 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
 
   const handleTabClick = (_, { name }) => {
     setClassObj(classes[name])
+    setLoading(true)
   }
 
   const renderClassInfo = () => {
@@ -137,7 +139,13 @@ const ClassData = ({ setForm, formData, navigation, ...props }) => {
         <Grid.Row columns={2} style={{overflow: 'scroll', height: '60vh'}}>
           <Grid.Column width={5}>
             <div style={{overflow: 'hidden', height: '100%'}}>
-            <Image src={`/class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/>
+            {/* <Image src={`/class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/> */}
+            {loading
+              ? (<Placeholder fluid>
+                  <Placeholder.Image rectangular />
+                </Placeholder>)
+              : (<Image src={`/class-images/${formData.class_}.jpg`} fluid alt={`Picture of ${formData.class_}`}/>)
+            }
             </div>
           </Grid.Column>
           <Grid.Column width={11} style={{overflowY: 'scroll', maxHeight: '380px'}}>
